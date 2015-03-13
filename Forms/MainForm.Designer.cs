@@ -28,22 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.ListViewItem listViewItem10 = new System.Windows.Forms.ListViewItem("item1");
-            System.Windows.Forms.ListViewItem listViewItem11 = new System.Windows.Forms.ListViewItem("item2");
-            System.Windows.Forms.ListViewItem listViewItem12 = new System.Windows.Forms.ListViewItem("sdfsdf");
-            System.Windows.Forms.ListViewItem listViewItem13 = new System.Windows.Forms.ListViewItem("sdfsdsdfsdf");
-            System.Windows.Forms.ListViewItem listViewItem14 = new System.Windows.Forms.ListViewItem("2b35q2b5");
-            System.Windows.Forms.ListViewItem listViewItem15 = new System.Windows.Forms.ListViewItem("a3w5 nwn");
-            System.Windows.Forms.ListViewItem listViewItem16 = new System.Windows.Forms.ListViewItem("8,yg,9f9fd");
-            System.Windows.Forms.ListViewItem listViewItem17 = new System.Windows.Forms.ListViewItem("d,t799,dt7");
-            System.Windows.Forms.ListViewItem listViewItem18 = new System.Windows.Forms.ListViewItem("");
-            this.listView = new System.Windows.Forms.ListView();
-            this.siteColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.boardColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.threadColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.imagesTotalColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.imagesDownloadedColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.statusColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.removeDeadAndCompletedButton = new System.Windows.Forms.Button();
             this.stopAndRemoveSelectedButton = new System.Windows.Forms.Button();
             this.stopSelectedButton = new System.Windows.Forms.Button();
@@ -52,7 +36,6 @@
             this.panel2 = new System.Windows.Forms.Panel();
             this.applyToAllButton = new System.Windows.Forms.Button();
             this.applyToSelectedButton = new System.Windows.Forms.Button();
-            this.label3 = new System.Windows.Forms.Label();
             this.verifyImageHashesCheckBox = new System.Windows.Forms.CheckBox();
             this.checkIntervalCheckBox = new System.Windows.Forms.CheckBox();
             this.checkIntervalComboBox = new System.Windows.Forms.ComboBox();
@@ -62,86 +45,34 @@
             this.downloadImagesCheckBox = new System.Windows.Forms.CheckBox();
             this.downloadThreadPageCheckBox = new System.Windows.Forms.CheckBox();
             this.downloadThumbnailsCheckBox = new System.Windows.Forms.CheckBox();
+            this.label3 = new System.Windows.Forms.Label();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.panel1 = new System.Windows.Forms.Panel();
             this.panel3 = new System.Windows.Forms.Panel();
-            this.addThreadButton = new System.Windows.Forms.Button();
-            this.pasteFromClipboardButton = new System.Windows.Forms.Button();
-            this.aboutButton = new System.Windows.Forms.Button();
-            this.statisticsButton = new System.Windows.Forms.Button();
             this.threadUrlTextBox = new System.Windows.Forms.TextBox();
-            this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
+            this.statisticsButton = new System.Windows.Forms.Button();
+            this.aboutButton = new System.Windows.Forms.Button();
+            this.pasteFromClipboardButton = new System.Windows.Forms.Button();
+            this.addThreadButton = new System.Windows.Forms.Button();
             this.panel4 = new System.Windows.Forms.Panel();
+            this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.col_ID = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_Subject = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_Site = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_Board = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_Thread = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_ImgTotal = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_ImgDownloaded = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_Status = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panel2.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
-            this.panel1.SuspendLayout();
             this.panel3.SuspendLayout();
-            this.tableLayoutPanel2.SuspendLayout();
             this.panel4.SuspendLayout();
+            this.tableLayoutPanel2.SuspendLayout();
+            this.panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
-            // 
-            // listView
-            // 
-            this.listView.Alignment = System.Windows.Forms.ListViewAlignment.Default;
-            this.listView.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.listView.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.listView.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.siteColumnHeader,
-            this.boardColumnHeader,
-            this.threadColumnHeader,
-            this.imagesTotalColumnHeader,
-            this.imagesDownloadedColumnHeader,
-            this.statusColumnHeader});
-            this.listView.Items.AddRange(new System.Windows.Forms.ListViewItem[] {
-            listViewItem10,
-            listViewItem11,
-            listViewItem12,
-            listViewItem13,
-            listViewItem14,
-            listViewItem15,
-            listViewItem16,
-            listViewItem17,
-            listViewItem18});
-            this.listView.Location = new System.Drawing.Point(0, 0);
-            this.listView.Margin = new System.Windows.Forms.Padding(0);
-            this.listView.MultiSelect = false;
-            this.listView.Name = "listView";
-            this.listView.Size = new System.Drawing.Size(927, 189);
-            this.listView.TabIndex = 1;
-            this.listView.UseCompatibleStateImageBehavior = false;
-            this.listView.View = System.Windows.Forms.View.Details;
-            // 
-            // siteColumnHeader
-            // 
-            this.siteColumnHeader.Text = "Site/URL";
-            this.siteColumnHeader.Width = 241;
-            // 
-            // boardColumnHeader
-            // 
-            this.boardColumnHeader.Text = "Board";
-            this.boardColumnHeader.Width = 145;
-            // 
-            // threadColumnHeader
-            // 
-            this.threadColumnHeader.Text = "Thread";
-            this.threadColumnHeader.Width = 66;
-            // 
-            // imagesTotalColumnHeader
-            // 
-            this.imagesTotalColumnHeader.Text = "Img. Total";
-            this.imagesTotalColumnHeader.Width = 67;
-            // 
-            // imagesDownloadedColumnHeader
-            // 
-            this.imagesDownloadedColumnHeader.Text = "Img. Downloaded";
-            this.imagesDownloadedColumnHeader.Width = 98;
-            // 
-            // statusColumnHeader
-            // 
-            this.statusColumnHeader.Text = "Status";
-            this.statusColumnHeader.Width = 87;
             // 
             // removeDeadAndCompletedButton
             // 
@@ -213,7 +144,7 @@
             this.panel2.Controls.Add(this.downloadThumbnailsCheckBox);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel2.Location = new System.Drawing.Point(3, 247);
-            this.panel2.MinimumSize = new System.Drawing.Size(0, 200);
+            this.panel2.MinimumSize = new System.Drawing.Size(2, 200);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(929, 208);
             this.panel2.TabIndex = 3;
@@ -239,15 +170,6 @@
             this.applyToSelectedButton.TabIndex = 10;
             this.applyToSelectedButton.Text = "Apply to Selected";
             this.applyToSelectedButton.UseVisualStyleBackColor = true;
-            // 
-            // label3
-            // 
-            this.label3.Location = new System.Drawing.Point(9, 9);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(63, 20);
-            this.label3.TabIndex = 9;
-            this.label3.Text = "Add thread:";
-            this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // verifyImageHashesCheckBox
             // 
@@ -346,6 +268,15 @@
             this.downloadThumbnailsCheckBox.Text = "Image Thumbnails";
             this.downloadThumbnailsCheckBox.UseVisualStyleBackColor = true;
             // 
+            // label3
+            // 
+            this.label3.Location = new System.Drawing.Point(9, 9);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(63, 20);
+            this.label3.TabIndex = 9;
+            this.label3.Text = "Add thread:";
+            this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
             // tableLayoutPanel1
             // 
             this.tableLayoutPanel1.ColumnCount = 1;
@@ -365,19 +296,6 @@
             this.tableLayoutPanel1.Size = new System.Drawing.Size(935, 538);
             this.tableLayoutPanel1.TabIndex = 12;
             // 
-            // panel1
-            // 
-            this.panel1.Controls.Add(this.removeDeadAndCompletedButton);
-            this.panel1.Controls.Add(this.stopAndRemoveSelectedButton);
-            this.panel1.Controls.Add(this.openFolderButton);
-            this.panel1.Controls.Add(this.stopSelectedButton);
-            this.panel1.Controls.Add(this.selectAllButton);
-            this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel1.Location = new System.Drawing.Point(3, 192);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(921, 41);
-            this.panel1.TabIndex = 4;
-            // 
             // panel3
             // 
             this.panel3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
@@ -393,36 +311,14 @@
             this.panel3.Size = new System.Drawing.Size(929, 74);
             this.panel3.TabIndex = 5;
             // 
-            // addThreadButton
+            // threadUrlTextBox
             // 
-            this.addThreadButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.addThreadButton.Location = new System.Drawing.Point(843, 10);
-            this.addThreadButton.Margin = new System.Windows.Forms.Padding(9);
-            this.addThreadButton.Name = "addThreadButton";
-            this.addThreadButton.Size = new System.Drawing.Size(75, 23);
-            this.addThreadButton.TabIndex = 0;
-            this.addThreadButton.Text = "Add Thread";
-            this.addThreadButton.UseVisualStyleBackColor = true;
-            // 
-            // pasteFromClipboardButton
-            // 
-            this.pasteFromClipboardButton.Location = new System.Drawing.Point(787, 40);
-            this.pasteFromClipboardButton.Margin = new System.Windows.Forms.Padding(9);
-            this.pasteFromClipboardButton.Name = "pasteFromClipboardButton";
-            this.pasteFromClipboardButton.Size = new System.Drawing.Size(131, 23);
-            this.pasteFromClipboardButton.TabIndex = 1;
-            this.pasteFromClipboardButton.Text = "Paste from Clipboard";
-            this.pasteFromClipboardButton.UseVisualStyleBackColor = true;
-            // 
-            // aboutButton
-            // 
-            this.aboutButton.Location = new System.Drawing.Point(102, 42);
-            this.aboutButton.Margin = new System.Windows.Forms.Padding(9);
-            this.aboutButton.Name = "aboutButton";
-            this.aboutButton.Size = new System.Drawing.Size(75, 23);
-            this.aboutButton.TabIndex = 2;
-            this.aboutButton.Text = "About";
-            this.aboutButton.UseVisualStyleBackColor = true;
+            this.threadUrlTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.threadUrlTextBox.Location = new System.Drawing.Point(78, 10);
+            this.threadUrlTextBox.Name = "threadUrlTextBox";
+            this.threadUrlTextBox.Size = new System.Drawing.Size(753, 20);
+            this.threadUrlTextBox.TabIndex = 10;
             // 
             // statisticsButton
             // 
@@ -434,29 +330,37 @@
             this.statisticsButton.Text = "Statistics";
             this.statisticsButton.UseVisualStyleBackColor = true;
             // 
-            // threadUrlTextBox
+            // aboutButton
             // 
-            this.threadUrlTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.threadUrlTextBox.Location = new System.Drawing.Point(78, 10);
-            this.threadUrlTextBox.Name = "threadUrlTextBox";
-            this.threadUrlTextBox.Size = new System.Drawing.Size(753, 20);
-            this.threadUrlTextBox.TabIndex = 10;
+            this.aboutButton.Location = new System.Drawing.Point(102, 42);
+            this.aboutButton.Margin = new System.Windows.Forms.Padding(9);
+            this.aboutButton.Name = "aboutButton";
+            this.aboutButton.Size = new System.Drawing.Size(75, 23);
+            this.aboutButton.TabIndex = 2;
+            this.aboutButton.Text = "About";
+            this.aboutButton.UseVisualStyleBackColor = true;
             // 
-            // tableLayoutPanel2
+            // pasteFromClipboardButton
             // 
-            this.tableLayoutPanel2.ColumnCount = 1;
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel2.Controls.Add(this.panel1, 0, 1);
-            this.tableLayoutPanel2.Controls.Add(this.listView, 0, 0);
-            this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel2.Location = new System.Drawing.Point(0, 0);
-            this.tableLayoutPanel2.Name = "tableLayoutPanel2";
-            this.tableLayoutPanel2.RowCount = 2;
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 47F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(927, 236);
-            this.tableLayoutPanel2.TabIndex = 13;
+            this.pasteFromClipboardButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.pasteFromClipboardButton.Location = new System.Drawing.Point(787, 40);
+            this.pasteFromClipboardButton.Margin = new System.Windows.Forms.Padding(9);
+            this.pasteFromClipboardButton.Name = "pasteFromClipboardButton";
+            this.pasteFromClipboardButton.Size = new System.Drawing.Size(131, 23);
+            this.pasteFromClipboardButton.TabIndex = 1;
+            this.pasteFromClipboardButton.Text = "Paste from Clipboard";
+            this.pasteFromClipboardButton.UseVisualStyleBackColor = true;
+            // 
+            // addThreadButton
+            // 
+            this.addThreadButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.addThreadButton.Location = new System.Drawing.Point(843, 10);
+            this.addThreadButton.Margin = new System.Windows.Forms.Padding(9);
+            this.addThreadButton.Name = "addThreadButton";
+            this.addThreadButton.Size = new System.Drawing.Size(75, 23);
+            this.addThreadButton.TabIndex = 0;
+            this.addThreadButton.Text = "Add Thread";
+            this.addThreadButton.UseVisualStyleBackColor = true;
             // 
             // panel4
             // 
@@ -468,36 +372,116 @@
             this.panel4.Size = new System.Drawing.Size(929, 238);
             this.panel4.TabIndex = 14;
             // 
+            // tableLayoutPanel2
+            // 
+            this.tableLayoutPanel2.ColumnCount = 1;
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel2.Controls.Add(this.panel1, 0, 1);
+            this.tableLayoutPanel2.Controls.Add(this.dataGridView1, 0, 0);
+            this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel2.Location = new System.Drawing.Point(0, 0);
+            this.tableLayoutPanel2.Name = "tableLayoutPanel2";
+            this.tableLayoutPanel2.RowCount = 2;
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 47F));
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(927, 236);
+            this.tableLayoutPanel2.TabIndex = 13;
+            // 
+            // panel1
+            // 
+            this.panel1.Controls.Add(this.removeDeadAndCompletedButton);
+            this.panel1.Controls.Add(this.stopAndRemoveSelectedButton);
+            this.panel1.Controls.Add(this.openFolderButton);
+            this.panel1.Controls.Add(this.stopSelectedButton);
+            this.panel1.Controls.Add(this.selectAllButton);
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel1.Location = new System.Drawing.Point(3, 192);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(921, 41);
+            this.panel1.TabIndex = 4;
+            // 
+            // dataGridView1
+            // 
+            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.col_ID,
+            this.col_Subject,
+            this.col_Site,
+            this.col_Board,
+            this.col_Thread,
+            this.col_ImgTotal,
+            this.col_ImgDownloaded,
+            this.col_Status});
+            this.dataGridView1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dataGridView1.Location = new System.Drawing.Point(3, 3);
+            this.dataGridView1.Name = "dataGridView1";
+            this.dataGridView1.Size = new System.Drawing.Size(921, 183);
+            this.dataGridView1.TabIndex = 5;
+            // 
+            // col_ID
+            // 
+            this.col_ID.HeaderText = "ID";
+            this.col_ID.Name = "col_ID";
+            // 
+            // col_Subject
+            // 
+            this.col_Subject.HeaderText = "Subject";
+            this.col_Subject.Name = "col_Subject";
+            // 
+            // col_Site
+            // 
+            this.col_Site.HeaderText = "Site";
+            this.col_Site.Name = "col_Site";
+            // 
+            // col_Board
+            // 
+            this.col_Board.HeaderText = "Board";
+            this.col_Board.Name = "col_Board";
+            // 
+            // col_Thread
+            // 
+            this.col_Thread.HeaderText = "Thread";
+            this.col_Thread.Name = "col_Thread";
+            // 
+            // col_ImgTotal
+            // 
+            this.col_ImgTotal.HeaderText = "Img: Count";
+            this.col_ImgTotal.Name = "col_ImgTotal";
+            // 
+            // col_ImgDownloaded
+            // 
+            this.col_ImgDownloaded.HeaderText = "Img: Downloaded";
+            this.col_ImgDownloaded.Name = "col_ImgDownloaded";
+            // 
+            // col_Status
+            // 
+            this.col_Status.HeaderText = "Status";
+            this.col_Status.Name = "col_Status";
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(935, 538);
             this.Controls.Add(this.tableLayoutPanel1);
-            this.MinimumSize = new System.Drawing.Size(0, 461);
+            this.MinimumSize = new System.Drawing.Size(16, 461);
             this.Name = "MainForm";
-            this.Text = "BoardHoard";
+            this.Text = "BoardHoard v0.0.1";
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
             this.tableLayoutPanel1.ResumeLayout(false);
-            this.panel1.ResumeLayout(false);
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
-            this.tableLayoutPanel2.ResumeLayout(false);
             this.panel4.ResumeLayout(false);
+            this.tableLayoutPanel2.ResumeLayout(false);
+            this.panel1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
-        private System.Windows.Forms.ListView listView;
-        private System.Windows.Forms.ColumnHeader siteColumnHeader;
-        private System.Windows.Forms.ColumnHeader boardColumnHeader;
-        private System.Windows.Forms.ColumnHeader threadColumnHeader;
-        private System.Windows.Forms.ColumnHeader imagesTotalColumnHeader;
-        private System.Windows.Forms.ColumnHeader imagesDownloadedColumnHeader;
-        private System.Windows.Forms.ColumnHeader statusColumnHeader;
         private System.Windows.Forms.Button removeDeadAndCompletedButton;
         private System.Windows.Forms.Button stopAndRemoveSelectedButton;
         private System.Windows.Forms.Button stopSelectedButton;
@@ -526,6 +510,15 @@
         private System.Windows.Forms.Button addThreadButton;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
         private System.Windows.Forms.Panel panel4;
+        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_ID;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_Subject;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_Site;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_Board;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_Thread;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_ImgTotal;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_ImgDownloaded;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_Status;
 
 
     }
