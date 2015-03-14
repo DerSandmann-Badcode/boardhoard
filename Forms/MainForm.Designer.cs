@@ -117,6 +117,7 @@
             this.selectAllButton.TabIndex = 3;
             this.selectAllButton.Text = "Select All";
             this.selectAllButton.UseVisualStyleBackColor = true;
+            this.selectAllButton.Click += new System.EventHandler(this.selectAllButton_Click);
             // 
             // openFolderButton
             // 
@@ -339,6 +340,7 @@
             this.aboutButton.TabIndex = 2;
             this.aboutButton.Text = "About";
             this.aboutButton.UseVisualStyleBackColor = true;
+            this.aboutButton.Click += new System.EventHandler(this.aboutButton_Click);
             // 
             // pasteFromClipboardButton
             // 
@@ -361,6 +363,7 @@
             this.addThreadButton.TabIndex = 0;
             this.addThreadButton.Text = "Add Thread";
             this.addThreadButton.UseVisualStyleBackColor = true;
+            this.addThreadButton.Click += new System.EventHandler(this.addThreadButton_Click);
             // 
             // panel4
             // 
@@ -467,6 +470,7 @@
             this.MinimumSize = new System.Drawing.Size(16, 461);
             this.Name = "MainForm";
             this.Text = "BoardHoard v0.0.1";
+            this.Load += new System.EventHandler(this.MainForm_Load);
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
             this.tableLayoutPanel1.ResumeLayout(false);

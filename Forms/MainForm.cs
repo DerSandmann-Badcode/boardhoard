@@ -16,5 +16,25 @@ namespace BoardHoard
         {
             InitializeComponent();
         }
+
+        private void selectAllButton_Click(object sender, EventArgs e)
+        {
+            
+        }
+
+        private void addThreadButton_Click(object sender, EventArgs e)
+        {
+            BoardContainer.Add(threadUrlTextBox.Text);
+        }
+
+        private void MainForm_Load(object sender, EventArgs e)
+        {
+            BoardContainer.Boards = new List<Board>();
+        }
+
+        private void aboutButton_Click(object sender, EventArgs e)
+        {
+            
+        }
     }
 }
