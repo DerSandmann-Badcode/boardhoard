@@ -22,7 +22,6 @@ namespace BoardHoard
                 return;
             }
 
-            List<Board> Result;
 
             XmlDocument Doc = new XmlDocument();
             Doc.Load("C:\\DEV\\boards.xml");
@@ -146,7 +145,7 @@ namespace BoardHoard
             {
                 if (b.URL == board.URL)
                 {
-                    MessageBox.Show("Thread already exists!");
+                    //MessageBox.Show("Thread already exists!");
                     return;
                 }
             }
@@ -183,7 +182,7 @@ namespace BoardHoard
 
 
             BoardContainer.Boards.Add(New_Board);
-            Download_Single(New_Board);
+            //Download_Single(New_Board);
 
 
         }
@@ -212,9 +211,12 @@ namespace BoardHoard
 
         public static void DownloadThread()
         {
-            //ThreadStart DownloadStart = new ThreadStart(Download_All);
-            Thread DownloadingThread = new Thread(new ThreadStart(Download_All));
-            DownloadingThread.Start();
+            do
+            {
+                Download_All();
+                Thread.Sleep(60000);
+            } while (true);
+
         }
 
     }

@@ -6,7 +6,6 @@ namespace BoardHoard
 {
     class Board
     {
-
         public int ID;
         public int Thread;
         public int ImgCount;

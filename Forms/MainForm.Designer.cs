@@ -56,7 +56,7 @@
             this.panel4 = new System.Windows.Forms.Panel();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.BoardDataGrid = new System.Windows.Forms.DataGridView();
             this.col_ID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_Subject = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_Site = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -71,7 +71,7 @@
             this.panel4.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             this.panel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.BoardDataGrid)).BeginInit();
             this.SuspendLayout();
             // 
             // removeDeadAndCompletedButton
@@ -382,7 +382,7 @@
             this.tableLayoutPanel2.ColumnCount = 1;
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel2.Controls.Add(this.panel1, 0, 1);
-            this.tableLayoutPanel2.Controls.Add(this.dataGridView1, 0, 0);
+            this.tableLayoutPanel2.Controls.Add(this.BoardDataGrid, 0, 0);
             this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel2.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
@@ -405,10 +405,12 @@
             this.panel1.Size = new System.Drawing.Size(921, 41);
             this.panel1.TabIndex = 4;
             // 
-            // dataGridView1
+            // BoardDataGrid
             // 
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.BoardDataGrid.AllowUserToAddRows = false;
+            this.BoardDataGrid.AllowUserToDeleteRows = false;
+            this.BoardDataGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.BoardDataGrid.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.col_ID,
             this.col_Subject,
             this.col_Site,
@@ -417,11 +419,11 @@
             this.col_ImgTotal,
             this.col_ImgDownloaded,
             this.col_Status});
-            this.dataGridView1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataGridView1.Location = new System.Drawing.Point(3, 3);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(921, 183);
-            this.dataGridView1.TabIndex = 5;
+            this.BoardDataGrid.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.BoardDataGrid.Location = new System.Drawing.Point(3, 3);
+            this.BoardDataGrid.Name = "BoardDataGrid";
+            this.BoardDataGrid.Size = new System.Drawing.Size(921, 183);
+            this.BoardDataGrid.TabIndex = 5;
             // 
             // col_ID
             // 
@@ -481,7 +483,7 @@
             this.panel4.ResumeLayout(false);
             this.tableLayoutPanel2.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.BoardDataGrid)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -516,7 +518,7 @@
         private System.Windows.Forms.Button addThreadButton;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
         private System.Windows.Forms.Panel panel4;
-        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.DataGridView BoardDataGrid;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_ID;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_Subject;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_Site;
