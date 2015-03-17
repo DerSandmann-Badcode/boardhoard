@@ -1,12 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Collections.Generic;
 
 namespace BoardHoard
 {
@@ -26,13 +20,13 @@ namespace BoardHoard
 
         private void addThreadButton_Click(object sender, EventArgs e)
         {
-            Board.Config NewConfig = new Board.Config();
-            NewConfig.Download_HTML = downloadThreadPageCheckBox.Checked = true;
-            NewConfig.Download_Images = downloadImagesCheckBox.Checked = true;
-            NewConfig.Download_Thumnails = downloadThumbnailsCheckBox.Checked = true;
-            NewConfig.URL = threadUrlTextBox.Text;
+            Board NewBoard = new Board();
+            NewBoard.Download_HTML = downloadThreadPageCheckBox.Checked = true;
+            NewBoard.Download_Images = downloadImagesCheckBox.Checked = true;
+            NewBoard.Download_Thumnails = downloadThumbnailsCheckBox.Checked = true;
+            NewBoard.URL = threadUrlTextBox.Text;
 
-            BoardContainer.Add(NewConfig);
+            BoardContainer.Add(NewBoard);
             threadUrlTextBox.Clear();
 
         }

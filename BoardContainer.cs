@@ -1,14 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net;
-using System.Text;
-using System.Threading.Tasks;
 using HtmlAgilityPack;
-using System.Xml.Linq;
 using System.Xml;
-using System.Windows.Forms;
 using System.Threading;
+using System.Windows.Forms;
+using System.Xml.Linq;
 
 namespace BoardHoard
 {
@@ -45,6 +42,7 @@ namespace BoardHoard
                 ImportBoard.Alerts_Death = Convert.ToBoolean(XmlBoard["thread_death_notify"].InnerText);
                 ImportBoard.Alerts_Download = Convert.ToBoolean(XmlBoard["thread_download_notify"].InnerText);
 
+                Add(ImportBoard);
             }
 
 
@@ -136,17 +134,17 @@ namespace BoardHoard
 
         }
 
-        public static void Add(Board.Config Config)
+        public static void Add(Board b)
         {
-            if (Config.URL == "")
+            if (b.URL == "")
             {
                 MessageBox.Show("Thread string is empty!");
                 return;
             }
 
-            foreach (Board b in BoardContainer.Boards)
+            foreach (Board board in BoardContainer.Boards)
             {
-                if (Config.URL == b.URL)
+                if (b.URL == board.URL)
                 {
                     MessageBox.Show("Thread already exists!");
                     return;
@@ -155,7 +153,7 @@ namespace BoardHoard
 
             Board New_Board = new Board();
             New_Board.ID = BoardContainer.Boards.Count + 1;
-            New_Board.URL = Config.URL;
+            New_Board.URL = b.URL;
             New_Board.Download_Images = true;
 
             Uri Board_Uri = new Uri(New_Board.URL);

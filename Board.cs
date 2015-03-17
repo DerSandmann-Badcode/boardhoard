@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Net;
 
 
@@ -10,17 +6,6 @@ namespace BoardHoard
 {
     class Board
     {
-        public class Config
-        {
-            public string URL = string.Empty;
-            public Boolean Download_HTML = false;
-            public Boolean Download_Images = false;
-            public Boolean Download_Thumnails = false;
-            public Boolean Download_WebMs = false;
-            public Boolean AnimatedFolder = false;
-            public Boolean Alerts_Death = false;
-            public Boolean Alerts_Download = false;
-        }
 
         public int ID;
         public int Thread;
