@@ -330,6 +330,7 @@
             this.statisticsButton.TabIndex = 3;
             this.statisticsButton.Text = "Statistics";
             this.statisticsButton.UseVisualStyleBackColor = true;
+            this.statisticsButton.Click += new System.EventHandler(this.statisticsButton_Click);
             // 
             // aboutButton
             // 
@@ -352,6 +353,7 @@
             this.pasteFromClipboardButton.TabIndex = 1;
             this.pasteFromClipboardButton.Text = "Paste from Clipboard";
             this.pasteFromClipboardButton.UseVisualStyleBackColor = true;
+            this.pasteFromClipboardButton.Click += new System.EventHandler(this.pasteFromClipboardButton_Click);
             // 
             // addThreadButton
             // 
