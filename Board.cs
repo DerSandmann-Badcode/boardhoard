@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Net;
+using System.Collections.Generic;
 
 
 namespace BoardHoard
@@ -106,8 +107,32 @@ namespace BoardHoard
                     System.IO.Directory.CreateDirectory(Folder + Site + "\\" + Name);
                     System.IO.Directory.CreateDirectory(DownloadPath);
 
+                    if (Download_HTML == true)
+                    {
+                        var sources = Document.DocumentNode.Descendants("link");
+                        System.IO.Directory.CreateDirectory(DownloadPath + "Site_Data\\");
+
+                        foreach (HtmlAgilityPack.HtmlNode CSS_File in sources)
+                        {
+                            if (CSS_File.Attributes["href"].Value.Contains(".css"))
+                            {
+                                string testcss = "Http:" + CSS_File.Attributes["href"].Value;
+                                string newfile = DownloadPath + "Site_Data\\" + System.IO.Path.GetFileName(testcss);
+
+                                using (WebClient Client = new WebClient())
+                                {
+                                    Client.DownloadFile(testcss, newfile);
+                                }
+
+                                CSS_File.Attributes["href"].Value = newfile;
+                            }
+                        }
+                        Document.Save( DownloadPath + Thread + ".html");
+                    }
+
                     if (Download_Thumnails == true)
                     {
+                        System.IO.Directory.CreateDirectory(DownloadPath + "Thumbnails\\");
 
                         DocNodes = Document.DocumentNode.SelectNodes(XPath_Thumbnail);
                         foreach (HtmlAgilityPack.HtmlNode Node in DocNodes)
@@ -128,7 +153,7 @@ namespace BoardHoard
                                         Thumbnail = BoardUri.Scheme + ":" + Thumbnail;
                                     }
 
-                                    Client.DownloadFile(Thumbnail, DownloadPath + System.IO.Path.GetFileName(Thumbnail));
+                                    Client.DownloadFile(Thumbnail, DownloadPath + "Thumbnails\\" + System.IO.Path.GetFileName(Thumbnail));
 
                                 }
                                 catch (Exception ex)
@@ -144,6 +169,7 @@ namespace BoardHoard
                     if (Download_Images == true)
                     {
                         DocNodes = Document.DocumentNode.SelectNodes(XPath_Image);
+                        ImgCount = DocNodes.Count;
                         foreach (HtmlAgilityPack.HtmlNode Node in DocNodes)
                         {
                             string Image = Node.GetAttributeValue(Tag_Image, "");
@@ -163,6 +189,7 @@ namespace BoardHoard
                                     }
 
                                     Client.DownloadFile(Image, DownloadPath + System.IO.Path.GetFileName(Image));
+                                    ImgDownloaded += 1;
 
                                 }
                                 catch (Exception ex)
@@ -193,6 +220,23 @@ namespace BoardHoard
 
                 Status = 0;
             } // end status check if running
+        }
+
+        public static void Stop(int Board_ID)
+        {
+            foreach (Board b in BoardContainer.Boards)
+            {
+                if (b.ID == Board_ID)
+                {
+                    b.Status = 2;
+                }
+            }
+        }
+
+
+        public static void Open_Folder(string site, string board, string thread)
+        {
+            System.Diagnostics.Process.Start("explorer.exe", "C:\\Test\\" + site + "\\" + board + "\\" + thread + "\\");
         }
 
     }

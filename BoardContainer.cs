@@ -12,7 +12,7 @@ namespace BoardHoard
     class BoardContainer
     {
 
-        public static List<Board> Boards { get; set; }
+        public static List<Board> Boards;
 
         public static void Load()
         {
@@ -24,7 +24,7 @@ namespace BoardHoard
 
 
             XmlDocument Doc = new XmlDocument();
-            Doc.Load("C:\\DEV\\boards.xml");
+            Doc.Load("C:\\DEV\\NewBoard.xml");
 
             XmlNodeList Boardlist = Doc.GetElementsByTagName("board");
 
@@ -32,6 +32,12 @@ namespace BoardHoard
             {
                 Board ImportBoard = new Board();
                 ImportBoard.URL = XmlBoard["url"].InnerText;
+                ImportBoard.Thread = Convert.ToInt32(XmlBoard["thread"].InnerText);
+                ImportBoard.Subject = XmlBoard["subject"].InnerText;
+                ImportBoard.Site = XmlBoard["site"].InnerText;
+                ImportBoard.Name = XmlBoard["name"].InnerText;
+                ImportBoard.ImgDownloaded = Convert.ToInt32(XmlBoard["download_count"].InnerText);
+                ImportBoard.ImgCount = Convert.ToInt32(XmlBoard["image_total"].InnerText);
                 ImportBoard.Status = Convert.ToInt32(XmlBoard["status"].InnerText);
                 ImportBoard.Download_HTML = Convert.ToBoolean(XmlBoard["download_html"].InnerText);
                 ImportBoard.Download_Thumnails = Convert.ToBoolean(XmlBoard["download_thumbs"].InnerText);
@@ -65,7 +71,8 @@ namespace BoardHoard
             //Start the boards XML section
             SaveWriter.WriteStartElement("boards");
 
-            foreach (Board savedBoard in BoardContainer.Boards)
+            List<Board> SavedBoards = BoardContainer.Boards;
+            foreach (Board savedBoard in SavedBoards)
             {
                 // Start each individual board
                 SaveWriter.WriteStartElement("board");
@@ -73,12 +80,46 @@ namespace BoardHoard
                 // Write status, include a comment detailing what the status is
                 SaveWriter.WriteComment("Status: 0 = Idle, 2 = Stopped, 3 = Dead");
                 SaveWriter.WriteStartElement("status");
+                if (savedBoard.Status == 1)
+                {
+                    savedBoard.Status = 0;
+                }
                 SaveWriter.WriteString(Convert.ToString(savedBoard.Status));
                 SaveWriter.WriteEndElement();
 
                 // URL for the board that we saved
                 SaveWriter.WriteStartElement("url");
                 SaveWriter.WriteString(savedBoard.URL);
+                SaveWriter.WriteEndElement();
+
+                // Thread for the board that we saved
+                SaveWriter.WriteStartElement("thread");
+                SaveWriter.WriteString(Convert.ToString(savedBoard.Thread));
+                SaveWriter.WriteEndElement();
+
+                // Subject for the board that we saved
+                SaveWriter.WriteStartElement("subject");
+                SaveWriter.WriteString(savedBoard.Subject);
+                SaveWriter.WriteEndElement();
+
+                // Site for the board that we saved
+                SaveWriter.WriteStartElement("site");
+                SaveWriter.WriteString(savedBoard.Site);
+                SaveWriter.WriteEndElement();
+
+                // Name for the board that we saved
+                SaveWriter.WriteStartElement("name");
+                SaveWriter.WriteString(savedBoard.Name);
+                SaveWriter.WriteEndElement();
+
+                // How many images have we downloaded
+                SaveWriter.WriteStartElement("download_count");
+                SaveWriter.WriteString(Convert.ToString(savedBoard.ImgDownloaded));
+                SaveWriter.WriteEndElement();
+
+                // How many images did the thread have
+                SaveWriter.WriteStartElement("image_total");
+                SaveWriter.WriteString(Convert.ToString(savedBoard.ImgCount));
                 SaveWriter.WriteEndElement();
 
                 // Config for the thread-Mainly booleans
@@ -141,7 +182,8 @@ namespace BoardHoard
                 return;
             }
 
-            foreach (Board board in BoardContainer.Boards)
+            List<Board> ExistingBoards = BoardContainer.Boards;
+            foreach (Board board in ExistingBoards)
             {
                 if (b.URL == board.URL)
                 {
@@ -150,12 +192,87 @@ namespace BoardHoard
                 }
             }
 
-            Board New_Board = new Board();
-            New_Board.ID = BoardContainer.Boards.Count + 1;
-            New_Board.URL = b.URL;
-            New_Board.Download_Images = true;
+            //Board New_Board = new Board();
+            if (Boards.Count < 1)
+            {
+                b.ID = 1;
+            }
+            else
+            {
+                b.ID = Boards.Max(p => p.ID) + 1;
+            }
+            //b.URL = b.URL;
+            //b.Download_Images = true;
 
-            Uri Board_Uri = new Uri(New_Board.URL);
+            Uri Board_Uri = new Uri(b.URL);
+
+            if (System.IO.File.Exists("Board_Config.xml") == false)
+            {
+                MessageBox.Show("Could not find 'Board_Config.xml'!");
+                return;
+            }
+
+            XElement Doc = XElement.Load("Board_Config.xml");
+
+            string t = Board_Uri.Host;
+            var Configs = from ConfigXML in Doc.Elements("site")
+                          where (string)ConfigXML.Element("name") == Board_Uri.Host
+                          select ConfigXML;
+
+            foreach (XElement BoardConfig in Configs)
+            {
+                b.XPath_Subject = BoardConfig.Element("subject").Value;
+
+                b.XPath_Thread = BoardConfig.Element("thread").Value;
+                b.Tag_Thread = BoardConfig.Element("thread_tag").Value;
+
+                b.XPath_Board = BoardConfig.Element("board").Value;
+                b.Tag_Board = BoardConfig.Element("board_tag").Value;
+
+                b.XPath_Image = BoardConfig.Element("image").Value;
+                b.Tag_Image = BoardConfig.Element("image_tag").Value;
+
+                b.XPath_Thumbnail = BoardConfig.Element("thumb").Value;
+                b.Tag_Thumbnail = BoardConfig.Element("thumb_tag").Value;
+            }
+
+
+            BoardContainer.Boards.Add(b);
+
+
+        }
+
+        public static void Add_Download(Board b)
+        {
+            if (b.URL == "")
+            {
+                MessageBox.Show("Thread string is empty!");
+                return;
+            }
+
+            List<Board> ExistingBoards = BoardContainer.Boards;
+            foreach (Board board in ExistingBoards)
+            {
+                if (b.URL == board.URL)
+                {
+                    //MessageBox.Show("Thread already exists!");
+                    return;
+                }
+            }
+
+            //Board New_Board = new Board();
+            if (Boards.Count < 1)
+            {
+                b.ID = 1;
+            }
+            else
+            {
+                b.ID = Boards.Max(p => p.ID) + 1;
+            }
+            //b.ID = BoardContainer.Boards.Count + 1;
+            //b.URL = b.URL;
+
+            Uri Board_Uri = new Uri(b.URL);
             XElement Doc = XElement.Load("C:\\DEV\\MyXML.xml");
 
             string t = Board_Uri.Host;
@@ -165,26 +282,25 @@ namespace BoardHoard
 
             foreach (XElement BoardConfig in Configs)
             {
-                New_Board.XPath_Subject = BoardConfig.Element("subject").Value;
+                b.XPath_Subject = BoardConfig.Element("subject").Value;
 
-                New_Board.XPath_Thread = BoardConfig.Element("thread").Value;
-                New_Board.Tag_Thread = BoardConfig.Element("thread_tag").Value;
+                b.XPath_Thread = BoardConfig.Element("thread").Value;
+                b.Tag_Thread = BoardConfig.Element("thread_tag").Value;
 
-                New_Board.XPath_Board = BoardConfig.Element("board").Value;
-                New_Board.Tag_Board = BoardConfig.Element("board_tag").Value;
+                b.XPath_Board = BoardConfig.Element("board").Value;
+                b.Tag_Board = BoardConfig.Element("board_tag").Value;
 
-                New_Board.XPath_Image = BoardConfig.Element("image").Value;
-                New_Board.Tag_Image = BoardConfig.Element("image_tag").Value;
+                b.XPath_Image = BoardConfig.Element("image").Value;
+                b.Tag_Image = BoardConfig.Element("image_tag").Value;
 
-                New_Board.XPath_Thumbnail = BoardConfig.Element("thumb").Value;
-                New_Board.Tag_Thumbnail = BoardConfig.Element("thumb_tag").Value;
+                b.XPath_Thumbnail = BoardConfig.Element("thumb").Value;
+                b.Tag_Thumbnail = BoardConfig.Element("thumb_tag").Value;
             }
 
 
-            BoardContainer.Boards.Add(New_Board);
-            //Download_Single(New_Board);
-
-
+            BoardContainer.Boards.Add(b);
+            BoardContainer.Save();
+            Download_Single(b);
         }
 
         public static void Remove(int id)
@@ -195,15 +311,18 @@ namespace BoardHoard
         static void Download_Single(Board b)
         {
             Thread DownloadThread = new Thread(new ThreadStart(b.Download));
+            DownloadThread.IsBackground = true;
             DownloadThread.Start();
         }
-
+        
         static void Download_All()
         {
-            foreach (Board b in BoardContainer.Boards)
+            List<Board> DownloadingBoards = BoardContainer.Boards;
+            foreach (Board b in DownloadingBoards)
             {
                 
                 Thread DownloadThread = new Thread(new ThreadStart(b.Download));
+                DownloadThread.IsBackground = true;
                 DownloadThread.Start();
 
             }
@@ -214,7 +333,7 @@ namespace BoardHoard
             do
             {
                 Download_All();
-                Thread.Sleep(60000);
+                Thread.Sleep(UserConfig.Refresh_Delay);
             } while (true);
 
         }

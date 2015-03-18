@@ -17,18 +17,18 @@ namespace BoardHoard
 
         private void selectAllButton_Click(object sender, EventArgs e)
         {
-            
+            BoardDataGrid.SelectAll();
         }
 
         private void addThreadButton_Click(object sender, EventArgs e)
         {
             Board NewBoard = new Board();
-            NewBoard.Download_HTML = downloadThreadPageCheckBox.Checked = true;
-            NewBoard.Download_Images = downloadImagesCheckBox.Checked = true;
-            NewBoard.Download_Thumnails = downloadThumbnailsCheckBox.Checked = true;
+            NewBoard.Download_HTML = downloadThreadPageCheckBox.ThreeState;
+            NewBoard.Download_Images = downloadImagesCheckBox.ThreeState;
+            NewBoard.Download_Thumnails = downloadThumbnailsCheckBox.ThreeState;
             NewBoard.URL = threadUrlTextBox.Text;
 
-            BoardContainer.Add(NewBoard);
+            BoardContainer.Add_Download(NewBoard);
             threadUrlTextBox.Clear();
 
         }
@@ -38,6 +38,7 @@ namespace BoardHoard
 
             //Setup_Delgates();
             //Set up a new board container to contain our boards
+            AppDomain.CurrentDomain.ProcessExit += new EventHandler(OnProcessExit); 
             BoardContainer.Boards = new List<Board>();
 
             BoardContainer.Load();
@@ -62,9 +63,7 @@ namespace BoardHoard
 
         private void pasteFromClipboardButton_Click(object sender, EventArgs e)
         {
-            BoardContainer.Load();
-            
-            MessageBox.Show("i" + BoardContainer.Boards.Count);
+            BoardContainer.Save();
 
         }
 
@@ -73,22 +72,37 @@ namespace BoardHoard
             
         }
 
+        private void stopSelectedButton_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void stopAndRemoveSelectedButton_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void openFolderButton_Click(object sender, EventArgs e)
+        {
+            foreach (DataGridViewRow Row in BoardDataGrid.SelectedRows)
+            {
+                Board.Open_Folder(Convert.ToString(Row.Cells[2].Value), Convert.ToString(Row.Cells[3].Value), Convert.ToString(Row.Cells[4].Value));
+            }
+                
+        }
+
+
+        static void OnProcessExit (object sender, EventArgs e)
+        {
+            BoardContainer.Save();
+        }
+
+
         #endregion
 
 
         #region UI Callbacks for Program
         // This is where I plan to include classes that require UI objects to function
-
-        public void Setup_Delgates()
-        {
-            Del_Add_DGV = new Datagrid_Add(this.DGV_Add);
-            Del_Update_DGV = new Datagrid_Update(this.DGV_Update);
-        }
-
-        public delegate void Datagrid_Add(string[] Data);
-        public delegate void Datagrid_Update(string[] Data);
-        public static Datagrid_Add Del_Add_DGV;
-        public static Datagrid_Update Del_Update_DGV;
         
         public void DGV_Add(string[] Data)
         {
@@ -115,8 +129,26 @@ namespace BoardHoard
 
         public void Datagrid_Refresh()
         {
-            foreach (Board Board in BoardContainer.Boards)
+            List<Board> DisplayedBoards = BoardContainer.Boards;
+            foreach (Board Board in DisplayedBoards)
             {
+                string StatusText = string.Empty;
+                        switch (Board.Status)
+                        {
+                            case 0:
+                                StatusText = "IDLE";
+                                break;
+                            case 1:
+                                StatusText = "RUNNING";
+                                break;
+                            case 2:
+                                StatusText = "STOPPED";
+                                break;
+                            case 3:
+                                StatusText = "DEAD";
+                                break;
+                        }
+
                 Boolean Found = false;
                 foreach (DataGridViewRow Row in BoardDataGrid.Rows)
                 {
@@ -128,9 +160,9 @@ namespace BoardHoard
                                                             Board.Site, 
                                                             Board.Name, 
                                                             Convert.ToString(Board.Thread), 
-                                                            Convert.ToString(Board.ImgDownloaded), 
                                                             Convert.ToString(Board.ImgCount), 
-                                                            Convert.ToString(Board.Status) };
+                                                            Convert.ToString(Board.ImgDownloaded), 
+                                                            StatusText };
                         try
                         {
                             this.Invoke((MethodInvoker)delegate
@@ -157,7 +189,7 @@ namespace BoardHoard
                                                             Convert.ToString(Board.Thread), 
                                                             Convert.ToString(Board.ImgDownloaded), 
                                                             Convert.ToString(Board.ImgCount), 
-                                                            Convert.ToString(Board.Status) };
+                                                            StatusText };
                     try
                     {
                         //string newText = "abc"; // running on worker thread
@@ -189,6 +221,10 @@ namespace BoardHoard
         }
 
         #endregion
+
+
+
+
 
     }
 

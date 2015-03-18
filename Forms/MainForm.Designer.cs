@@ -65,6 +65,7 @@
             this.col_ImgTotal = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_ImgDownloaded = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_Status = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.configButton = new System.Windows.Forms.Button();
             this.panel2.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.panel3.SuspendLayout();
@@ -95,6 +96,7 @@
             this.stopAndRemoveSelectedButton.TabIndex = 5;
             this.stopAndRemoveSelectedButton.Text = "Stop && Remove Selected";
             this.stopAndRemoveSelectedButton.UseVisualStyleBackColor = true;
+            this.stopAndRemoveSelectedButton.Click += new System.EventHandler(this.stopAndRemoveSelectedButton_Click);
             // 
             // stopSelectedButton
             // 
@@ -106,6 +108,7 @@
             this.stopSelectedButton.TabIndex = 4;
             this.stopSelectedButton.Text = "Stop Selected";
             this.stopSelectedButton.UseVisualStyleBackColor = true;
+            this.stopSelectedButton.Click += new System.EventHandler(this.stopSelectedButton_Click);
             // 
             // selectAllButton
             // 
@@ -128,6 +131,7 @@
             this.openFolderButton.TabIndex = 2;
             this.openFolderButton.Text = "Open Folder...";
             this.openFolderButton.UseVisualStyleBackColor = true;
+            this.openFolderButton.Click += new System.EventHandler(this.openFolderButton_Click);
             // 
             // panel2
             // 
@@ -300,6 +304,7 @@
             // panel3
             // 
             this.panel3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel3.Controls.Add(this.configButton);
             this.panel3.Controls.Add(this.threadUrlTextBox);
             this.panel3.Controls.Add(this.statisticsButton);
             this.panel3.Controls.Add(this.aboutButton);
@@ -419,9 +424,11 @@
             this.col_ImgTotal,
             this.col_ImgDownloaded,
             this.col_Status});
+            this.BoardDataGrid.Cursor = System.Windows.Forms.Cursors.Default;
             this.BoardDataGrid.Dock = System.Windows.Forms.DockStyle.Fill;
             this.BoardDataGrid.Location = new System.Drawing.Point(3, 3);
             this.BoardDataGrid.Name = "BoardDataGrid";
+            this.BoardDataGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.BoardDataGrid.Size = new System.Drawing.Size(921, 183);
             this.BoardDataGrid.TabIndex = 5;
             // 
@@ -464,6 +471,16 @@
             // 
             this.col_Status.HeaderText = "Status";
             this.col_Status.Name = "col_Status";
+            // 
+            // configButton
+            // 
+            this.configButton.Location = new System.Drawing.Point(195, 42);
+            this.configButton.Margin = new System.Windows.Forms.Padding(9);
+            this.configButton.Name = "configButton";
+            this.configButton.Size = new System.Drawing.Size(75, 23);
+            this.configButton.TabIndex = 11;
+            this.configButton.Text = "Config";
+            this.configButton.UseVisualStyleBackColor = true;
             // 
             // MainForm
             // 
@@ -527,6 +544,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn col_ImgTotal;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_ImgDownloaded;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_Status;
+        private System.Windows.Forms.Button configButton;
 
 
     }
