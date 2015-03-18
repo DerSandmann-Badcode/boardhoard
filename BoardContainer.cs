@@ -16,15 +16,15 @@ namespace BoardHoard
 
         public static void Load()
         {
-            if (System.IO.File.Exists("C:\\DEV\\boards.xml") == false)
+            if (System.IO.File.Exists("boards.xml") == false)
             {
-                MessageBox.Show("Config not found!");
+                //MessageBox.Show("Config not found!");
                 return;
             }
 
 
             XmlDocument Doc = new XmlDocument();
-            Doc.Load("C:\\DEV\\NewBoard.xml");
+            Doc.Load("boards.xml");
 
             XmlNodeList Boardlist = Doc.GetElementsByTagName("board");
 
@@ -60,7 +60,7 @@ namespace BoardHoard
             BoardSettings.Indent = true;
 
             // Set path for the XML Board file
-            XmlWriter SaveWriter = XmlWriter.Create("C:\\DEV\\Newboard.xml", BoardSettings);
+            XmlWriter SaveWriter = XmlWriter.Create("boards.xml", BoardSettings);
 
             // Write the start of the XML document
             SaveWriter.WriteStartDocument();

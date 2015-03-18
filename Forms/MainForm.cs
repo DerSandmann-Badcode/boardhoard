@@ -35,7 +35,7 @@ namespace BoardHoard
 
         private void MainForm_Load(object sender, EventArgs e)
         {
-
+            UserConfig.Load();
             //Setup_Delgates();
             //Set up a new board container to contain our boards
             AppDomain.CurrentDomain.ProcessExit += new EventHandler(OnProcessExit); 
@@ -63,7 +63,8 @@ namespace BoardHoard
 
         private void pasteFromClipboardButton_Click(object sender, EventArgs e)
         {
-            BoardContainer.Save();
+            //UserConfig.Load();
+            //MessageBox.Show(UserConfig.FolderLocation);
 
         }
 
@@ -95,6 +96,7 @@ namespace BoardHoard
         static void OnProcessExit (object sender, EventArgs e)
         {
             BoardContainer.Save();
+            UserConfig.Save();
         }
 
 

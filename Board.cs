@@ -99,7 +99,7 @@ namespace BoardHoard
 
                     }
 
-                    string Folder = "C:\\Test\\";
+                    string Folder = UserConfig.FolderLocation;
 
                     string DownloadPath = Folder + Site + "\\" + Name + "\\" + Thread + "\\";
 
@@ -236,7 +236,10 @@ namespace BoardHoard
 
         public static void Open_Folder(string site, string board, string thread)
         {
-            System.Diagnostics.Process.Start("explorer.exe", "C:\\Test\\" + site + "\\" + board + "\\" + thread + "\\");
+            System.Diagnostics.Debug.WriteLine(UserConfig.FolderLocation + site + "\\" + board + "\\" + thread + "\\");
+            System.Diagnostics.Debug.WriteLine("C:\\TEST\\" + site + "\\" + board + "\\" + thread + "\\");
+           
+            System.Diagnostics.Process.Start("explorer.exe", UserConfig.FolderLocation + site + "\\" + board + "\\" + thread + "\\");
         }
 
     }
