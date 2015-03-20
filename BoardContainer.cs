@@ -277,8 +277,14 @@ namespace BoardHoard
             //b.ID = BoardContainer.Boards.Count + 1;
             //b.URL = b.URL;
 
+            if (System.IO.File.Exists("Board_Config.xml") == false)
+            {
+                MessageBox.Show("Could not find 'Board_Config.xml'!");
+                return;
+            }
+
             Uri Board_Uri = new Uri(b.URL);
-            XElement Doc = XElement.Load("C:\\DEV\\MyXML.xml");
+            XElement Doc = XElement.Load("Board_Config.xml");
 
             string t = Board_Uri.Host;
             var Configs = from ConfigXML in Doc.Elements("site")
