@@ -28,523 +28,498 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.removeDeadAndCompletedButton = new System.Windows.Forms.Button();
-            this.stopAndRemoveSelectedButton = new System.Windows.Forms.Button();
-            this.stopSelectedButton = new System.Windows.Forms.Button();
-            this.selectAllButton = new System.Windows.Forms.Button();
-            this.openFolderButton = new System.Windows.Forms.Button();
-            this.panel2 = new System.Windows.Forms.Panel();
-            this.applyToAllButton = new System.Windows.Forms.Button();
-            this.applyToSelectedButton = new System.Windows.Forms.Button();
-            this.verifyImageHashesCheckBox = new System.Windows.Forms.CheckBox();
-            this.checkIntervalCheckBox = new System.Windows.Forms.CheckBox();
-            this.checkIntervalComboBox = new System.Windows.Forms.ComboBox();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
-            this.downloadVideosCheckBox = new System.Windows.Forms.CheckBox();
-            this.downloadImagesCheckBox = new System.Windows.Forms.CheckBox();
-            this.downloadThreadPageCheckBox = new System.Windows.Forms.CheckBox();
-            this.downloadThumbnailsCheckBox = new System.Windows.Forms.CheckBox();
-            this.label3 = new System.Windows.Forms.Label();
-            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.panel3 = new System.Windows.Forms.Panel();
-            this.threadUrlTextBox = new System.Windows.Forms.TextBox();
-            this.statisticsButton = new System.Windows.Forms.Button();
-            this.aboutButton = new System.Windows.Forms.Button();
-            this.pasteFromClipboardButton = new System.Windows.Forms.Button();
-            this.addThreadButton = new System.Windows.Forms.Button();
-            this.panel4 = new System.Windows.Forms.Panel();
-            this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
+            this.label4 = new System.Windows.Forms.Label();
+            this.openfolderBtm = new System.Windows.Forms.Button();
+            this.removedeadBtn = new System.Windows.Forms.Button();
+            this.selectallBtn = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.BoardDataGrid = new System.Windows.Forms.DataGridView();
-            this.col_ID = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_Subject = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_Site = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_Board = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_Thread = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_ImgTotal = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_ImgDownloaded = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_Status = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.configButton = new System.Windows.Forms.Button();
-            this.panel2.SuspendLayout();
-            this.tableLayoutPanel1.SuspendLayout();
-            this.panel3.SuspendLayout();
-            this.panel4.SuspendLayout();
-            this.tableLayoutPanel2.SuspendLayout();
+            this.deadclearChk = new System.Windows.Forms.CheckBox();
+            this.defaultBtn = new System.Windows.Forms.Button();
+            this.hashesChk = new System.Windows.Forms.CheckBox();
+            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.continuousChk = new System.Windows.Forms.CheckBox();
+            this.deathalertChk = new System.Windows.Forms.CheckBox();
+            this.separatefolderChk = new System.Windows.Forms.CheckBox();
+            this.thumbnailChk = new System.Windows.Forms.CheckBox();
+            this.htmlChk = new System.Windows.Forms.CheckBox();
+            this.webmChk = new System.Windows.Forms.CheckBox();
+            this.imagesChk = new System.Windows.Forms.CheckBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.folderTxt = new System.Windows.Forms.TextBox();
+            this.selectBtn = new System.Windows.Forms.Button();
+            this.clipboardpasteBtn = new System.Windows.Forms.Button();
+            this.addthreadBtn = new System.Windows.Forms.Button();
+            this.threadTxt = new System.Windows.Forms.TextBox();
+            this.label6 = new System.Windows.Forms.Label();
+            this.statisticsBtn = new System.Windows.Forms.Button();
+            this.aboutBtn = new System.Windows.Forms.Button();
+            this.boardDataGrid = new BoardHoard.BufferedDataGridView();
+            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column8 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.BoardDataGrid)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.boardDataGrid)).BeginInit();
             this.SuspendLayout();
             // 
-            // removeDeadAndCompletedButton
+            // label4
             // 
-            this.removeDeadAndCompletedButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.removeDeadAndCompletedButton.Location = new System.Drawing.Point(755, 9);
-            this.removeDeadAndCompletedButton.Margin = new System.Windows.Forms.Padding(3, 9, 9, 9);
-            this.removeDeadAndCompletedButton.Name = "removeDeadAndCompletedButton";
-            this.removeDeadAndCompletedButton.Size = new System.Drawing.Size(157, 23);
-            this.removeDeadAndCompletedButton.TabIndex = 6;
-            this.removeDeadAndCompletedButton.Text = "Remove Dead && Completed";
-            this.removeDeadAndCompletedButton.UseVisualStyleBackColor = true;
+            this.label4.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.label4.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.label4.Location = new System.Drawing.Point(12, 243);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(911, 2);
+            this.label4.TabIndex = 32;
+            this.label4.Text = "label4";
             // 
-            // stopAndRemoveSelectedButton
+            // openfolderBtm
             // 
-            this.stopAndRemoveSelectedButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.stopAndRemoveSelectedButton.Location = new System.Drawing.Point(608, 9);
-            this.stopAndRemoveSelectedButton.Margin = new System.Windows.Forms.Padding(3, 9, 3, 9);
-            this.stopAndRemoveSelectedButton.Name = "stopAndRemoveSelectedButton";
-            this.stopAndRemoveSelectedButton.Size = new System.Drawing.Size(141, 23);
-            this.stopAndRemoveSelectedButton.TabIndex = 5;
-            this.stopAndRemoveSelectedButton.Text = "Stop && Remove Selected";
-            this.stopAndRemoveSelectedButton.UseVisualStyleBackColor = true;
-            this.stopAndRemoveSelectedButton.Click += new System.EventHandler(this.stopAndRemoveSelectedButton_Click);
+            this.openfolderBtm.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.openfolderBtm.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.openfolderBtm.Location = new System.Drawing.Point(12, 212);
+            this.openfolderBtm.Name = "openfolderBtm";
+            this.openfolderBtm.Size = new System.Drawing.Size(100, 25);
+            this.openfolderBtm.TabIndex = 33;
+            this.openfolderBtm.Text = "Open Folder";
+            this.openfolderBtm.UseVisualStyleBackColor = true;
+            this.openfolderBtm.Click += new System.EventHandler(this.openfolderBtm_Click);
             // 
-            // stopSelectedButton
+            // removedeadBtn
             // 
-            this.stopSelectedButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.stopSelectedButton.Location = new System.Drawing.Point(510, 9);
-            this.stopSelectedButton.Margin = new System.Windows.Forms.Padding(3, 9, 3, 9);
-            this.stopSelectedButton.Name = "stopSelectedButton";
-            this.stopSelectedButton.Size = new System.Drawing.Size(92, 23);
-            this.stopSelectedButton.TabIndex = 4;
-            this.stopSelectedButton.Text = "Stop Selected";
-            this.stopSelectedButton.UseVisualStyleBackColor = true;
-            this.stopSelectedButton.Click += new System.EventHandler(this.stopSelectedButton_Click);
+            this.removedeadBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.removedeadBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.removedeadBtn.Location = new System.Drawing.Point(722, 212);
+            this.removedeadBtn.Name = "removedeadBtn";
+            this.removedeadBtn.Size = new System.Drawing.Size(201, 25);
+            this.removedeadBtn.TabIndex = 34;
+            this.removedeadBtn.Text = "Remove Dead && Completed";
+            this.removedeadBtn.UseVisualStyleBackColor = true;
+            this.removedeadBtn.Click += new System.EventHandler(this.removedeadBtn_Click);
             // 
-            // selectAllButton
+            // selectallBtn
             // 
-            this.selectAllButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.selectAllButton.Location = new System.Drawing.Point(414, 9);
-            this.selectAllButton.Margin = new System.Windows.Forms.Padding(3, 9, 18, 9);
-            this.selectAllButton.Name = "selectAllButton";
-            this.selectAllButton.Size = new System.Drawing.Size(75, 23);
-            this.selectAllButton.TabIndex = 3;
-            this.selectAllButton.Text = "Select All";
-            this.selectAllButton.UseVisualStyleBackColor = true;
-            this.selectAllButton.Click += new System.EventHandler(this.selectAllButton_Click);
+            this.selectallBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.selectallBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.selectallBtn.Location = new System.Drawing.Point(597, 212);
+            this.selectallBtn.Name = "selectallBtn";
+            this.selectallBtn.Size = new System.Drawing.Size(119, 25);
+            this.selectallBtn.TabIndex = 37;
+            this.selectallBtn.Text = "Select all";
+            this.selectallBtn.UseVisualStyleBackColor = true;
+            this.selectallBtn.Click += new System.EventHandler(this.selectallBtn_Click);
             // 
-            // openFolderButton
+            // panel1
             // 
-            this.openFolderButton.Location = new System.Drawing.Point(9, 9);
-            this.openFolderButton.Margin = new System.Windows.Forms.Padding(9);
-            this.openFolderButton.Name = "openFolderButton";
-            this.openFolderButton.Size = new System.Drawing.Size(96, 23);
-            this.openFolderButton.TabIndex = 2;
-            this.openFolderButton.Text = "Open Folder...";
-            this.openFolderButton.UseVisualStyleBackColor = true;
-            this.openFolderButton.Click += new System.EventHandler(this.openFolderButton_Click);
+            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel1.BackColor = System.Drawing.Color.LightGray;
+            this.panel1.Controls.Add(this.deadclearChk);
+            this.panel1.Controls.Add(this.defaultBtn);
+            this.panel1.Controls.Add(this.hashesChk);
+            this.panel1.Controls.Add(this.comboBox1);
+            this.panel1.Controls.Add(this.label3);
+            this.panel1.Controls.Add(this.continuousChk);
+            this.panel1.Controls.Add(this.deathalertChk);
+            this.panel1.Controls.Add(this.separatefolderChk);
+            this.panel1.Controls.Add(this.thumbnailChk);
+            this.panel1.Controls.Add(this.htmlChk);
+            this.panel1.Controls.Add(this.webmChk);
+            this.panel1.Controls.Add(this.imagesChk);
+            this.panel1.Controls.Add(this.label1);
+            this.panel1.Location = new System.Drawing.Point(12, 281);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(911, 225);
+            this.panel1.TabIndex = 38;
             // 
-            // panel2
+            // deadclearChk
             // 
-            this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel2.Controls.Add(this.applyToAllButton);
-            this.panel2.Controls.Add(this.applyToSelectedButton);
-            this.panel2.Controls.Add(this.verifyImageHashesCheckBox);
-            this.panel2.Controls.Add(this.checkIntervalCheckBox);
-            this.panel2.Controls.Add(this.checkIntervalComboBox);
-            this.panel2.Controls.Add(this.label2);
-            this.panel2.Controls.Add(this.label1);
-            this.panel2.Controls.Add(this.downloadVideosCheckBox);
-            this.panel2.Controls.Add(this.downloadImagesCheckBox);
-            this.panel2.Controls.Add(this.downloadThreadPageCheckBox);
-            this.panel2.Controls.Add(this.downloadThumbnailsCheckBox);
-            this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel2.Location = new System.Drawing.Point(3, 247);
-            this.panel2.MinimumSize = new System.Drawing.Size(2, 200);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(929, 208);
-            this.panel2.TabIndex = 3;
+            this.deadclearChk.AutoSize = true;
+            this.deadclearChk.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.deadclearChk.Location = new System.Drawing.Point(15, 102);
+            this.deadclearChk.Name = "deadclearChk";
+            this.deadclearChk.Size = new System.Drawing.Size(219, 17);
+            this.deadclearChk.TabIndex = 59;
+            this.deadclearChk.Text = "Clear out dead thread entries immediately";
+            this.deadclearChk.UseVisualStyleBackColor = true;
             // 
-            // applyToAllButton
+            // defaultBtn
             // 
-            this.applyToAllButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.applyToAllButton.Location = new System.Drawing.Point(843, 174);
-            this.applyToAllButton.Margin = new System.Windows.Forms.Padding(9);
-            this.applyToAllButton.Name = "applyToAllButton";
-            this.applyToAllButton.Size = new System.Drawing.Size(75, 23);
-            this.applyToAllButton.TabIndex = 11;
-            this.applyToAllButton.Text = "Apply to All";
-            this.applyToAllButton.UseVisualStyleBackColor = true;
+            this.defaultBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.defaultBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.defaultBtn.Location = new System.Drawing.Point(755, 194);
+            this.defaultBtn.Name = "defaultBtn";
+            this.defaultBtn.Size = new System.Drawing.Size(148, 23);
+            this.defaultBtn.TabIndex = 58;
+            this.defaultBtn.Text = "Set as Default";
+            this.defaultBtn.UseVisualStyleBackColor = true;
             // 
-            // applyToSelectedButton
+            // hashesChk
             // 
-            this.applyToSelectedButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.applyToSelectedButton.Location = new System.Drawing.Point(723, 174);
-            this.applyToSelectedButton.Margin = new System.Windows.Forms.Padding(9);
-            this.applyToSelectedButton.Name = "applyToSelectedButton";
-            this.applyToSelectedButton.Size = new System.Drawing.Size(108, 23);
-            this.applyToSelectedButton.TabIndex = 10;
-            this.applyToSelectedButton.Text = "Apply to Selected";
-            this.applyToSelectedButton.UseVisualStyleBackColor = true;
+            this.hashesChk.AutoSize = true;
+            this.hashesChk.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.hashesChk.Location = new System.Drawing.Point(15, 194);
+            this.hashesChk.Name = "hashesChk";
+            this.hashesChk.Size = new System.Drawing.Size(123, 17);
+            this.hashesChk.TabIndex = 57;
+            this.hashesChk.Text = "Verify Image Hashes";
+            this.hashesChk.UseVisualStyleBackColor = true;
             // 
-            // verifyImageHashesCheckBox
+            // comboBox1
             // 
-            this.verifyImageHashesCheckBox.AutoSize = true;
-            this.verifyImageHashesCheckBox.Location = new System.Drawing.Point(12, 169);
-            this.verifyImageHashesCheckBox.Name = "verifyImageHashesCheckBox";
-            this.verifyImageHashesCheckBox.Size = new System.Drawing.Size(162, 17);
-            this.verifyImageHashesCheckBox.TabIndex = 8;
-            this.verifyImageHashesCheckBox.Text = "Verify Image Hashes (4chan)";
-            this.verifyImageHashesCheckBox.UseVisualStyleBackColor = true;
+            this.comboBox1.AutoCompleteCustomSource.AddRange(new string[] {
+            "30 Seconds",
+            "1 Minute",
+            "2 Minutes",
+            "5 Minutes",
+            "1 Hour"});
+            this.comboBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.comboBox1.FormattingEnabled = true;
+            this.comboBox1.Location = new System.Drawing.Point(168, 169);
+            this.comboBox1.Name = "comboBox1";
+            this.comboBox1.Size = new System.Drawing.Size(132, 21);
+            this.comboBox1.TabIndex = 56;
+            this.comboBox1.Text = "1 Minute";
             // 
-            // checkIntervalCheckBox
+            // label3
             // 
-            this.checkIntervalCheckBox.AutoSize = true;
-            this.checkIntervalCheckBox.Location = new System.Drawing.Point(12, 136);
-            this.checkIntervalCheckBox.Name = "checkIntervalCheckBox";
-            this.checkIntervalCheckBox.Size = new System.Drawing.Size(127, 17);
-            this.checkIntervalCheckBox.TabIndex = 7;
-            this.checkIntervalCheckBox.Text = "Check threads every:";
-            this.checkIntervalCheckBox.UseVisualStyleBackColor = true;
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.Location = new System.Drawing.Point(51, 172);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(111, 13);
+            this.label3.TabIndex = 55;
+            this.label3.Text = "Check threads every: ";
             // 
-            // checkIntervalComboBox
+            // continuousChk
             // 
-            this.checkIntervalComboBox.FormattingEnabled = true;
-            this.checkIntervalComboBox.Items.AddRange(new object[] {
-            "30s",
-            "1min",
-            "2min",
-            "5min",
-            "10min",
-            "15min",
-            "30min",
-            "1h"});
-            this.checkIntervalComboBox.Location = new System.Drawing.Point(146, 134);
-            this.checkIntervalComboBox.Name = "checkIntervalComboBox";
-            this.checkIntervalComboBox.Size = new System.Drawing.Size(79, 21);
-            this.checkIntervalComboBox.TabIndex = 6;
+            this.continuousChk.AutoSize = true;
+            this.continuousChk.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.continuousChk.Location = new System.Drawing.Point(15, 148);
+            this.continuousChk.Name = "continuousChk";
+            this.continuousChk.Size = new System.Drawing.Size(127, 17);
+            this.continuousChk.TabIndex = 54;
+            this.continuousChk.Text = "Continuous Checking";
+            this.continuousChk.UseVisualStyleBackColor = true;
             // 
-            // label2
+            // deathalertChk
             // 
-            this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.label2.Location = new System.Drawing.Point(440, 174);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(271, 23);
-            this.label2.TabIndex = 5;
-            this.label2.Text = "Will be applied to all new threads.";
-            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.deathalertChk.AutoSize = true;
+            this.deathalertChk.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.deathalertChk.Location = new System.Drawing.Point(15, 125);
+            this.deathalertChk.Name = "deathalertChk";
+            this.deathalertChk.Size = new System.Drawing.Size(125, 17);
+            this.deathalertChk.TabIndex = 53;
+            this.deathalertChk.Text = "Alert on thread death";
+            this.deathalertChk.UseVisualStyleBackColor = true;
+            // 
+            // separatefolderChk
+            // 
+            this.separatefolderChk.AutoSize = true;
+            this.separatefolderChk.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.separatefolderChk.Location = new System.Drawing.Point(36, 79);
+            this.separatefolderChk.Name = "separatefolderChk";
+            this.separatefolderChk.Size = new System.Drawing.Size(303, 17);
+            this.separatefolderChk.TabIndex = 50;
+            this.separatefolderChk.Text = "Place .GIFs and .WebMs in /Site/Board/Thread/Animated";
+            this.separatefolderChk.UseVisualStyleBackColor = true;
+            // 
+            // thumbnailChk
+            // 
+            this.thumbnailChk.AutoSize = true;
+            this.thumbnailChk.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.thumbnailChk.Location = new System.Drawing.Point(256, 56);
+            this.thumbnailChk.Name = "thumbnailChk";
+            this.thumbnailChk.Size = new System.Drawing.Size(80, 17);
+            this.thumbnailChk.TabIndex = 49;
+            this.thumbnailChk.Text = "Thumbnails";
+            this.thumbnailChk.UseVisualStyleBackColor = true;
+            // 
+            // htmlChk
+            // 
+            this.htmlChk.AutoSize = true;
+            this.htmlChk.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.htmlChk.Location = new System.Drawing.Point(232, 33);
+            this.htmlChk.Name = "htmlChk";
+            this.htmlChk.Size = new System.Drawing.Size(93, 17);
+            this.htmlChk.TabIndex = 48;
+            this.htmlChk.Text = "Thread HTML";
+            this.htmlChk.UseVisualStyleBackColor = true;
+            // 
+            // webmChk
+            // 
+            this.webmChk.AutoSize = true;
+            this.webmChk.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.webmChk.Location = new System.Drawing.Point(15, 56);
+            this.webmChk.Name = "webmChk";
+            this.webmChk.Size = new System.Drawing.Size(93, 17);
+            this.webmChk.TabIndex = 38;
+            this.webmChk.Text = "WebM Videos";
+            this.webmChk.UseVisualStyleBackColor = true;
+            // 
+            // imagesChk
+            // 
+            this.imagesChk.AutoSize = true;
+            this.imagesChk.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.imagesChk.Location = new System.Drawing.Point(15, 33);
+            this.imagesChk.Name = "imagesChk";
+            this.imagesChk.Size = new System.Drawing.Size(60, 17);
+            this.imagesChk.TabIndex = 37;
+            this.imagesChk.Text = "Images";
+            this.imagesChk.UseVisualStyleBackColor = true;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(9, 9);
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(7, 9);
             this.label1.Margin = new System.Windows.Forms.Padding(9);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(58, 13);
-            this.label1.TabIndex = 4;
-            this.label1.Text = "Download:";
+            this.label1.Size = new System.Drawing.Size(309, 13);
+            this.label1.TabIndex = 36;
+            this.label1.Text = "Download options (Will be applied to all new threads)";
             // 
-            // downloadVideosCheckBox
+            // label5
             // 
-            this.downloadVideosCheckBox.AutoSize = true;
-            this.downloadVideosCheckBox.Location = new System.Drawing.Point(12, 103);
-            this.downloadVideosCheckBox.Name = "downloadVideosCheckBox";
-            this.downloadVideosCheckBox.Size = new System.Drawing.Size(99, 17);
-            this.downloadVideosCheckBox.TabIndex = 3;
-            this.downloadVideosCheckBox.Text = "Videos (WebM)";
-            this.downloadVideosCheckBox.UseVisualStyleBackColor = true;
+            this.label5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label5.Location = new System.Drawing.Point(9, 256);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(90, 13);
+            this.label5.TabIndex = 39;
+            this.label5.Text = "Download Folder:";
             // 
-            // downloadImagesCheckBox
+            // folderTxt
             // 
-            this.downloadImagesCheckBox.AutoSize = true;
-            this.downloadImagesCheckBox.Location = new System.Drawing.Point(12, 57);
-            this.downloadImagesCheckBox.Name = "downloadImagesCheckBox";
-            this.downloadImagesCheckBox.Size = new System.Drawing.Size(60, 17);
-            this.downloadImagesCheckBox.TabIndex = 2;
-            this.downloadImagesCheckBox.Text = "Images";
-            this.downloadImagesCheckBox.UseVisualStyleBackColor = true;
-            // 
-            // downloadThreadPageCheckBox
-            // 
-            this.downloadThreadPageCheckBox.AutoSize = true;
-            this.downloadThreadPageCheckBox.Location = new System.Drawing.Point(12, 34);
-            this.downloadThreadPageCheckBox.Name = "downloadThreadPageCheckBox";
-            this.downloadThreadPageCheckBox.Size = new System.Drawing.Size(120, 17);
-            this.downloadThreadPageCheckBox.TabIndex = 1;
-            this.downloadThreadPageCheckBox.Text = "Thread HTML page";
-            this.downloadThreadPageCheckBox.UseVisualStyleBackColor = true;
-            // 
-            // downloadThumbnailsCheckBox
-            // 
-            this.downloadThumbnailsCheckBox.AutoSize = true;
-            this.downloadThumbnailsCheckBox.Location = new System.Drawing.Point(12, 80);
-            this.downloadThumbnailsCheckBox.Name = "downloadThumbnailsCheckBox";
-            this.downloadThumbnailsCheckBox.Size = new System.Drawing.Size(112, 17);
-            this.downloadThumbnailsCheckBox.TabIndex = 0;
-            this.downloadThumbnailsCheckBox.Text = "Image Thumbnails";
-            this.downloadThumbnailsCheckBox.UseVisualStyleBackColor = true;
-            // 
-            // label3
-            // 
-            this.label3.Location = new System.Drawing.Point(9, 9);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(63, 20);
-            this.label3.TabIndex = 9;
-            this.label3.Text = "Add thread:";
-            this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // tableLayoutPanel1
-            // 
-            this.tableLayoutPanel1.ColumnCount = 1;
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.Controls.Add(this.panel2, 0, 1);
-            this.tableLayoutPanel1.Controls.Add(this.panel3, 0, 2);
-            this.tableLayoutPanel1.Controls.Add(this.panel4, 0, 0);
-            this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
-            this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(0);
-            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 3;
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 214F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 80F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(935, 538);
-            this.tableLayoutPanel1.TabIndex = 12;
-            // 
-            // panel3
-            // 
-            this.panel3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel3.Controls.Add(this.configButton);
-            this.panel3.Controls.Add(this.threadUrlTextBox);
-            this.panel3.Controls.Add(this.statisticsButton);
-            this.panel3.Controls.Add(this.aboutButton);
-            this.panel3.Controls.Add(this.label3);
-            this.panel3.Controls.Add(this.pasteFromClipboardButton);
-            this.panel3.Controls.Add(this.addThreadButton);
-            this.panel3.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel3.Location = new System.Drawing.Point(3, 461);
-            this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(929, 74);
-            this.panel3.TabIndex = 5;
-            // 
-            // threadUrlTextBox
-            // 
-            this.threadUrlTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.folderTxt.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.threadUrlTextBox.Location = new System.Drawing.Point(78, 10);
-            this.threadUrlTextBox.Name = "threadUrlTextBox";
-            this.threadUrlTextBox.Size = new System.Drawing.Size(753, 20);
-            this.threadUrlTextBox.TabIndex = 10;
+            this.folderTxt.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.folderTxt.Location = new System.Drawing.Point(110, 253);
+            this.folderTxt.Name = "folderTxt";
+            this.folderTxt.Size = new System.Drawing.Size(777, 20);
+            this.folderTxt.TabIndex = 40;
             // 
-            // statisticsButton
+            // selectBtn
             // 
-            this.statisticsButton.Location = new System.Drawing.Point(9, 42);
-            this.statisticsButton.Margin = new System.Windows.Forms.Padding(9);
-            this.statisticsButton.Name = "statisticsButton";
-            this.statisticsButton.Size = new System.Drawing.Size(75, 23);
-            this.statisticsButton.TabIndex = 3;
-            this.statisticsButton.Text = "Statistics";
-            this.statisticsButton.UseVisualStyleBackColor = true;
-            this.statisticsButton.Click += new System.EventHandler(this.statisticsButton_Click);
+            this.selectBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.selectBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.selectBtn.Location = new System.Drawing.Point(893, 251);
+            this.selectBtn.Name = "selectBtn";
+            this.selectBtn.Size = new System.Drawing.Size(30, 23);
+            this.selectBtn.TabIndex = 41;
+            this.selectBtn.Text = "...";
+            this.selectBtn.UseVisualStyleBackColor = true;
             // 
-            // aboutButton
+            // clipboardpasteBtn
             // 
-            this.aboutButton.Location = new System.Drawing.Point(102, 42);
-            this.aboutButton.Margin = new System.Windows.Forms.Padding(9);
-            this.aboutButton.Name = "aboutButton";
-            this.aboutButton.Size = new System.Drawing.Size(75, 23);
-            this.aboutButton.TabIndex = 2;
-            this.aboutButton.Text = "About";
-            this.aboutButton.UseVisualStyleBackColor = true;
-            this.aboutButton.Click += new System.EventHandler(this.aboutButton_Click);
+            this.clipboardpasteBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.clipboardpasteBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.clipboardpasteBtn.Location = new System.Drawing.Point(767, 542);
+            this.clipboardpasteBtn.Name = "clipboardpasteBtn";
+            this.clipboardpasteBtn.Size = new System.Drawing.Size(156, 23);
+            this.clipboardpasteBtn.TabIndex = 42;
+            this.clipboardpasteBtn.Text = "Paste from Clipboard";
+            this.clipboardpasteBtn.UseVisualStyleBackColor = true;
             // 
-            // pasteFromClipboardButton
+            // addthreadBtn
             // 
-            this.pasteFromClipboardButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.pasteFromClipboardButton.Location = new System.Drawing.Point(787, 40);
-            this.pasteFromClipboardButton.Margin = new System.Windows.Forms.Padding(9);
-            this.pasteFromClipboardButton.Name = "pasteFromClipboardButton";
-            this.pasteFromClipboardButton.Size = new System.Drawing.Size(131, 23);
-            this.pasteFromClipboardButton.TabIndex = 1;
-            this.pasteFromClipboardButton.Text = "Paste from Clipboard";
-            this.pasteFromClipboardButton.UseVisualStyleBackColor = true;
-            this.pasteFromClipboardButton.Click += new System.EventHandler(this.pasteFromClipboardButton_Click);
+            this.addthreadBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.addthreadBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.addthreadBtn.Location = new System.Drawing.Point(767, 513);
+            this.addthreadBtn.Name = "addthreadBtn";
+            this.addthreadBtn.Size = new System.Drawing.Size(156, 23);
+            this.addthreadBtn.TabIndex = 43;
+            this.addthreadBtn.Text = "Submit";
+            this.addthreadBtn.UseVisualStyleBackColor = true;
+            this.addthreadBtn.Click += new System.EventHandler(this.addthreadBtn_Click);
             // 
-            // addThreadButton
+            // threadTxt
             // 
-            this.addThreadButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.addThreadButton.Location = new System.Drawing.Point(843, 10);
-            this.addThreadButton.Margin = new System.Windows.Forms.Padding(9);
-            this.addThreadButton.Name = "addThreadButton";
-            this.addThreadButton.Size = new System.Drawing.Size(75, 23);
-            this.addThreadButton.TabIndex = 0;
-            this.addThreadButton.Text = "Add Thread";
-            this.addThreadButton.UseVisualStyleBackColor = true;
-            this.addThreadButton.Click += new System.EventHandler(this.addThreadButton_Click);
+            this.threadTxt.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.threadTxt.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.threadTxt.Location = new System.Drawing.Point(110, 514);
+            this.threadTxt.Name = "threadTxt";
+            this.threadTxt.Size = new System.Drawing.Size(651, 20);
+            this.threadTxt.TabIndex = 44;
             // 
-            // panel4
+            // label6
             // 
-            this.panel4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel4.Controls.Add(this.tableLayoutPanel2);
-            this.panel4.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel4.Location = new System.Drawing.Point(3, 3);
-            this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(929, 238);
-            this.panel4.TabIndex = 14;
+            this.label6.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.label6.AutoSize = true;
+            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label6.Location = new System.Drawing.Point(26, 516);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(62, 13);
+            this.label6.TabIndex = 45;
+            this.label6.Text = "Add thread:";
             // 
-            // tableLayoutPanel2
+            // statisticsBtn
             // 
-            this.tableLayoutPanel2.ColumnCount = 1;
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel2.Controls.Add(this.panel1, 0, 1);
-            this.tableLayoutPanel2.Controls.Add(this.BoardDataGrid, 0, 0);
-            this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel2.Location = new System.Drawing.Point(0, 0);
-            this.tableLayoutPanel2.Name = "tableLayoutPanel2";
-            this.tableLayoutPanel2.RowCount = 2;
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 47F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(927, 236);
-            this.tableLayoutPanel2.TabIndex = 13;
+            this.statisticsBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.statisticsBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.statisticsBtn.Location = new System.Drawing.Point(12, 542);
+            this.statisticsBtn.Name = "statisticsBtn";
+            this.statisticsBtn.Size = new System.Drawing.Size(103, 23);
+            this.statisticsBtn.TabIndex = 46;
+            this.statisticsBtn.Text = "Statistics";
+            this.statisticsBtn.UseVisualStyleBackColor = true;
             // 
-            // panel1
+            // aboutBtn
             // 
-            this.panel1.Controls.Add(this.removeDeadAndCompletedButton);
-            this.panel1.Controls.Add(this.stopAndRemoveSelectedButton);
-            this.panel1.Controls.Add(this.openFolderButton);
-            this.panel1.Controls.Add(this.stopSelectedButton);
-            this.panel1.Controls.Add(this.selectAllButton);
-            this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel1.Location = new System.Drawing.Point(3, 192);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(921, 41);
-            this.panel1.TabIndex = 4;
+            this.aboutBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.aboutBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.aboutBtn.Location = new System.Drawing.Point(121, 542);
+            this.aboutBtn.Name = "aboutBtn";
+            this.aboutBtn.Size = new System.Drawing.Size(79, 23);
+            this.aboutBtn.TabIndex = 47;
+            this.aboutBtn.Text = "About";
+            this.aboutBtn.UseVisualStyleBackColor = true;
             // 
-            // BoardDataGrid
+            // boardDataGrid
             // 
-            this.BoardDataGrid.AllowUserToAddRows = false;
-            this.BoardDataGrid.AllowUserToDeleteRows = false;
-            this.BoardDataGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.BoardDataGrid.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.col_ID,
-            this.col_Subject,
-            this.col_Site,
-            this.col_Board,
-            this.col_Thread,
-            this.col_ImgTotal,
-            this.col_ImgDownloaded,
-            this.col_Status});
-            this.BoardDataGrid.Cursor = System.Windows.Forms.Cursors.Default;
-            this.BoardDataGrid.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.BoardDataGrid.Location = new System.Drawing.Point(3, 3);
-            this.BoardDataGrid.Name = "BoardDataGrid";
-            this.BoardDataGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.BoardDataGrid.Size = new System.Drawing.Size(921, 183);
-            this.BoardDataGrid.TabIndex = 5;
+            this.boardDataGrid.AllowUserToAddRows = false;
+            this.boardDataGrid.AllowUserToDeleteRows = false;
+            this.boardDataGrid.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.boardDataGrid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.boardDataGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.boardDataGrid.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.Column1,
+            this.Column2,
+            this.Column3,
+            this.Column4,
+            this.Column5,
+            this.Column6,
+            this.Column7,
+            this.Column8});
+            this.boardDataGrid.Location = new System.Drawing.Point(12, 12);
+            this.boardDataGrid.Name = "boardDataGrid";
+            this.boardDataGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.boardDataGrid.Size = new System.Drawing.Size(911, 194);
+            this.boardDataGrid.TabIndex = 48;
             // 
-            // col_ID
+            // Column1
             // 
-            this.col_ID.HeaderText = "ID";
-            this.col_ID.Name = "col_ID";
+            this.Column1.HeaderText = "ID";
+            this.Column1.Name = "Column1";
             // 
-            // col_Subject
+            // Column2
             // 
-            this.col_Subject.HeaderText = "Subject";
-            this.col_Subject.Name = "col_Subject";
+            this.Column2.HeaderText = "Subject";
+            this.Column2.Name = "Column2";
             // 
-            // col_Site
+            // Column3
             // 
-            this.col_Site.HeaderText = "Site";
-            this.col_Site.Name = "col_Site";
+            this.Column3.HeaderText = "Site";
+            this.Column3.Name = "Column3";
             // 
-            // col_Board
+            // Column4
             // 
-            this.col_Board.HeaderText = "Board";
-            this.col_Board.Name = "col_Board";
+            this.Column4.HeaderText = "Board";
+            this.Column4.Name = "Column4";
             // 
-            // col_Thread
+            // Column5
             // 
-            this.col_Thread.HeaderText = "Thread";
-            this.col_Thread.Name = "col_Thread";
+            this.Column5.HeaderText = "Thread";
+            this.Column5.Name = "Column5";
             // 
-            // col_ImgTotal
+            // Column6
             // 
-            this.col_ImgTotal.HeaderText = "Img: Count";
-            this.col_ImgTotal.Name = "col_ImgTotal";
+            this.Column6.HeaderText = "Img: Count";
+            this.Column6.Name = "Column6";
             // 
-            // col_ImgDownloaded
+            // Column7
             // 
-            this.col_ImgDownloaded.HeaderText = "Img: Downloaded";
-            this.col_ImgDownloaded.Name = "col_ImgDownloaded";
+            this.Column7.HeaderText = "Img: Downloaded";
+            this.Column7.Name = "Column7";
             // 
-            // col_Status
+            // Column8
             // 
-            this.col_Status.HeaderText = "Status";
-            this.col_Status.Name = "col_Status";
-            // 
-            // configButton
-            // 
-            this.configButton.Location = new System.Drawing.Point(195, 42);
-            this.configButton.Margin = new System.Windows.Forms.Padding(9);
-            this.configButton.Name = "configButton";
-            this.configButton.Size = new System.Drawing.Size(75, 23);
-            this.configButton.TabIndex = 11;
-            this.configButton.Text = "Config";
-            this.configButton.UseVisualStyleBackColor = true;
+            this.Column8.HeaderText = "Status";
+            this.Column8.Name = "Column8";
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(935, 538);
-            this.Controls.Add(this.tableLayoutPanel1);
+            this.ClientSize = new System.Drawing.Size(935, 572);
+            this.Controls.Add(this.boardDataGrid);
+            this.Controls.Add(this.aboutBtn);
+            this.Controls.Add(this.statisticsBtn);
+            this.Controls.Add(this.label6);
+            this.Controls.Add(this.threadTxt);
+            this.Controls.Add(this.addthreadBtn);
+            this.Controls.Add(this.clipboardpasteBtn);
+            this.Controls.Add(this.selectBtn);
+            this.Controls.Add(this.folderTxt);
+            this.Controls.Add(this.label5);
+            this.Controls.Add(this.panel1);
+            this.Controls.Add(this.selectallBtn);
+            this.Controls.Add(this.removedeadBtn);
+            this.Controls.Add(this.openfolderBtm);
+            this.Controls.Add(this.label4);
+            this.DoubleBuffered = true;
             this.MinimumSize = new System.Drawing.Size(16, 461);
             this.Name = "MainForm";
             this.Text = "BoardHoard v0.0.1";
             this.Load += new System.EventHandler(this.MainForm_Load);
-            this.panel2.ResumeLayout(false);
-            this.panel2.PerformLayout();
-            this.tableLayoutPanel1.ResumeLayout(false);
-            this.panel3.ResumeLayout(false);
-            this.panel3.PerformLayout();
-            this.panel4.ResumeLayout(false);
-            this.tableLayoutPanel2.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.BoardDataGrid)).EndInit();
+            this.panel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.boardDataGrid)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
         #endregion
 
-        private System.Windows.Forms.Button removeDeadAndCompletedButton;
-        private System.Windows.Forms.Button stopAndRemoveSelectedButton;
-        private System.Windows.Forms.Button stopSelectedButton;
-        private System.Windows.Forms.Button selectAllButton;
-        private System.Windows.Forms.Button openFolderButton;
-        private System.Windows.Forms.Panel panel2;
-        private System.Windows.Forms.Button applyToAllButton;
-        private System.Windows.Forms.Button applyToSelectedButton;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.CheckBox verifyImageHashesCheckBox;
-        private System.Windows.Forms.CheckBox checkIntervalCheckBox;
-        private System.Windows.Forms.ComboBox checkIntervalComboBox;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.CheckBox downloadVideosCheckBox;
-        private System.Windows.Forms.CheckBox downloadImagesCheckBox;
-        private System.Windows.Forms.CheckBox downloadThreadPageCheckBox;
-        private System.Windows.Forms.CheckBox downloadThumbnailsCheckBox;
-        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Button openfolderBtm;
+        private System.Windows.Forms.Button removedeadBtn;
+        private System.Windows.Forms.Button selectallBtn;
         private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.Panel panel3;
-        private System.Windows.Forms.TextBox threadUrlTextBox;
-        private System.Windows.Forms.Button statisticsButton;
-        private System.Windows.Forms.Button aboutButton;
-        private System.Windows.Forms.Button pasteFromClipboardButton;
-        private System.Windows.Forms.Button addThreadButton;
-        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
-        private System.Windows.Forms.Panel panel4;
-        private System.Windows.Forms.DataGridView BoardDataGrid;
-        private System.Windows.Forms.DataGridViewTextBoxColumn col_ID;
-        private System.Windows.Forms.DataGridViewTextBoxColumn col_Subject;
-        private System.Windows.Forms.DataGridViewTextBoxColumn col_Site;
-        private System.Windows.Forms.DataGridViewTextBoxColumn col_Board;
-        private System.Windows.Forms.DataGridViewTextBoxColumn col_Thread;
-        private System.Windows.Forms.DataGridViewTextBoxColumn col_ImgTotal;
-        private System.Windows.Forms.DataGridViewTextBoxColumn col_ImgDownloaded;
-        private System.Windows.Forms.DataGridViewTextBoxColumn col_Status;
-        private System.Windows.Forms.Button configButton;
+        private System.Windows.Forms.CheckBox hashesChk;
+        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.CheckBox continuousChk;
+        private System.Windows.Forms.CheckBox deathalertChk;
+        private System.Windows.Forms.CheckBox separatefolderChk;
+        private System.Windows.Forms.CheckBox thumbnailChk;
+        private System.Windows.Forms.CheckBox htmlChk;
+        private System.Windows.Forms.CheckBox webmChk;
+        private System.Windows.Forms.CheckBox imagesChk;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.TextBox folderTxt;
+        private System.Windows.Forms.Button selectBtn;
+        private System.Windows.Forms.Button clipboardpasteBtn;
+        private System.Windows.Forms.Button addthreadBtn;
+        private System.Windows.Forms.TextBox threadTxt;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Button statisticsBtn;
+        private System.Windows.Forms.Button aboutBtn;
+        private System.Windows.Forms.Button defaultBtn;
+        private System.Windows.Forms.CheckBox deadclearChk;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column3;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column4;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column5;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column6;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column7;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column8;
+        public BufferedDataGridView boardDataGrid;
+
+
 
 
     }

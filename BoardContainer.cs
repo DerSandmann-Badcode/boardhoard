@@ -6,6 +6,7 @@ using System.Xml;
 using System.Threading;
 using System.Windows.Forms;
 using System.Xml.Linq;
+using System.Diagnostics;
 
 namespace BoardHoard
 {
@@ -16,12 +17,15 @@ namespace BoardHoard
 
         public static void Load()
         {
+            
+            Stopwatch watch = new Stopwatch();
+            watch.Start();
+
             if (System.IO.File.Exists("boards.xml") == false)
             {
                 //MessageBox.Show("Config not found!");
                 return;
             }
-
 
             XmlDocument Doc = new XmlDocument();
             Doc.Load("boards.xml");
@@ -50,7 +54,8 @@ namespace BoardHoard
                 Add(ImportBoard);
             }
 
-
+            watch.Stop();
+            Debug.Print("Loading took " + watch.Elapsed.TotalMilliseconds.ToString());
         }
 
         public static void Save()

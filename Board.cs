@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Net;
 using System.Collections.Generic;
+using System.Diagnostics;
 
 
 namespace BoardHoard
@@ -50,6 +51,8 @@ namespace BoardHoard
 
         public void Download()
         {
+            Stopwatch watch = new Stopwatch();
+            watch.Start();
             
             if (Status == 0)
             {
@@ -158,7 +161,7 @@ namespace BoardHoard
                                 }
                                 catch (Exception ex)
                                 {
-                                    System.Diagnostics.Debug.WriteLine(ex.Message);
+                                    Debug.WriteLine(ex.Message);
                                 }
                             } // stop using webclient
 
@@ -194,7 +197,7 @@ namespace BoardHoard
                                 }
                                 catch (Exception ex)
                                 {
-                                    System.Diagnostics.Debug.WriteLine(ex.Message);
+                                    Debug.WriteLine(ex.Message);
                                 }
                             } // stop using webclient
 
@@ -215,15 +218,20 @@ namespace BoardHoard
                             Status = 3;
                         }
                     }
-                    System.Diagnostics.Debug.WriteLine(ex.Message);
+                    Debug.WriteLine(ex.Message);
                 }
 
                 Status = 0;
             } // end status check if running
+
+            
+            watch.Stop();
+            Debug.Print("Download took " + watch.Elapsed.TotalMilliseconds.ToString());
         }
 
         public static void Stop(int Board_ID)
         {
+            
             foreach (Board b in BoardContainer.Boards)
             {
                 if (b.ID == Board_ID)

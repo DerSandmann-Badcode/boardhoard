@@ -2,6 +2,7 @@
 using System.Windows.Forms;
 using System.Collections.Generic;
 using System.Threading;
+using System.Drawing;
 
 namespace BoardHoard
 {
@@ -17,31 +18,19 @@ namespace BoardHoard
 
         private void selectAllButton_Click(object sender, EventArgs e)
         {
-            BoardDataGrid.SelectAll();
-        }
-
-        private void addThreadButton_Click(object sender, EventArgs e)
-        {
-            Board NewBoard = new Board();
-            NewBoard.Download_HTML = downloadThreadPageCheckBox.ThreeState;
-            NewBoard.Download_Images = downloadImagesCheckBox.ThreeState;
-            NewBoard.Download_Thumnails = downloadThumbnailsCheckBox.ThreeState;
-            NewBoard.URL = threadUrlTextBox.Text;
-
-            BoardContainer.Add_Download(NewBoard);
-            threadUrlTextBox.Clear();
-
+            boardDataGrid.SelectAll();
         }
 
         private void MainForm_Load(object sender, EventArgs e)
         {
             UserConfig.Load();
-            //Setup_Delgates();
             //Set up a new board container to contain our boards
             AppDomain.CurrentDomain.ProcessExit += new EventHandler(OnProcessExit); 
             BoardContainer.Boards = new List<Board>();
 
-            BoardContainer.Load();
+            Thread CTestingThread = new Thread(new ThreadStart(BoardContainer.Load));
+            CTestingThread.IsBackground = true;
+            CTestingThread.Start();
 
             Thread ATestingThread = new Thread(new ThreadStart(DatagridLoop));
             ATestingThread.IsBackground = true;
@@ -50,7 +39,6 @@ namespace BoardHoard
             Thread BTestingThread = new Thread(new ThreadStart(BoardContainer.DownloadThread));
             BTestingThread.IsBackground = true;
             BTestingThread.Start();
-
 
         }
 
@@ -73,25 +61,6 @@ namespace BoardHoard
             
         }
 
-        private void stopSelectedButton_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void stopAndRemoveSelectedButton_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void openFolderButton_Click(object sender, EventArgs e)
-        {
-            foreach (DataGridViewRow Row in BoardDataGrid.SelectedRows)
-            {
-                Board.Open_Folder(Convert.ToString(Row.Cells[2].Value), Convert.ToString(Row.Cells[3].Value), Convert.ToString(Row.Cells[4].Value));
-            }
-                
-        }
-
 
         static void OnProcessExit (object sender, EventArgs e)
         {
@@ -105,15 +74,26 @@ namespace BoardHoard
 
         #region UI Callbacks for Program
         // This is where I plan to include classes that require UI objects to function
+
+        private void UI_Execute(Action a)
+        {
+            if (InvokeRequired)
+                BeginInvoke(a);
+            else
+                a();
+        }
+
         
+
         public void DGV_Add(string[] Data)
         {
-            BoardDataGrid.Rows.Add(Data);
+            boardDataGrid.Rows.Add(Data);
         }
 
         public void DGV_Update(string[] Data)
         {
-            foreach (DataGridViewRow row in BoardDataGrid.Rows)
+            
+            foreach (DataGridViewRow row in boardDataGrid.Rows)
             {
                 if ((string)row.Cells[0].Value == Data[0])
                 {
@@ -131,6 +111,7 @@ namespace BoardHoard
 
         public void Datagrid_Refresh()
         {
+            
             List<Board> DisplayedBoards = BoardContainer.Boards;
             foreach (Board Board in DisplayedBoards)
             {
@@ -152,7 +133,7 @@ namespace BoardHoard
                         }
 
                 Boolean Found = false;
-                foreach (DataGridViewRow Row in BoardDataGrid.Rows)
+                foreach (DataGridViewRow Row in boardDataGrid.Rows)
                 {
                     if (Convert.ToUInt32(Row.Cells[0].Value) == Board.ID)
                     {
@@ -167,6 +148,7 @@ namespace BoardHoard
                                                             StatusText };
                         try
                         {
+
                             this.Invoke((MethodInvoker)delegate
                             {
                                 DGV_Update(UpdateRow);
@@ -175,7 +157,7 @@ namespace BoardHoard
                         }
                         catch (Exception ex)
                         {
-
+                            
                         }
 
                     } // End check if we found the board earlier
@@ -197,7 +179,7 @@ namespace BoardHoard
                         //string newText = "abc"; // running on worker thread
                         this.Invoke((MethodInvoker)delegate
                         {
-                            BoardDataGrid.Rows.Add(NewRow); // runs on UI thread
+                            boardDataGrid.Rows.Add(NewRow); // runs on UI thread
                         });
 
                         //Invoke(Del_Add_DGV, new object[] { NewRow });
@@ -209,14 +191,17 @@ namespace BoardHoard
                 }
 
             } // End for each board
-
+            
         }
 
         public void DatagridLoop()
         {
             do
             {
+
                 Datagrid_Refresh();
+                
+
                 Thread.Sleep(100);
             } while (true);
             
@@ -224,9 +209,49 @@ namespace BoardHoard
 
         #endregion
 
+        private void openfolderBtm_Click(object sender, EventArgs e)
+        {
+            foreach (DataGridViewRow Row in boardDataGrid.SelectedRows)
+            {
+                Board.Open_Folder(Convert.ToString(Row.Cells[2].Value), Convert.ToString(Row.Cells[3].Value), Convert.ToString(Row.Cells[4].Value));
+            }
+        }
 
+        private void addthreadBtn_Click(object sender, EventArgs e)
+        {
+            Board NewBoard = new Board();
+            NewBoard.Download_HTML = htmlChk.ThreeState;
+            NewBoard.Download_Images = imagesChk.ThreeState;
+            NewBoard.Download_Thumnails = thumbnailChk.ThreeState;
+            NewBoard.URL = threadTxt.Text;
 
+            BoardContainer.Add_Download(NewBoard);
+            threadTxt.Clear();
+        }
 
+        private void removedeadBtn_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void stopBtn_Click(object sender, EventArgs e)
+        {
+            foreach (DataGridViewRow Row in boardDataGrid.SelectedRows)
+            {
+                foreach (Board b in BoardContainer.Boards)
+                {
+                    if (b.ID == Convert.ToInt32(Row.Cells[0].Value))
+                    {
+                        b.Status = 2;
+                    }
+                }
+            }
+        }
+
+        private void selectallBtn_Click(object sender, EventArgs e)
+        {
+            boardDataGrid.SelectAll();
+        }
 
     }
 
