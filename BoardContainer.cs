@@ -7,187 +7,73 @@ using System.Threading;
 using System.Windows.Forms;
 using System.Xml.Linq;
 using System.Diagnostics;
+using System.Xml.Serialization;
+using System.IO;
+using System.Net;
 
 namespace BoardHoard
 {
-    class BoardContainer
+    [XmlRootAttribute("BoardContainer", Namespace = "BoardHoard")]
+
+    public class BoardContainer
     {
+        private SiteConfig Websites = new SiteConfig();
+        public List<Board> Boards = new List<Board>();
+        public int Refresh_Delay = 120000;
+        public string FolderLocation = Directory.GetCurrentDirectory() + @"\Downloaded_Boards\";
+        public bool DownloadImages = false;
+        public bool DownloadThumbnails = false;
+        public bool DownloadHTML = false;
+        public bool DownloadWebMs = false;
+        public bool AnimatedFolder = false;
+        public bool VerifyHashes = false;
+        public bool ClearDead = false;
+        public bool AlertDeath = false;
+        public bool ConstantRefresh = true;
 
-        public static List<Board> Boards;
+        public static BoardContainer Load()
+        {
+            BoardContainer LoadedContainer = new BoardContainer();
 
-        public static void Load()
+            if (File.Exists("BoardContainer.xml"))
+            {
+                XmlSerializer serializer = new XmlSerializer(typeof(BoardContainer));
+
+                using (FileStream fs =  new FileStream("BoardContainer.xml", FileMode.Open))
+                {
+                    LoadedContainer = (BoardContainer)serializer.Deserialize(fs);
+                }
+            }
+
+            return LoadedContainer;
+        }
+
+        public void Save()
+        {
+            XmlSerializer serializer = new XmlSerializer(typeof(BoardContainer));
+
+            using (TextWriter SaveWriter = new StreamWriter("BoardContainer.xml"))
+            {
+                serializer.Serialize(SaveWriter, this);
+            }
+
+        }
+
+        public void LoadConfig()
+        {
+                this.Websites = SiteConfig.Load();
+        }
+
+        public void Add(Board b)
         {
             
-            Stopwatch watch = new Stopwatch();
-            watch.Start();
-
-            if (System.IO.File.Exists("boards.xml") == false)
-            {
-                //MessageBox.Show("Config not found!");
-                return;
-            }
-
-            XmlDocument Doc = new XmlDocument();
-            Doc.Load("boards.xml");
-
-            XmlNodeList Boardlist = Doc.GetElementsByTagName("board");
-
-            foreach (XmlElement XmlBoard in Boardlist)
-            {
-                Board ImportBoard = new Board();
-                ImportBoard.URL = XmlBoard["url"].InnerText;
-                ImportBoard.Thread = Convert.ToInt32(XmlBoard["thread"].InnerText);
-                ImportBoard.Subject = XmlBoard["subject"].InnerText;
-                ImportBoard.Site = XmlBoard["site"].InnerText;
-                ImportBoard.Name = XmlBoard["name"].InnerText;
-                ImportBoard.ImgDownloaded = Convert.ToInt32(XmlBoard["download_count"].InnerText);
-                ImportBoard.ImgCount = Convert.ToInt32(XmlBoard["image_total"].InnerText);
-                ImportBoard.Status = Convert.ToInt32(XmlBoard["status"].InnerText);
-                ImportBoard.Download_HTML = Convert.ToBoolean(XmlBoard["download_html"].InnerText);
-                ImportBoard.Download_Thumnails = Convert.ToBoolean(XmlBoard["download_thumbs"].InnerText);
-                ImportBoard.Download_Images = Convert.ToBoolean(XmlBoard["download_images"].InnerText);
-                ImportBoard.Download_WebMs = Convert.ToBoolean(XmlBoard["download_webms"].InnerText);
-                ImportBoard.AnimatedFolder = Convert.ToBoolean(XmlBoard["animated_separate"].InnerText);
-                ImportBoard.Alerts_Death = Convert.ToBoolean(XmlBoard["thread_death_notify"].InnerText);
-                ImportBoard.Alerts_Download = Convert.ToBoolean(XmlBoard["thread_download_notify"].InnerText);
-
-                Add(ImportBoard);
-            }
-
-            watch.Stop();
-            Debug.Print("Loading took " + watch.Elapsed.TotalMilliseconds.ToString());
-        }
-
-        public static void Save()
-        {
-            // Set indents on for easy reading
-            XmlWriterSettings BoardSettings = new XmlWriterSettings();
-            BoardSettings.Indent = true;
-
-            // Set path for the XML Board file
-            XmlWriter SaveWriter = XmlWriter.Create("boards.xml", BoardSettings);
-
-            // Write the start of the XML document
-            SaveWriter.WriteStartDocument();
-
-            // Leave a comment so we know what the file is
-            SaveWriter.WriteComment("Saved Boards");
-
-            //Start the boards XML section
-            SaveWriter.WriteStartElement("boards");
-
-            List<Board> SavedBoards = BoardContainer.Boards;
-            foreach (Board savedBoard in SavedBoards)
-            {
-                // Start each individual board
-                SaveWriter.WriteStartElement("board");
-
-                // Write status, include a comment detailing what the status is
-                SaveWriter.WriteComment("Status: 0 = Idle, 2 = Stopped, 3 = Dead");
-                SaveWriter.WriteStartElement("status");
-                if (savedBoard.Status == 1)
-                {
-                    savedBoard.Status = 0;
-                }
-                SaveWriter.WriteString(Convert.ToString(savedBoard.Status));
-                SaveWriter.WriteEndElement();
-
-                // URL for the board that we saved
-                SaveWriter.WriteStartElement("url");
-                SaveWriter.WriteString(savedBoard.URL);
-                SaveWriter.WriteEndElement();
-
-                // Thread for the board that we saved
-                SaveWriter.WriteStartElement("thread");
-                SaveWriter.WriteString(Convert.ToString(savedBoard.Thread));
-                SaveWriter.WriteEndElement();
-
-                // Subject for the board that we saved
-                SaveWriter.WriteStartElement("subject");
-                SaveWriter.WriteString(savedBoard.Subject);
-                SaveWriter.WriteEndElement();
-
-                // Site for the board that we saved
-                SaveWriter.WriteStartElement("site");
-                SaveWriter.WriteString(savedBoard.Site);
-                SaveWriter.WriteEndElement();
-
-                // Name for the board that we saved
-                SaveWriter.WriteStartElement("name");
-                SaveWriter.WriteString(savedBoard.Name);
-                SaveWriter.WriteEndElement();
-
-                // How many images have we downloaded
-                SaveWriter.WriteStartElement("download_count");
-                SaveWriter.WriteString(Convert.ToString(savedBoard.ImgDownloaded));
-                SaveWriter.WriteEndElement();
-
-                // How many images did the thread have
-                SaveWriter.WriteStartElement("image_total");
-                SaveWriter.WriteString(Convert.ToString(savedBoard.ImgCount));
-                SaveWriter.WriteEndElement();
-
-                // Config for the thread-Mainly booleans
-                SaveWriter.WriteComment("Thread config");
-
-                // Boolean to download HTML, True = Download, False = No Download
-                SaveWriter.WriteStartElement("download_html");
-                SaveWriter.WriteString(Convert.ToString(savedBoard.Download_HTML));
-                SaveWriter.WriteEndElement();
-
-                // Boolean to Download Thumbnails, True = Download, False = No Download
-                SaveWriter.WriteStartElement("download_thumbs");
-                SaveWriter.WriteString(Convert.ToString(savedBoard.Download_Thumnails));
-                SaveWriter.WriteEndElement();
-
-                // Boolean to download images, True = Download, False = No Download
-                SaveWriter.WriteStartElement("download_images");
-                SaveWriter.WriteString(Convert.ToString(savedBoard.Download_Images));
-                SaveWriter.WriteEndElement();
-
-                // Boolean to download .webm videos, True = Download, False = No Download
-                SaveWriter.WriteStartElement("download_webms");
-                SaveWriter.WriteString(Convert.ToString(savedBoard.Download_WebMs));
-                SaveWriter.WriteEndElement();
-
-                // Boolean to send .gifs and .Webms to a different folder
-                SaveWriter.WriteStartElement("animated_separate");
-                SaveWriter.WriteString(Convert.ToString(savedBoard.AnimatedFolder));
-                SaveWriter.WriteEndElement();
-
-                // Boolean to notify the user when something gets downloaded
-                SaveWriter.WriteStartElement("thread_death_notify");
-                SaveWriter.WriteString(Convert.ToString(savedBoard.Alerts_Death));
-                SaveWriter.WriteEndElement();
-
-                // Boolean to notify the user when something gets downloaded
-                SaveWriter.WriteStartElement("thread_download_notify");
-                SaveWriter.WriteString(Convert.ToString(savedBoard.Alerts_Download));
-                SaveWriter.WriteEndElement();
-
-                //SaveWriter.WriteStartElement("date_last_download");
-                //SaveWriter.WriteString(savedBoard.LastDownload);
-                //SaveWriter.WriteEndElement();
-
-                // Write the end of the board segment
-                SaveWriter.WriteEndElement();
-            }
-
-            SaveWriter.WriteEndElement();
-            SaveWriter.WriteEndDocument();
-            SaveWriter.Close();
-
-        }
-
-        public static void Add(Board b)
-        {
             if (b.URL == "")
             {
                 MessageBox.Show("Thread string is empty!");
                 return;
             }
 
-            List<Board> ExistingBoards = BoardContainer.Boards;
+            List<Board> ExistingBoards = this.Boards;
             foreach (Board board in ExistingBoards)
             {
                 if (b.URL == board.URL)
@@ -211,51 +97,43 @@ namespace BoardHoard
 
             Uri Board_Uri = new Uri(b.URL);
 
-            if (System.IO.File.Exists("Board_Config.xml") == false)
+            SiteConfig Test = new SiteConfig();
+            Test = SiteConfig.Load();
+
+            foreach (Site Config in Test.Sites)
             {
-                MessageBox.Show("Could not find 'Board_Config.xml'!");
-                return;
+                if (Config.name == Board_Uri.Host)
+                {
+                    b.XPath_Subject = Config.subject;
+
+                    b.XPath_Thread = Config.thread;
+                    b.Tag_Thread = Config.thread_tag;
+
+                    b.XPath_Board = Config.board;
+                    b.Tag_Board = Config.board_tag;
+
+                    b.XPath_Image = Config.image;
+                    b.Tag_Image = Config.image_tag;
+
+                    b.XPath_Thumbnail = Config.thumb;
+                    b.Tag_Thumbnail = Config.thumb_tag;
+                }
             }
 
-            XElement Doc = XElement.Load("Board_Config.xml");
-
-            string t = Board_Uri.Host;
-            var Configs = from ConfigXML in Doc.Elements("site")
-                          where (string)ConfigXML.Element("name") == Board_Uri.Host
-                          select ConfigXML;
-
-            foreach (XElement BoardConfig in Configs)
-            {
-                b.XPath_Subject = BoardConfig.Element("subject").Value;
-
-                b.XPath_Thread = BoardConfig.Element("thread").Value;
-                b.Tag_Thread = BoardConfig.Element("thread_tag").Value;
-
-                b.XPath_Board = BoardConfig.Element("board").Value;
-                b.Tag_Board = BoardConfig.Element("board_tag").Value;
-
-                b.XPath_Image = BoardConfig.Element("image").Value;
-                b.Tag_Image = BoardConfig.Element("image_tag").Value;
-
-                b.XPath_Thumbnail = BoardConfig.Element("thumb").Value;
-                b.Tag_Thumbnail = BoardConfig.Element("thumb_tag").Value;
-            }
-
-
-            BoardContainer.Boards.Add(b);
-
-
+            this.Boards.Add(b);
+            this.Save();
         }
 
-        public static void Add_Download(Board b)
+        public void Add_Download(Board b)
         {
+
             if (b.URL == "")
             {
                 MessageBox.Show("Thread string is empty!");
                 return;
             }
 
-            List<Board> ExistingBoards = BoardContainer.Boards;
+            List<Board> ExistingBoards = this.Boards;
             foreach (Board board in ExistingBoards)
             {
                 if (b.URL == board.URL)
@@ -277,77 +155,272 @@ namespace BoardHoard
             //b.ID = BoardContainer.Boards.Count + 1;
             //b.URL = b.URL;
 
-            if (System.IO.File.Exists("Board_Config.xml") == false)
-            {
-                MessageBox.Show("Could not find 'Board_Config.xml'!");
-                return;
-            }
-
             Uri Board_Uri = new Uri(b.URL);
-            XElement Doc = XElement.Load("Board_Config.xml");
 
-            string t = Board_Uri.Host;
-            var Configs = from ConfigXML in Doc.Elements("site")
-                          where (string)ConfigXML.Element("name") == Board_Uri.Host
-                          select ConfigXML;
 
-            foreach (XElement BoardConfig in Configs)
+            SiteConfig Test = new SiteConfig();
+            Test = SiteConfig.Load();
+
+            foreach (Site Config in Test.Sites)
             {
-                b.XPath_Subject = BoardConfig.Element("subject").Value;
+                if (Config.name == Board_Uri.Host)
+                {
+                    b.XPath_Subject = Config.subject;
 
-                b.XPath_Thread = BoardConfig.Element("thread").Value;
-                b.Tag_Thread = BoardConfig.Element("thread_tag").Value;
+                    b.XPath_Thread = Config.thread;
+                    b.Tag_Thread = Config.thread_tag;
 
-                b.XPath_Board = BoardConfig.Element("board").Value;
-                b.Tag_Board = BoardConfig.Element("board_tag").Value;
+                    b.XPath_Board = Config.board;
+                    b.Tag_Board = Config.board_tag;
 
-                b.XPath_Image = BoardConfig.Element("image").Value;
-                b.Tag_Image = BoardConfig.Element("image_tag").Value;
+                    b.XPath_Image = Config.image;
+                    b.Tag_Image = Config.image_tag;
 
-                b.XPath_Thumbnail = BoardConfig.Element("thumb").Value;
-                b.Tag_Thumbnail = BoardConfig.Element("thumb_tag").Value;
+                    b.XPath_Thumbnail = Config.thumb;
+                    b.Tag_Thumbnail = Config.thumb_tag;
+
+                    break;
+                }
             }
 
 
-            BoardContainer.Boards.Add(b);
-            BoardContainer.Save();
+            this.Boards.Add(b);
+            this.Save();
             Download_Single(b);
-        }
-
-        public static void Remove(int id)
-        {
 
         }
 
-        static void Download_Single(Board b)
+        public void Download_Single(Board b)
         {
-            Thread DownloadThread = new Thread(new ThreadStart(b.Download));
+            Thread DownloadThread = new Thread(() => Download(b, this.FolderLocation));
             DownloadThread.IsBackground = true;
             DownloadThread.Start();
         }
         
-        static void Download_All()
+        public void Download_All()
         {
-            List<Board> DownloadingBoards = BoardContainer.Boards;
+           
+            List<Board> DownloadingBoards = this.Boards;
             foreach (Board b in DownloadingBoards)
             {
-                
-                Thread DownloadThread = new Thread(new ThreadStart(b.Download));
+                Thread DownloadThread = new Thread(() => Download(b, this.FolderLocation));
                 DownloadThread.IsBackground = true;
                 DownloadThread.Start();
-
             }
         }
 
-        public static void DownloadThread()
+        public void DownloadThread()
         {
             do
             {
-                Download_All();
-                Thread.Sleep(UserConfig.Refresh_Delay);
+                this.Download_All();
+                Thread.Sleep(this.Refresh_Delay);
             } while (true);
 
         }
 
+        public void Download(Board b, string location)
+        {
+            location = this.FolderLocation;
+            Stopwatch watch = new Stopwatch();
+            watch.Start();
+            
+            if (b.Status == 0)
+            {
+                b.Status = 1;
+
+                Uri BoardUri = new Uri(b.URL);
+                HttpWebRequest Request = (HttpWebRequest)HttpWebRequest.Create(b.URL);
+                Request.AllowReadStreamBuffering = false;
+                Request.UserAgent = "BoardHoard";
+
+                //try
+               // {
+                    WebResponse Response = Request.GetResponse();
+                    HtmlAgilityPack.HtmlDocument Document = new HtmlAgilityPack.HtmlDocument();
+
+                    Document.Load(Response.GetResponseStream());
+
+                    HtmlAgilityPack.HtmlNodeCollection DocNodes;
+
+                    b.Site = BoardUri.Host;
+
+                    if (b.XPath_Board == null || b.XPath_Board == "")
+                    {
+                        b.Name = BoardUri.LocalPath.Split(Convert.ToChar("/"))[1];
+
+                    }
+                    else
+                    {
+                        DocNodes = Document.DocumentNode.SelectNodes(b.XPath_Board);
+
+                        foreach (HtmlAgilityPack.HtmlNode Node in DocNodes)
+                        {
+                            b.Name = Node.GetAttributeValue(b.Tag_Board, "");
+                        }
+                    }
+
+                    DocNodes = Document.DocumentNode.SelectNodes(b.XPath_Subject);
+                    if (DocNodes != null)
+                    {
+                        b.Subject = DocNodes[0].InnerText;
+                    }
+
+                    DocNodes = Document.DocumentNode.SelectNodes(b.XPath_Thread);
+                    if (DocNodes != null)
+                    {
+                        b.Thread = Convert.ToInt32(System.Text.RegularExpressions.Regex.Replace(DocNodes[0].GetAttributeValue(b.Tag_Thread, ""), "\\D", ""));
+
+                    }
+
+                    string Folder = location;
+
+                    string DownloadPath = Folder + b.Site + "\\" + b.Name + "\\" + b.Thread + "\\";
+
+                    System.IO.Directory.CreateDirectory(Folder);
+                    System.IO.Directory.CreateDirectory(Folder + b.Site);
+                    System.IO.Directory.CreateDirectory(Folder + b.Site + "\\" + b.Name);
+                    System.IO.Directory.CreateDirectory(DownloadPath);
+
+                    if (b.Download_HTML == true)
+                    {
+                        var sources = Document.DocumentNode.Descendants("link");
+                        System.IO.Directory.CreateDirectory(DownloadPath + @"Site_Data\");
+
+                        foreach (HtmlAgilityPack.HtmlNode CSS_File in sources)
+                        {
+                            if (CSS_File.Attributes["href"].Value.Contains(".css"))
+                            {
+                                string testcss = "Http:" + CSS_File.Attributes["href"].Value;
+                                string newfile = DownloadPath + "Site_Data\\" + System.IO.Path.GetFileName(testcss);
+
+                                using (WebClient Client = new WebClient())
+                                {
+                                    try
+                                    {
+                                        Client.DownloadFile(testcss, newfile);
+                                    }
+                                    catch (Exception ex)
+                                    {
+
+                                    }
+                                }
+
+                                CSS_File.Attributes["href"].Value = newfile;
+                            }
+                        }
+                        
+                    }
+
+                    if (b.Download_Thumnails == true)
+                    {
+                        System.IO.Directory.CreateDirectory(DownloadPath + @"Thumbnails\");
+
+                        DocNodes = Document.DocumentNode.SelectNodes(b.XPath_Thumbnail);
+                        foreach (HtmlAgilityPack.HtmlNode Node in DocNodes)
+                        {
+                            string Thumbnail = Node.GetAttributeValue(b.Tag_Thumbnail, "");
+                            if (Thumbnail == string.Empty || System.IO.File.Exists(DownloadPath + System.IO.Path.GetFileName(Thumbnail)) == true)
+                            {
+                                continue;
+                            }
+
+                            using (WebClient Client = new WebClient())
+                            {
+                                try
+                                {
+                                    Uri UriThumbnail = new Uri(Thumbnail);
+                                    if (UriThumbnail.Scheme == "file")
+                                    {
+                                        Thumbnail = BoardUri.Scheme + ":" + Thumbnail;
+                                    }
+
+                                    Client.DownloadFile(Thumbnail, DownloadPath + @"Thumbnails\" + System.IO.Path.GetFileName(Thumbnail));
+
+                                }
+                                catch (Exception ex)
+                                {
+                                    Debug.WriteLine(ex.Message);
+                                }
+                            } // stop using webclient
+
+                        } //end foreach loop
+
+                    } // end checking if we want to download thumbnails
+
+                    
+                        DocNodes = Document.DocumentNode.SelectNodes(b.XPath_Image);
+                        b.ImgCount = DocNodes.Count;
+                        foreach (HtmlAgilityPack.HtmlNode Node in DocNodes)
+                        {
+                            string Image = Node.GetAttributeValue(b.Tag_Image, "");
+                            if (Image == string.Empty || System.IO.File.Exists(DownloadPath + System.IO.Path.GetFileName(Image)) == true)
+                            {
+                                continue;
+                            }
+
+                            using (WebClient Client = new WebClient())
+                            {
+                                try
+                                {
+                                    Uri UriThumbnail = new Uri(Image);
+                                    if (UriThumbnail.Scheme == "file")
+                                    {
+                                        Image = BoardUri.Scheme + ":" + Image;
+                                    }
+
+                                    if (b.Download_Images == true)
+                                    {
+                                        Client.DownloadFile(Image, DownloadPath + System.IO.Path.GetFileName(Image));
+                                        b.ImgDownloaded += 1;
+                                    }
+                                    
+
+                                }
+                                catch (Exception ex)
+                                {
+                                    Debug.WriteLine(ex.Message);
+                                    Debug.WriteLine(Image);
+                                }
+                            } // stop using webclient
+
+                        } //end foreach loop
+
+                    if (b.Download_HTML == true)
+                    {
+                        Document.Save(DownloadPath + b.Thread + ".html");
+                    }
+
+                     // end checking if we want to download images
+
+                //}
+                    /*
+                catch (WebException ex)
+                {
+
+                    if (ex.Status == WebExceptionStatus.ProtocolError & ex.Response != null)
+                    {
+                        HttpWebResponse Resp = (HttpWebResponse)ex.Response;
+                        if (Resp.StatusCode == HttpStatusCode.NotFound)
+                        {
+                            b.Status = 3;
+                        }
+                    }
+                    Debug.WriteLine(ex.Message);
+                }*/
+
+                b.Status = 0;
+            } // end status check if running
+
+            
+            watch.Stop();
+            Debug.Print("Download took " + watch.Elapsed.TotalMilliseconds.ToString());
+        }
+        
+        public void Open_Folder(string site, string board, string thread)
+        {
+            Process.Start("explorer.exe", this.FolderLocation + site + @"\" + board + @"\" + thread + @"\");
+        }
     }
+
 }

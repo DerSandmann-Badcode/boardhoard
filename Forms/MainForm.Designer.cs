@@ -64,6 +64,7 @@
             this.Column6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column8 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.FolderDialog = new System.Windows.Forms.FolderBrowserDialog();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.boardDataGrid)).BeginInit();
             this.SuspendLayout();
@@ -148,6 +149,7 @@
             this.deadclearChk.TabIndex = 59;
             this.deadclearChk.Text = "Clear out dead thread entries immediately";
             this.deadclearChk.UseVisualStyleBackColor = true;
+            this.deadclearChk.CheckedChanged += new System.EventHandler(this.deadclearChk_CheckedChanged);
             // 
             // defaultBtn
             // 
@@ -170,6 +172,7 @@
             this.hashesChk.TabIndex = 57;
             this.hashesChk.Text = "Verify Image Hashes";
             this.hashesChk.UseVisualStyleBackColor = true;
+            this.hashesChk.CheckedChanged += new System.EventHandler(this.hashesChk_CheckedChanged);
             // 
             // comboBox1
             // 
@@ -181,11 +184,18 @@
             "1 Hour"});
             this.comboBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.comboBox1.FormattingEnabled = true;
+            this.comboBox1.Items.AddRange(new object[] {
+            "30 Seconds",
+            "1 Minute",
+            "2 Minutes",
+            "5 Minutes",
+            "30 Minutes",
+            "1 Hour"});
             this.comboBox1.Location = new System.Drawing.Point(168, 169);
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(132, 21);
             this.comboBox1.TabIndex = 56;
-            this.comboBox1.Text = "1 Minute";
+            this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
             // 
             // label3
             // 
@@ -207,6 +217,7 @@
             this.continuousChk.TabIndex = 54;
             this.continuousChk.Text = "Continuous Checking";
             this.continuousChk.UseVisualStyleBackColor = true;
+            this.continuousChk.CheckedChanged += new System.EventHandler(this.continuousChk_CheckedChanged);
             // 
             // deathalertChk
             // 
@@ -218,6 +229,7 @@
             this.deathalertChk.TabIndex = 53;
             this.deathalertChk.Text = "Alert on thread death";
             this.deathalertChk.UseVisualStyleBackColor = true;
+            this.deathalertChk.CheckedChanged += new System.EventHandler(this.deathalertChk_CheckedChanged);
             // 
             // separatefolderChk
             // 
@@ -229,6 +241,7 @@
             this.separatefolderChk.TabIndex = 50;
             this.separatefolderChk.Text = "Place .GIFs and .WebMs in /Site/Board/Thread/Animated";
             this.separatefolderChk.UseVisualStyleBackColor = true;
+            this.separatefolderChk.CheckedChanged += new System.EventHandler(this.separatefolderChk_CheckedChanged);
             // 
             // thumbnailChk
             // 
@@ -240,6 +253,7 @@
             this.thumbnailChk.TabIndex = 49;
             this.thumbnailChk.Text = "Thumbnails";
             this.thumbnailChk.UseVisualStyleBackColor = true;
+            this.thumbnailChk.CheckedChanged += new System.EventHandler(this.thumbnailChk_CheckedChanged);
             // 
             // htmlChk
             // 
@@ -251,6 +265,7 @@
             this.htmlChk.TabIndex = 48;
             this.htmlChk.Text = "Thread HTML";
             this.htmlChk.UseVisualStyleBackColor = true;
+            this.htmlChk.CheckedChanged += new System.EventHandler(this.htmlChk_CheckedChanged);
             // 
             // webmChk
             // 
@@ -262,6 +277,7 @@
             this.webmChk.TabIndex = 38;
             this.webmChk.Text = "WebM Videos";
             this.webmChk.UseVisualStyleBackColor = true;
+            this.webmChk.CheckedChanged += new System.EventHandler(this.webmChk_CheckedChanged);
             // 
             // imagesChk
             // 
@@ -273,6 +289,7 @@
             this.imagesChk.TabIndex = 37;
             this.imagesChk.Text = "Images";
             this.imagesChk.UseVisualStyleBackColor = true;
+            this.imagesChk.CheckedChanged += new System.EventHandler(this.imagesChk_CheckedChanged);
             // 
             // label1
             // 
@@ -305,6 +322,7 @@
             this.folderTxt.Name = "folderTxt";
             this.folderTxt.Size = new System.Drawing.Size(777, 20);
             this.folderTxt.TabIndex = 40;
+            this.folderTxt.TextChanged += new System.EventHandler(this.folderTxt_TextChanged);
             // 
             // selectBtn
             // 
@@ -316,6 +334,7 @@
             this.selectBtn.TabIndex = 41;
             this.selectBtn.Text = "...";
             this.selectBtn.UseVisualStyleBackColor = true;
+            this.selectBtn.Click += new System.EventHandler(this.selectBtn_Click);
             // 
             // clipboardpasteBtn
             // 
@@ -327,6 +346,7 @@
             this.clipboardpasteBtn.TabIndex = 42;
             this.clipboardpasteBtn.Text = "Paste from Clipboard";
             this.clipboardpasteBtn.UseVisualStyleBackColor = true;
+            this.clipboardpasteBtn.Click += new System.EventHandler(this.clipboardpasteBtn_Click);
             // 
             // addthreadBtn
             // 
@@ -382,6 +402,7 @@
             this.aboutBtn.TabIndex = 47;
             this.aboutBtn.Text = "About";
             this.aboutBtn.UseVisualStyleBackColor = true;
+            this.aboutBtn.Click += new System.EventHandler(this.aboutBtn_Click);
             // 
             // boardDataGrid
             // 
@@ -518,6 +539,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Column7;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column8;
         public BufferedDataGridView boardDataGrid;
+        private System.Windows.Forms.FolderBrowserDialog FolderDialog;
 
 
 
