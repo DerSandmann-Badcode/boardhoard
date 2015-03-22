@@ -654,7 +654,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MinimumSize = new System.Drawing.Size(16, 461);
             this.Name = "MainForm";
-            this.Text = "BoardHoard v0.0.1";
+            this.Text = "BoardHoard v0.0.5";
             this.Load += new System.EventHandler(this.MainForm_Load);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
