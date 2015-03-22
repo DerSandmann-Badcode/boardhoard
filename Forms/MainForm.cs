@@ -49,22 +49,28 @@ namespace BoardHoard
             switch (RunningBoards.Refresh_Delay)
             {
                 case 30000:
-                    UI_Execute(() => this.cmbThreadRefresh.SelectedText = "30 Seconds");
+                    UI_Execute(() => this.cmbThreadRefresh.SelectedItem = this.cmbThreadRefresh.Items[0]);
                     break;
                 case 60000:
-                    UI_Execute(() => this.cmbThreadRefresh.SelectedText = "1 Minute");
+                    UI_Execute(() => this.cmbThreadRefresh.SelectedItem = this.cmbThreadRefresh.Items[1]);
                     break;
                 case 120000:
-                    UI_Execute(() => this.cmbThreadRefresh.SelectedText = "2 Minutes");
+                    UI_Execute(() => this.cmbThreadRefresh.SelectedItem = this.cmbThreadRefresh.Items[2]);
                     break;
                 case 300000:
-                    UI_Execute(() => this.cmbThreadRefresh.SelectedText = "5 Minutes");
+                    UI_Execute(() => this.cmbThreadRefresh.SelectedItem = this.cmbThreadRefresh.Items[3]);
                     break;
                 case 1800000:
-                    UI_Execute(() => this.cmbThreadRefresh.SelectedText = "30 Minutes");
+                    UI_Execute(() => this.cmbThreadRefresh.SelectedItem = this.cmbThreadRefresh.Items[4]);
                     break;
                 case 3600000:
-                    UI_Execute(() => this.cmbThreadRefresh.SelectedText = "1 Hour");
+                    UI_Execute(() => this.cmbThreadRefresh.SelectedItem = this.cmbThreadRefresh.Items[5]);
+                    break;
+                case 43200000:
+                    UI_Execute(() => this.cmbThreadRefresh.SelectedItem = this.cmbThreadRefresh.Items[6]);
+                    break;
+                case 86400000:
+                    UI_Execute(() => this.cmbThreadRefresh.SelectedItem = this.cmbThreadRefresh.Items[7]);
                     break;
             }
 
@@ -177,7 +183,7 @@ namespace BoardHoard
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            switch (cmbThreadRefresh.Text)
+            switch (cmbThreadRefresh.SelectedItem.ToString())
             {
                 case "30 Seconds":
                     RunningBoards.Refresh_Delay = 30000;
@@ -196,6 +202,12 @@ namespace BoardHoard
                     break;
                 case "1 Hour":
                     RunningBoards.Refresh_Delay = 3600000;
+                    break;
+                case "12 Hours":
+                    RunningBoards.Refresh_Delay = 43200000;
+                    break;
+                case "Daily":
+                    RunningBoards.Refresh_Delay = 86400000;
                     break;
             }
 
@@ -309,30 +321,32 @@ namespace BoardHoard
                 {
                     string DownloadStatusText = string.Empty;
                     string StatusText = string.Empty;
+                    TimeSpan NextDownload = TimeSpan.FromMilliseconds(Board.Refresh_Delay);
+                    NextDownload = NextDownload - DateTime.Now.Subtract(Board.LastDownload);
+
+
                     if (Board.ConstantRefresh == true)
                     {
-                        TimeSpan NextDownload = TimeSpan.FromMilliseconds(Board.Refresh_Delay);
-                        NextDownload = NextDownload - DateTime.Now.Subtract(Board.LastDownload);
-                        switch (Board.Status)
-                        {
-                            case 0:
-                                StatusText = "Active";
-                                DownloadStatusText = NextDownload.Minutes.ToString() + "m " + NextDownload.Seconds.ToString() + "s";
-                                break;
-                            case 1:
-                                DownloadStatusText = "DOWNLOADING";
-                                StatusText = "Active";
-                                break;
-                            case 2:
-                                StatusText = "Active";
-                                break;
-                            case 3:
-                                StatusText = "404";
-                                break;
-                        }
+
+                        DownloadStatusText = NextDownload.Minutes.ToString() + "m " + NextDownload.Seconds.ToString() + "s";
                     }
 
-
+                    switch (Board.Status)
+                    {
+                        case 0:
+                            StatusText = "Active";
+                            break;
+                        case 1:
+                            DownloadStatusText = "DOWNLOADING";
+                            StatusText = "Active";
+                            break;
+                        case 2:
+                            StatusText = "Active";
+                            break;
+                        case 3:
+                            StatusText = "404";
+                            break;
+                    }
 
                     Boolean Found = false;
                     foreach (DataGridViewRow Row in dgvBoards.Rows)
@@ -545,8 +559,144 @@ namespace BoardHoard
                 }
             }
         }
-#endregion
-        
+
+        private void Context30Secbtn_Click(object sender, EventArgs e)
+        {
+            foreach (DataGridViewRow Row in dgvBoards.SelectedRows)
+            {
+                List<Board> DisplayedBoards = RunningBoards.Boards;
+                foreach (Board Board in DisplayedBoards)
+                {
+                    if (Row.Cells[0].Value.ToString() == Board.ID.ToString())
+                    {
+                        Board.Refresh_Delay = 30000;
+                    }
+                }
+            }
+        }
+
+        private void Context1Minbtn_Click(object sender, EventArgs e)
+        {
+            foreach (DataGridViewRow Row in dgvBoards.SelectedRows)
+            {
+                List<Board> DisplayedBoards = RunningBoards.Boards;
+                foreach (Board Board in DisplayedBoards)
+                {
+                    if (Row.Cells[0].Value.ToString() == Board.ID.ToString())
+                    {
+                        Board.Refresh_Delay = 60000;
+                    }
+                }
+            }
+        }
+
+        private void toolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            foreach (DataGridViewRow Row in dgvBoards.SelectedRows)
+            {
+                List<Board> DisplayedBoards = RunningBoards.Boards;
+                foreach (Board Board in DisplayedBoards)
+                {
+                    if (Row.Cells[0].Value.ToString() == Board.ID.ToString())
+                    {
+                        Board.Refresh_Delay = 120000;
+                    }
+                }
+            }
+        }
+
+        private void toolStripMenuItem2_Click(object sender, EventArgs e)
+        {
+            foreach (DataGridViewRow Row in dgvBoards.SelectedRows)
+            {
+                List<Board> DisplayedBoards = RunningBoards.Boards;
+                foreach (Board Board in DisplayedBoards)
+                {
+                    if (Row.Cells[0].Value.ToString() == Board.ID.ToString())
+                    {
+                        Board.Refresh_Delay = 300000;
+                    }
+                }
+            }
+        }
+
+        private void toolStripMenuItem3_Click(object sender, EventArgs e)
+        {
+            foreach (DataGridViewRow Row in dgvBoards.SelectedRows)
+            {
+                List<Board> DisplayedBoards = RunningBoards.Boards;
+                foreach (Board Board in DisplayedBoards)
+                {
+                    if (Row.Cells[0].Value.ToString() == Board.ID.ToString())
+                    {
+                        Board.Refresh_Delay = 1800000;
+                    }
+                }
+            }
+        }
+
+        private void Context1Hourbtn_Click(object sender, EventArgs e)
+        {
+            foreach (DataGridViewRow Row in dgvBoards.SelectedRows)
+            {
+                List<Board> DisplayedBoards = RunningBoards.Boards;
+                foreach (Board Board in DisplayedBoards)
+                {
+                    if (Row.Cells[0].Value.ToString() == Board.ID.ToString())
+                    {
+                        Board.Refresh_Delay = 3600000;
+                    }
+                }
+            }
+        }
+
+        private void Context12Hrs_Click(object sender, EventArgs e)
+        {
+            foreach (DataGridViewRow Row in dgvBoards.SelectedRows)
+            {
+                List<Board> DisplayedBoards = RunningBoards.Boards;
+                foreach (Board Board in DisplayedBoards)
+                {
+                    if (Row.Cells[0].Value.ToString() == Board.ID.ToString())
+                    {
+                        Board.Refresh_Delay = 43200000;
+                    }
+                }
+            }
+        }
+
+        private void ContextDaily_Click(object sender, EventArgs e)
+        {
+            foreach (DataGridViewRow Row in dgvBoards.SelectedRows)
+            {
+                List<Board> DisplayedBoards = RunningBoards.Boards;
+                foreach (Board Board in DisplayedBoards)
+                {
+                    if (Row.Cells[0].Value.ToString() == Board.ID.ToString())
+                    {
+                        Board.Refresh_Delay = 86400000;
+                    }
+                }
+            }
+        }
+
+        private void ContextCheckbtn_Click(object sender, EventArgs e)
+        {
+            foreach (DataGridViewRow Row in dgvBoards.SelectedRows)
+            {
+                List<Board> DisplayedBoards = RunningBoards.Boards;
+                foreach (Board Board in DisplayedBoards)
+                {
+                    if (Row.Cells[0].Value.ToString() == Board.ID.ToString())
+                    {
+                        Board.Download_Single();
+                    }
+                }
+            }
+        }
+
+        #endregion
+
 
     }
 
