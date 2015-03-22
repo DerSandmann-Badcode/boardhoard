@@ -238,7 +238,8 @@ namespace BoardHoard
 
         private void aboutBtn_Click(object sender, EventArgs e)
         {
-
+            BoardHoard.Forms.frmAbout AboutDialog = new BoardHoard.Forms.frmAbout();
+            AboutDialog.ShowDialog();
         }
 
         private void openfolderBtm_Click(object sender, EventArgs e)
@@ -301,43 +302,75 @@ namespace BoardHoard
         public void Datagrid_Refresh()
         {
 
-            List<Board> DisplayedBoards = RunningBoards.Boards;
-            foreach (Board Board in DisplayedBoards)
+            lock (RunningBoards)
             {
-                string DownloadStatusText = string.Empty;
-                string StatusText = string.Empty;
-                if (Board.ConstantRefresh == true)
+
+                foreach (Board Board in RunningBoards.Boards)
                 {
-                    TimeSpan NextDownload = TimeSpan.FromMilliseconds(Board.Refresh_Delay);
-                    NextDownload = NextDownload - DateTime.Now.Subtract(Board.LastDownload);
-                    switch (Board.Status)
+                    string DownloadStatusText = string.Empty;
+                    string StatusText = string.Empty;
+                    if (Board.ConstantRefresh == true)
                     {
-                        case 0:
-                            StatusText = "Active";
-                            DownloadStatusText = NextDownload.Minutes.ToString() + "m " + NextDownload.Seconds.ToString() + "s";
-                            break;
-                        case 1:
-                            DownloadStatusText = "DOWNLOADING";
-                            StatusText = "Active";
-                            break;
-                        case 2:
-                            StatusText = "Active";
-                            break;
-                        case 3:
-                            StatusText = "404";
-                            break;
+                        TimeSpan NextDownload = TimeSpan.FromMilliseconds(Board.Refresh_Delay);
+                        NextDownload = NextDownload - DateTime.Now.Subtract(Board.LastDownload);
+                        switch (Board.Status)
+                        {
+                            case 0:
+                                StatusText = "Active";
+                                DownloadStatusText = NextDownload.Minutes.ToString() + "m " + NextDownload.Seconds.ToString() + "s";
+                                break;
+                            case 1:
+                                DownloadStatusText = "DOWNLOADING";
+                                StatusText = "Active";
+                                break;
+                            case 2:
+                                StatusText = "Active";
+                                break;
+                            case 3:
+                                StatusText = "404";
+                                break;
+                        }
                     }
-                }
 
 
 
-                Boolean Found = false;
-                foreach (DataGridViewRow Row in dgvBoards.Rows)
-                {
-                    if (Row.Cells[0].Value.ToString() == Board.ID.ToString())
+                    Boolean Found = false;
+                    foreach (DataGridViewRow Row in dgvBoards.Rows)
                     {
-                        Found = true;
-                        string[] UpdateRow = new string[8] { Board.ID.ToString(),
+                        if (Row.Cells[0].Value.ToString() == Board.ID.ToString())
+                        {
+                            Found = true;
+                            string[] UpdateRow = new string[8] { Board.ID.ToString(),
+                                                            Board.Site, 
+                                                            Board.Name, 
+                                                            Board.Thread_ID.ToString(), 
+                                                            Board.Subject, 
+                                                            Board.DownloadedCount.ToString(), 
+                                                            StatusText, 
+                                                            DownloadStatusText };
+
+                            // There is a chance where the form is closing
+                            // and this will try to run, we want to catch the
+                            // exception that this object does not exist
+                            try
+                            {
+                                this.Invoke((MethodInvoker)delegate
+                                {
+                                    DGV_Update(UpdateRow); // runs on UI thread
+                                });
+                            }
+                            catch (ObjectDisposedException ex)
+                            {
+                                Debug.WriteLine(ex.Message);
+                            }
+
+                        } // End check if we found the board earlier
+
+                    } // End for each datagridviewrow
+
+                    if (Found == false)
+                    {
+                        string[] NewRow = new string[8] { Board.ID.ToString(),
                                                             Board.Site, 
                                                             Board.Name, 
                                                             Board.Thread_ID.ToString(), 
@@ -353,7 +386,7 @@ namespace BoardHoard
                         {
                             this.Invoke((MethodInvoker)delegate
                             {
-                                DGV_Update(UpdateRow); // runs on UI thread
+                                dgvBoards.Rows.Add(NewRow); // runs on UI thread
                             });
                         }
                         catch (ObjectDisposedException ex)
@@ -361,40 +394,12 @@ namespace BoardHoard
                             Debug.WriteLine(ex.Message);
                         }
 
-                    } // End check if we found the board earlier
 
-                } // End for each datagridviewrow
-
-                if (Found == false)
-                {
-                    string[] NewRow = new string[8] { Board.ID.ToString(),
-                                                            Board.Site, 
-                                                            Board.Name, 
-                                                            Board.Thread_ID.ToString(), 
-                                                            Board.Subject, 
-                                                            Board.DownloadedCount.ToString(), 
-                                                            StatusText, 
-                                                            DownloadStatusText };
-
-                    // There is a chance where the form is closing
-                    // and this will try to run, we want to catch the
-                    // exception that this object does not exist
-                    try
-                    {
-                        this.Invoke((MethodInvoker)delegate
-                        {
-                            dgvBoards.Rows.Add(NewRow); // runs on UI thread
-                        });
-                    }
-                    catch (ObjectDisposedException ex)
-                    {
-                        Debug.WriteLine(ex.Message);
                     }
 
+                } // End for each board
 
-                }
-
-            } // End for each board
+            }
 
         }
 

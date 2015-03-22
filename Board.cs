@@ -298,21 +298,24 @@ namespace BoardHoard
                 // We're going to use a boolean to determine what
                 // type of file we are looking at
                 bool Download = false;
+                bool IsAnimated = false;
                 switch (System.IO.Path.GetExtension(Image))
                 {
+      
                     case ".jpg":
                     case ".png":
-                    case ".gif":
                     case ".bmp":
                         if (this.Download_Images == true)
                         {
                             Download = true;
                         }
                         break;
+                    case ".gif":
                     case ".webm":
                     case ".swf":
                         if (this.Download_WebMs == true)
                         {
+                            IsAnimated = true;
                             Download = true;
                         }
                         break;
@@ -332,19 +335,33 @@ namespace BoardHoard
                     // If file was in our types of file to download
                     if (Download == true)
                     {
-                        if (this.AnimatedFolder == true)
+                        if (IsAnimated == true)
                         {
-                            // Newfile is what we are using to change the HTML elements
-                            newfile = DownloadFolder + @"Animated\" + Path.GetFileName(Image);
-                            if (File.Exists(newfile) == false)
+                            if (this.AnimatedFolder == true)
                             {
-                                // If the user requested we create a folder for
-                                // WebMs and Flash, do that now
-                                Directory.CreateDirectory(DownloadFolder + @"Animated\");
-                                Client.DownloadFile(Image, DownloadFolder + @"Animated\" + Path.GetFileName(Image));
-                                this.DownloadedCount += 1;
+                                // Newfile is what we are using to change the HTML elements
+                                newfile = DownloadFolder + @"Animated\" + Path.GetFileName(Image);
+
+                                if (File.Exists(newfile) == false)
+                                {
+                                    // If the user requested we create a folder for
+                                    // WebMs and Flash, do that now
+                                    Directory.CreateDirectory(DownloadFolder + @"Animated\");
+                                    Client.DownloadFile(Image, DownloadFolder + @"Animated\" + Path.GetFileName(Image));
+                                    this.DownloadedCount += 1;
+                                }
                             }
-                            
+                            else
+                            {
+                                if (File.Exists(newfile) == false)
+                                {
+                                    // Download Board Object, could be an image, webm, flash
+                                    Client.DownloadFile(Image, DownloadFolder + Path.GetFileName(Image));
+                                    this.DownloadedCount += 1;
+                                }
+
+                            }
+
                         }
                         else
                         {
@@ -355,6 +372,8 @@ namespace BoardHoard
                                 this.DownloadedCount += 1;
                             }
                         }
+
+                        
                     }
 
 
