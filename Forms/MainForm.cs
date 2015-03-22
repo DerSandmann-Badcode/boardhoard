@@ -230,7 +230,7 @@ namespace BoardHoard
 
         private void statisticsBtn_Click(object sender, EventArgs e)
         {
-
+            
         }
 
         private void removedeadBtn_Click(object sender, EventArgs e)
@@ -245,7 +245,7 @@ namespace BoardHoard
 
         private void clipboardpasteBtn_Click(object sender, EventArgs e)
         {
-
+            txtThread.Text = Clipboard.GetText();
         }
 
         private void aboutBtn_Click(object sender, EventArgs e)
@@ -267,28 +267,18 @@ namespace BoardHoard
 
             try
             {
-                // Create a new board with the UI settings
-                // and add it to the BoardContainer
-                Board NewBoard = new Board();
-                NewBoard.Download_HTML = RunningBoards.DownloadHTML;
-                NewBoard.Download_Images = RunningBoards.DownloadImages;
-                NewBoard.Download_Thumnails = RunningBoards.DownloadThumbnails;
-                NewBoard.Download_WebMs = RunningBoards.DownloadWebMs;
-                NewBoard.URL = txtThread.Text;
-                NewBoard.DownloadPath = RunningBoards.FolderLocation;
-                NewBoard.Refresh_Delay = RunningBoards.Refresh_Delay;
-                NewBoard.ConstantRefresh = RunningBoards.ConstantRefresh;
-                NewBoard.AnimatedFolder = RunningBoards.AnimatedFolder;
-
-                RunningBoards.Add(NewBoard);
-                NewBoard.Download_Single();
-
-                if (NewBoard.ConstantRefresh == true)
+                if (txtThread.Text != string.Empty)
                 {
-                    NewBoard.StartRefresh();
-                }
+                    // Create a new board with the UI settings
+                    // and add it to the BoardContainer
+                    RunningBoards.Add(txtThread.Text);
 
-                txtThread.Clear();
+                    txtThread.Clear();
+                }
+                else
+                {
+                    MessageBox.Show("Board string is empty!");
+                }
 
             }
             catch (Exception ex)

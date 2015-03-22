@@ -64,10 +64,21 @@ namespace BoardHoard
                 this.Websites = SiteConfig.Load();
         }
 
-        public void Add(Board b)
+        public void Add(string Board_URL)
         {
-            
-            if (b.URL == "")
+            Board NewBoard = new Board();
+            NewBoard.Download_HTML = this.DownloadHTML;
+            NewBoard.Download_Images = this.DownloadImages;
+            NewBoard.Download_Thumnails = this.DownloadThumbnails;
+            NewBoard.Download_WebMs = this.DownloadWebMs;
+            NewBoard.URL = Board_URL;
+            NewBoard.DownloadPath = this.FolderLocation;
+            NewBoard.Refresh_Delay = this.Refresh_Delay;
+            NewBoard.ConstantRefresh = this.ConstantRefresh;
+            NewBoard.AnimatedFolder = this.AnimatedFolder;
+            NewBoard.Alerts_Death = this.AlertDeath;
+
+            if (NewBoard.URL == "")
             {
                 MessageBox.Show("Thread string is empty!");
                 return;
@@ -76,7 +87,7 @@ namespace BoardHoard
             List<Board> ExistingBoards = this.Boards;
             foreach (Board board in ExistingBoards)
             {
-                if (b.URL == board.URL)
+                if (NewBoard.URL == board.URL)
                 {
                     //MessageBox.Show("Thread already exists!");
                     return;
@@ -85,14 +96,14 @@ namespace BoardHoard
 
             if (Boards.Count < 1)
             {
-                b.ID = 1;
+                NewBoard.ID = 1;
             }
             else
             {
-                b.ID = Boards.Max(p => p.ID) + 1;
+                NewBoard.ID = Boards.Max(p => p.ID) + 1;
             }
 
-            Uri Board_Uri = new Uri(b.URL);
+            Uri Board_Uri = new Uri(NewBoard.URL);
 
             SiteConfig Test = new SiteConfig();
             Test = SiteConfig.Load();
@@ -101,24 +112,31 @@ namespace BoardHoard
             {
                 if (Config.name == Board_Uri.Host)
                 {
-                    b.XPath_Subject = Config.subject;
+                    NewBoard.XPath_Subject = Config.subject;
 
-                    b.XPath_Thread = Config.thread;
-                    b.Tag_Thread = Config.thread_tag;
+                    NewBoard.XPath_Thread = Config.thread;
+                    NewBoard.Tag_Thread = Config.thread_tag;
 
-                    b.XPath_Board = Config.board;
-                    b.Tag_Board = Config.board_tag;
+                    NewBoard.XPath_Board = Config.board;
+                    NewBoard.Tag_Board = Config.board_tag;
 
-                    b.XPath_Image = Config.image;
-                    b.Tag_Image = Config.image_tag;
+                    NewBoard.XPath_Image = Config.image;
+                    NewBoard.Tag_Image = Config.image_tag;
 
-                    b.XPath_Thumbnail = Config.thumb;
-                    b.Tag_Thumbnail = Config.thumb_tag;
+                    NewBoard.XPath_Thumbnail = Config.thumb;
+                    NewBoard.Tag_Thumbnail = Config.thumb_tag;
                 }
             }
 
-            this.Boards.Add(b);
+            this.Boards.Add(NewBoard);
             this.Save();
+
+            NewBoard.Download_Single();
+
+            if (NewBoard.ConstantRefresh == true)
+            {
+                NewBoard.StartRefresh();
+            }
         }
        
         public void Open_Folder(string site, string board, string thread)

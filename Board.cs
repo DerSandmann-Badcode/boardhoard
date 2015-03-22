@@ -156,6 +156,11 @@ namespace BoardHoard
                     if (Resp.StatusCode == HttpStatusCode.NotFound)
                     {
                         this.Status = 3;
+                        if (this.Alerts_Death == true)
+                        {
+                            System.Media.SystemSounds.Exclamation.Play();
+                        }
+                        return;
                     }
                 }
             } // End Catch for Request.GetResponse()
@@ -221,18 +226,16 @@ namespace BoardHoard
                 {
                     // Temporary code until I can think of a way to
                     // fix local or file links
-                    string testcss = "Http:" + CSS_File.Attributes["href"].Value;
-                    string newfile = DownloadFolder + @"Site_Data\" + Path.GetFileName(testcss);
+
+                    Uri NewURI = ValidateURI(BoardUri.ToString(), CSS_File.Attributes["href"].Value);
+
+                    string newfile = DownloadFolder + @"Site_Data\" + GetCleanFileName(NewURI.ToString());
 
                     if (this.Download_HTML == true)
                     {
                         // Create a folder and download the CSS
                         Directory.CreateDirectory(DownloadFolder + @"Site_Data\");
-                        using (WebClient Client = new WebClient())
-                        {
-                            Client.DownloadFile(testcss, newfile);
-
-                        }
+                        UrlDownload(NewURI.ToString(), newfile);
                     }
                     // Rename the CSS file paths if we download the HTML
                     CSS_File.Attributes["href"].Value = newfile;
@@ -241,96 +244,91 @@ namespace BoardHoard
 
             // Get list of nodes containing thumbnails
             DocNodes = Document.DocumentNode.SelectNodes(this.XPath_Thumbnail);
-            foreach (HtmlAgilityPack.HtmlNode Node in DocNodes)
+            if (DocNodes != null)
             {
-                string Thumbnail = Node.GetAttributeValue(this.Tag_Thumbnail, "");
-                if (Thumbnail == string.Empty)
+                foreach (HtmlAgilityPack.HtmlNode Node in DocNodes)
                 {
-                    continue;
-                }
-                // Save the location for the thumbnails,
-                // regardless of if we download them
-                string newfile = DownloadFolder + @"Thumbnails\" + Path.GetFileName(Thumbnail);
-                if (this.Download_Thumnails == true)
-                {
-                    
-                    using (WebClient Client = new WebClient())
+                    string Thumbnail = Node.GetAttributeValue(this.Tag_Thumbnail, "");
+                    if (Thumbnail == string.Empty)
+                    {
+                        continue;
+                    }
+                    // Save the location for the thumbnails,
+                    // regardless of if we download them 
+                    string newfile = DownloadFolder + @"Thumbnails\" + Path.GetFileName(Thumbnail);
+                    if (this.Download_Thumnails == true)
                     {
                         if (File.Exists(newfile) == false)
                         {
                             // Try to clean up boards using file URI
                             // Needs work, some sites send relative
                             // URIs
-                            Uri UriThumbnail = new Uri(Thumbnail);
-                            if (UriThumbnail.Scheme == "file")
-                            {
-                                Thumbnail = BoardUri.Scheme + ":" + Thumbnail;
-                            }
+
+                            Uri Thumbnail_URI = ValidateURI(BoardUri.ToString(), Thumbnail);
+
                             // Create /Thumbnails directory to store the
                             // thumbnails we download
                             Directory.CreateDirectory(DownloadFolder + @"Thumbnails\");
-                            Client.DownloadFile(Thumbnail, DownloadFolder + @"Thumbnails\" + Path.GetFileName(Thumbnail));
+                            UrlDownload(Thumbnail_URI.ToString(), DownloadFolder + @"Thumbnails\" + Path.GetFileName(Thumbnail));
                         }
-
-                    } // stop using webclient
-                }
-                // Rename thumbnail file paths
-                Node.Attributes[this.Tag_Thumbnail].Value = newfile;
-            } // Thumbnails End Each
+                    }
+                    // Rename thumbnail file paths
+                    Node.Attributes[this.Tag_Thumbnail].Value = newfile;
+                } // Thumbnails End Each
+            }
+            
 
 
             // Get list of elements containing Images
             DocNodes = Document.DocumentNode.SelectNodes(this.XPath_Image);
-            this.FileCount = DocNodes.Count;
-            foreach (HtmlAgilityPack.HtmlNode Node in DocNodes)
+
+            if (DocNodes != null)
             {
-                // If the XPath matches and the Tag
-                // matches, we want to download this
-                // image
-                string Image = Node.GetAttributeValue(this.Tag_Image, "");
-                if (Image == string.Empty)
+                this.FileCount = DocNodes.Count;
+                foreach (HtmlAgilityPack.HtmlNode Node in DocNodes)
                 {
-                    continue;
-                }
+                    // If the XPath matches and the Tag
+                    // matches, we want to download this
+                    // image
+                    string Image = Node.GetAttributeValue(this.Tag_Image, "");
+                    if (Image == string.Empty)
+                    {
+                        continue;
+                    }
 
-                string newfile = DownloadFolder + Path.GetFileName(Image);
-                // Couldn't think of a better way of doing this
-                // We're going to use a boolean to determine what
-                // type of file we are looking at
-                bool Download = false;
-                bool IsAnimated = false;
-                switch (System.IO.Path.GetExtension(Image))
-                {
-      
-                    case ".jpg":
-                    case ".png":
-                    case ".bmp":
-                        if (this.Download_Images == true)
-                        {
-                            Download = true;
-                        }
-                        break;
-                    case ".gif":
-                    case ".webm":
-                    case ".swf":
-                        if (this.Download_WebMs == true)
-                        {
-                            IsAnimated = true;
-                            Download = true;
-                        }
-                        break;
-                }
+                    string newfile = DownloadFolder + Path.GetFileName(Image);
+                    // Couldn't think of a better way of doing this
+                    // We're going to use a boolean to determine what
+                    // type of file we are looking at
+                    bool Download = false;
+                    bool IsAnimated = false;
+                    switch (System.IO.Path.GetExtension(Image))
+                    {
 
-                using (WebClient Client = new WebClient())
-                {
+                        case ".jpg":
+                        case ".png":
+                        case ".bmp":
+                            if (this.Download_Images == true)
+                            {
+                                Download = true;
+                            }
+                            break;
+                        case ".gif":
+                        case ".webm":
+                        case ".swf":
+                            if (this.Download_WebMs == true)
+                            {
+                                IsAnimated = true;
+                                Download = true;
+                            }
+                            break;
+                    }
+
+
                     // Try to clean up boards using file URI
                     // Needs work, some sites send relative
                     // URIs
-                    Uri UriThumbnail = new Uri(Image);
-                    if (UriThumbnail.Scheme == "file")
-                    {
-                        Image = BoardUri.Scheme + ":" + Image;
-                    }
+                    Uri Image_URI = ValidateURI(BoardUri.ToString(), Image);
 
                     // If file was in our types of file to download
                     if (Download == true)
@@ -340,14 +338,14 @@ namespace BoardHoard
                             if (this.AnimatedFolder == true)
                             {
                                 // Newfile is what we are using to change the HTML elements
-                                newfile = DownloadFolder + @"Animated\" + Path.GetFileName(Image);
+                                newfile = DownloadFolder + @"Animated\" + Path.GetFileName(Image_URI.ToString());
 
                                 if (File.Exists(newfile) == false)
                                 {
                                     // If the user requested we create a folder for
                                     // WebMs and Flash, do that now
                                     Directory.CreateDirectory(DownloadFolder + @"Animated\");
-                                    Client.DownloadFile(Image, DownloadFolder + @"Animated\" + Path.GetFileName(Image));
+                                    UrlDownload(Image_URI.ToString(), DownloadFolder + @"Animated\" + Path.GetFileName(Image_URI.ToString()));
                                     this.DownloadedCount += 1;
                                 }
                             }
@@ -356,7 +354,7 @@ namespace BoardHoard
                                 if (File.Exists(newfile) == false)
                                 {
                                     // Download Board Object, could be an image, webm, flash
-                                    Client.DownloadFile(Image, DownloadFolder + Path.GetFileName(Image));
+                                    UrlDownload(Image_URI.ToString(), DownloadFolder + Path.GetFileName(Image_URI.ToString()));
                                     this.DownloadedCount += 1;
                                 }
 
@@ -368,19 +366,19 @@ namespace BoardHoard
                             if (File.Exists(newfile) == false)
                             {
                                 // Download Board Object, could be an image, webm, flash
-                                Client.DownloadFile(Image, DownloadFolder + Path.GetFileName(Image));
+                                UrlDownload(Image_URI.ToString(), DownloadFolder + Path.GetFileName(Image_URI.ToString()));
                                 this.DownloadedCount += 1;
                             }
                         }
 
-                        
-                    }
 
+                    }                        
 
-                } // stop using webclient
-                Node.Attributes[this.Tag_Image].Value = newfile;
+                    Node.Attributes[this.Tag_Image].Value = newfile;
 
-            } //end Image foreach loop
+                } //end Image foreach loop
+            }
+            
 
             if (this.Download_HTML == true)
             {
@@ -393,6 +391,33 @@ namespace BoardHoard
             // Thread is complete. Return to idle
             this.Status = 0;
 
+        }
+
+        public Uri ValidateURI(string PageURL, string ElementURI)
+        {
+            Uri baseUri = new Uri(URL, UriKind.Absolute);
+            Uri page = new Uri(baseUri, ElementURI);
+            return page;
+        }
+
+        public void UrlDownload(string address, string filename)
+        {
+            using (WebClient Client = new WebClient())
+            {
+                try
+                {
+                    Client.DownloadFile(address, filename);
+                }
+                catch (Exception ex)
+                {
+                    Debug.WriteLine(ex.Message);
+                }
+            }
+        }
+
+        public string GetCleanFileName(string filepath)
+        {
+            return Path.GetInvalidFileNameChars().Aggregate(Path.GetFileName(filepath), (current, c) => current.Replace(c.ToString(), string.Empty));
         }
     }
 }
