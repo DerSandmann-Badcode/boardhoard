@@ -28,45 +28,66 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.label4 = new System.Windows.Forms.Label();
-            this.openfolderBtm = new System.Windows.Forms.Button();
-            this.removedeadBtn = new System.Windows.Forms.Button();
-            this.selectallBtn = new System.Windows.Forms.Button();
+            this.btnOpenFolder = new System.Windows.Forms.Button();
+            this.btnClearInactive = new System.Windows.Forms.Button();
+            this.btnSelectAll = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.deadclearChk = new System.Windows.Forms.CheckBox();
-            this.defaultBtn = new System.Windows.Forms.Button();
-            this.hashesChk = new System.Windows.Forms.CheckBox();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.chkClearDead = new System.Windows.Forms.CheckBox();
+            this.btnSetDefault = new System.Windows.Forms.Button();
+            this.chkVerifyHashes = new System.Windows.Forms.CheckBox();
+            this.cmbThreadRefresh = new System.Windows.Forms.ComboBox();
             this.label3 = new System.Windows.Forms.Label();
-            this.continuousChk = new System.Windows.Forms.CheckBox();
-            this.deathalertChk = new System.Windows.Forms.CheckBox();
-            this.separatefolderChk = new System.Windows.Forms.CheckBox();
-            this.thumbnailChk = new System.Windows.Forms.CheckBox();
-            this.htmlChk = new System.Windows.Forms.CheckBox();
-            this.webmChk = new System.Windows.Forms.CheckBox();
-            this.imagesChk = new System.Windows.Forms.CheckBox();
+            this.chkConstantCheck = new System.Windows.Forms.CheckBox();
+            this.chkDeathAlert = new System.Windows.Forms.CheckBox();
+            this.chkSeperateFolder = new System.Windows.Forms.CheckBox();
+            this.chkThumbnails = new System.Windows.Forms.CheckBox();
+            this.chkHTML = new System.Windows.Forms.CheckBox();
+            this.chkWebm = new System.Windows.Forms.CheckBox();
+            this.chkImages = new System.Windows.Forms.CheckBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
-            this.folderTxt = new System.Windows.Forms.TextBox();
-            this.selectBtn = new System.Windows.Forms.Button();
-            this.clipboardpasteBtn = new System.Windows.Forms.Button();
-            this.addthreadBtn = new System.Windows.Forms.Button();
-            this.threadTxt = new System.Windows.Forms.TextBox();
+            this.txtFolderPath = new System.Windows.Forms.TextBox();
+            this.btnSelectFolder = new System.Windows.Forms.Button();
+            this.btnPaste = new System.Windows.Forms.Button();
+            this.btnSubmit = new System.Windows.Forms.Button();
+            this.txtThread = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
-            this.statisticsBtn = new System.Windows.Forms.Button();
-            this.aboutBtn = new System.Windows.Forms.Button();
-            this.boardDataGrid = new BoardHoard.BufferedDataGridView();
+            this.btnStatistics = new System.Windows.Forms.Button();
+            this.btnAbout = new System.Windows.Forms.Button();
+            this.FolderDialog = new System.Windows.Forms.FolderBrowserDialog();
+            this.ContextBoardDataGrid = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.ContextCheckbtn = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.ContextOpenbtn = new System.Windows.Forms.ToolStripMenuItem();
+            this.ContextStopbtn = new System.Windows.Forms.ToolStripMenuItem();
+            this.ContextStartbtn = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+            this.ContextClearbtn = new System.Windows.Forms.ToolStripMenuItem();
+            this.ContextClearDeletebtn = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
+            this.ContextSelectWaitbtn = new System.Windows.Forms.ToolStripMenuItem();
+            this.Context30Secbtn = new System.Windows.Forms.ToolStripMenuItem();
+            this.Context1Minbtn = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
+            this.Context1Hourbtn = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem4 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem5 = new System.Windows.Forms.ToolStripMenuItem();
+            this.dgvBoards = new BoardHoard.BufferedDataGridView();
             this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column8 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.FolderDialog = new System.Windows.Forms.FolderBrowserDialog();
+            this.Column6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.boardDataGrid)).BeginInit();
+            this.ContextBoardDataGrid.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvBoards)).BeginInit();
             this.SuspendLayout();
             // 
             // label4
@@ -80,122 +101,122 @@
             this.label4.TabIndex = 32;
             this.label4.Text = "label4";
             // 
-            // openfolderBtm
+            // btnOpenFolder
             // 
-            this.openfolderBtm.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.openfolderBtm.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.openfolderBtm.Location = new System.Drawing.Point(12, 212);
-            this.openfolderBtm.Name = "openfolderBtm";
-            this.openfolderBtm.Size = new System.Drawing.Size(100, 25);
-            this.openfolderBtm.TabIndex = 33;
-            this.openfolderBtm.Text = "Open Folder";
-            this.openfolderBtm.UseVisualStyleBackColor = true;
-            this.openfolderBtm.Click += new System.EventHandler(this.openfolderBtm_Click);
+            this.btnOpenFolder.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnOpenFolder.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnOpenFolder.Location = new System.Drawing.Point(12, 212);
+            this.btnOpenFolder.Name = "btnOpenFolder";
+            this.btnOpenFolder.Size = new System.Drawing.Size(100, 25);
+            this.btnOpenFolder.TabIndex = 33;
+            this.btnOpenFolder.Text = "Open Folder";
+            this.btnOpenFolder.UseVisualStyleBackColor = true;
+            this.btnOpenFolder.Click += new System.EventHandler(this.openfolderBtm_Click);
             // 
-            // removedeadBtn
+            // btnClearInactive
             // 
-            this.removedeadBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.removedeadBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.removedeadBtn.Location = new System.Drawing.Point(722, 212);
-            this.removedeadBtn.Name = "removedeadBtn";
-            this.removedeadBtn.Size = new System.Drawing.Size(201, 25);
-            this.removedeadBtn.TabIndex = 34;
-            this.removedeadBtn.Text = "Remove Dead && Completed";
-            this.removedeadBtn.UseVisualStyleBackColor = true;
-            this.removedeadBtn.Click += new System.EventHandler(this.removedeadBtn_Click);
+            this.btnClearInactive.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnClearInactive.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnClearInactive.Location = new System.Drawing.Point(781, 212);
+            this.btnClearInactive.Name = "btnClearInactive";
+            this.btnClearInactive.Size = new System.Drawing.Size(142, 25);
+            this.btnClearInactive.TabIndex = 34;
+            this.btnClearInactive.Text = "Clear Inactive Entries";
+            this.btnClearInactive.UseVisualStyleBackColor = true;
+            this.btnClearInactive.Click += new System.EventHandler(this.removedeadBtn_Click);
             // 
-            // selectallBtn
+            // btnSelectAll
             // 
-            this.selectallBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.selectallBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.selectallBtn.Location = new System.Drawing.Point(597, 212);
-            this.selectallBtn.Name = "selectallBtn";
-            this.selectallBtn.Size = new System.Drawing.Size(119, 25);
-            this.selectallBtn.TabIndex = 37;
-            this.selectallBtn.Text = "Select all";
-            this.selectallBtn.UseVisualStyleBackColor = true;
-            this.selectallBtn.Click += new System.EventHandler(this.selectallBtn_Click);
+            this.btnSelectAll.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnSelectAll.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnSelectAll.Location = new System.Drawing.Point(656, 212);
+            this.btnSelectAll.Name = "btnSelectAll";
+            this.btnSelectAll.Size = new System.Drawing.Size(119, 25);
+            this.btnSelectAll.TabIndex = 37;
+            this.btnSelectAll.Text = "Select all";
+            this.btnSelectAll.UseVisualStyleBackColor = true;
+            this.btnSelectAll.Click += new System.EventHandler(this.selectallBtn_Click);
             // 
             // panel1
             // 
             this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panel1.BackColor = System.Drawing.Color.LightGray;
-            this.panel1.Controls.Add(this.deadclearChk);
-            this.panel1.Controls.Add(this.defaultBtn);
-            this.panel1.Controls.Add(this.hashesChk);
-            this.panel1.Controls.Add(this.comboBox1);
+            this.panel1.Controls.Add(this.chkClearDead);
+            this.panel1.Controls.Add(this.btnSetDefault);
+            this.panel1.Controls.Add(this.chkVerifyHashes);
+            this.panel1.Controls.Add(this.cmbThreadRefresh);
             this.panel1.Controls.Add(this.label3);
-            this.panel1.Controls.Add(this.continuousChk);
-            this.panel1.Controls.Add(this.deathalertChk);
-            this.panel1.Controls.Add(this.separatefolderChk);
-            this.panel1.Controls.Add(this.thumbnailChk);
-            this.panel1.Controls.Add(this.htmlChk);
-            this.panel1.Controls.Add(this.webmChk);
-            this.panel1.Controls.Add(this.imagesChk);
+            this.panel1.Controls.Add(this.chkConstantCheck);
+            this.panel1.Controls.Add(this.chkDeathAlert);
+            this.panel1.Controls.Add(this.chkSeperateFolder);
+            this.panel1.Controls.Add(this.chkThumbnails);
+            this.panel1.Controls.Add(this.chkHTML);
+            this.panel1.Controls.Add(this.chkWebm);
+            this.panel1.Controls.Add(this.chkImages);
             this.panel1.Controls.Add(this.label1);
             this.panel1.Location = new System.Drawing.Point(12, 281);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(911, 225);
             this.panel1.TabIndex = 38;
             // 
-            // deadclearChk
+            // chkClearDead
             // 
-            this.deadclearChk.AutoSize = true;
-            this.deadclearChk.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.deadclearChk.Location = new System.Drawing.Point(15, 102);
-            this.deadclearChk.Name = "deadclearChk";
-            this.deadclearChk.Size = new System.Drawing.Size(219, 17);
-            this.deadclearChk.TabIndex = 59;
-            this.deadclearChk.Text = "Clear out dead thread entries immediately";
-            this.deadclearChk.UseVisualStyleBackColor = true;
-            this.deadclearChk.CheckedChanged += new System.EventHandler(this.deadclearChk_CheckedChanged);
+            this.chkClearDead.AutoSize = true;
+            this.chkClearDead.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.chkClearDead.Location = new System.Drawing.Point(15, 102);
+            this.chkClearDead.Name = "chkClearDead";
+            this.chkClearDead.Size = new System.Drawing.Size(219, 17);
+            this.chkClearDead.TabIndex = 59;
+            this.chkClearDead.Text = "Clear out dead thread entries immediately";
+            this.chkClearDead.UseVisualStyleBackColor = true;
+            this.chkClearDead.CheckedChanged += new System.EventHandler(this.deadclearChk_CheckedChanged);
             // 
-            // defaultBtn
+            // btnSetDefault
             // 
-            this.defaultBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.defaultBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.defaultBtn.Location = new System.Drawing.Point(755, 194);
-            this.defaultBtn.Name = "defaultBtn";
-            this.defaultBtn.Size = new System.Drawing.Size(148, 23);
-            this.defaultBtn.TabIndex = 58;
-            this.defaultBtn.Text = "Set as Default";
-            this.defaultBtn.UseVisualStyleBackColor = true;
+            this.btnSetDefault.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnSetDefault.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnSetDefault.Location = new System.Drawing.Point(755, 194);
+            this.btnSetDefault.Name = "btnSetDefault";
+            this.btnSetDefault.Size = new System.Drawing.Size(148, 23);
+            this.btnSetDefault.TabIndex = 58;
+            this.btnSetDefault.Text = "Set as Default";
+            this.btnSetDefault.UseVisualStyleBackColor = true;
             // 
-            // hashesChk
+            // chkVerifyHashes
             // 
-            this.hashesChk.AutoSize = true;
-            this.hashesChk.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.hashesChk.Location = new System.Drawing.Point(15, 194);
-            this.hashesChk.Name = "hashesChk";
-            this.hashesChk.Size = new System.Drawing.Size(123, 17);
-            this.hashesChk.TabIndex = 57;
-            this.hashesChk.Text = "Verify Image Hashes";
-            this.hashesChk.UseVisualStyleBackColor = true;
-            this.hashesChk.CheckedChanged += new System.EventHandler(this.hashesChk_CheckedChanged);
+            this.chkVerifyHashes.AutoSize = true;
+            this.chkVerifyHashes.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.chkVerifyHashes.Location = new System.Drawing.Point(15, 194);
+            this.chkVerifyHashes.Name = "chkVerifyHashes";
+            this.chkVerifyHashes.Size = new System.Drawing.Size(123, 17);
+            this.chkVerifyHashes.TabIndex = 57;
+            this.chkVerifyHashes.Text = "Verify Image Hashes";
+            this.chkVerifyHashes.UseVisualStyleBackColor = true;
+            this.chkVerifyHashes.CheckedChanged += new System.EventHandler(this.hashesChk_CheckedChanged);
             // 
-            // comboBox1
+            // cmbThreadRefresh
             // 
-            this.comboBox1.AutoCompleteCustomSource.AddRange(new string[] {
+            this.cmbThreadRefresh.AutoCompleteCustomSource.AddRange(new string[] {
             "30 Seconds",
             "1 Minute",
             "2 Minutes",
             "5 Minutes",
             "1 Hour"});
-            this.comboBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Items.AddRange(new object[] {
+            this.cmbThreadRefresh.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cmbThreadRefresh.FormattingEnabled = true;
+            this.cmbThreadRefresh.Items.AddRange(new object[] {
             "30 Seconds",
             "1 Minute",
             "2 Minutes",
             "5 Minutes",
             "30 Minutes",
             "1 Hour"});
-            this.comboBox1.Location = new System.Drawing.Point(168, 169);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(132, 21);
-            this.comboBox1.TabIndex = 56;
-            this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
+            this.cmbThreadRefresh.Location = new System.Drawing.Point(168, 169);
+            this.cmbThreadRefresh.Name = "cmbThreadRefresh";
+            this.cmbThreadRefresh.Size = new System.Drawing.Size(132, 21);
+            this.cmbThreadRefresh.TabIndex = 56;
+            this.cmbThreadRefresh.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
             // 
             // label3
             // 
@@ -207,89 +228,89 @@
             this.label3.TabIndex = 55;
             this.label3.Text = "Check threads every: ";
             // 
-            // continuousChk
+            // chkConstantCheck
             // 
-            this.continuousChk.AutoSize = true;
-            this.continuousChk.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.continuousChk.Location = new System.Drawing.Point(15, 148);
-            this.continuousChk.Name = "continuousChk";
-            this.continuousChk.Size = new System.Drawing.Size(127, 17);
-            this.continuousChk.TabIndex = 54;
-            this.continuousChk.Text = "Continuous Checking";
-            this.continuousChk.UseVisualStyleBackColor = true;
-            this.continuousChk.CheckedChanged += new System.EventHandler(this.continuousChk_CheckedChanged);
+            this.chkConstantCheck.AutoSize = true;
+            this.chkConstantCheck.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.chkConstantCheck.Location = new System.Drawing.Point(15, 148);
+            this.chkConstantCheck.Name = "chkConstantCheck";
+            this.chkConstantCheck.Size = new System.Drawing.Size(127, 17);
+            this.chkConstantCheck.TabIndex = 54;
+            this.chkConstantCheck.Text = "Continuous Checking";
+            this.chkConstantCheck.UseVisualStyleBackColor = true;
+            this.chkConstantCheck.CheckedChanged += new System.EventHandler(this.continuousChk_CheckedChanged);
             // 
-            // deathalertChk
+            // chkDeathAlert
             // 
-            this.deathalertChk.AutoSize = true;
-            this.deathalertChk.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.deathalertChk.Location = new System.Drawing.Point(15, 125);
-            this.deathalertChk.Name = "deathalertChk";
-            this.deathalertChk.Size = new System.Drawing.Size(125, 17);
-            this.deathalertChk.TabIndex = 53;
-            this.deathalertChk.Text = "Alert on thread death";
-            this.deathalertChk.UseVisualStyleBackColor = true;
-            this.deathalertChk.CheckedChanged += new System.EventHandler(this.deathalertChk_CheckedChanged);
+            this.chkDeathAlert.AutoSize = true;
+            this.chkDeathAlert.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.chkDeathAlert.Location = new System.Drawing.Point(15, 125);
+            this.chkDeathAlert.Name = "chkDeathAlert";
+            this.chkDeathAlert.Size = new System.Drawing.Size(125, 17);
+            this.chkDeathAlert.TabIndex = 53;
+            this.chkDeathAlert.Text = "Alert on thread death";
+            this.chkDeathAlert.UseVisualStyleBackColor = true;
+            this.chkDeathAlert.CheckedChanged += new System.EventHandler(this.deathalertChk_CheckedChanged);
             // 
-            // separatefolderChk
+            // chkSeperateFolder
             // 
-            this.separatefolderChk.AutoSize = true;
-            this.separatefolderChk.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.separatefolderChk.Location = new System.Drawing.Point(36, 79);
-            this.separatefolderChk.Name = "separatefolderChk";
-            this.separatefolderChk.Size = new System.Drawing.Size(303, 17);
-            this.separatefolderChk.TabIndex = 50;
-            this.separatefolderChk.Text = "Place .GIFs and .WebMs in /Site/Board/Thread/Animated";
-            this.separatefolderChk.UseVisualStyleBackColor = true;
-            this.separatefolderChk.CheckedChanged += new System.EventHandler(this.separatefolderChk_CheckedChanged);
+            this.chkSeperateFolder.AutoSize = true;
+            this.chkSeperateFolder.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.chkSeperateFolder.Location = new System.Drawing.Point(36, 79);
+            this.chkSeperateFolder.Name = "chkSeperateFolder";
+            this.chkSeperateFolder.Size = new System.Drawing.Size(303, 17);
+            this.chkSeperateFolder.TabIndex = 50;
+            this.chkSeperateFolder.Text = "Place .GIFs and .WebMs in /Site/Board/Thread/Animated";
+            this.chkSeperateFolder.UseVisualStyleBackColor = true;
+            this.chkSeperateFolder.CheckedChanged += new System.EventHandler(this.separatefolderChk_CheckedChanged);
             // 
-            // thumbnailChk
+            // chkThumbnails
             // 
-            this.thumbnailChk.AutoSize = true;
-            this.thumbnailChk.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.thumbnailChk.Location = new System.Drawing.Point(256, 56);
-            this.thumbnailChk.Name = "thumbnailChk";
-            this.thumbnailChk.Size = new System.Drawing.Size(80, 17);
-            this.thumbnailChk.TabIndex = 49;
-            this.thumbnailChk.Text = "Thumbnails";
-            this.thumbnailChk.UseVisualStyleBackColor = true;
-            this.thumbnailChk.CheckedChanged += new System.EventHandler(this.thumbnailChk_CheckedChanged);
+            this.chkThumbnails.AutoSize = true;
+            this.chkThumbnails.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.chkThumbnails.Location = new System.Drawing.Point(256, 56);
+            this.chkThumbnails.Name = "chkThumbnails";
+            this.chkThumbnails.Size = new System.Drawing.Size(80, 17);
+            this.chkThumbnails.TabIndex = 49;
+            this.chkThumbnails.Text = "Thumbnails";
+            this.chkThumbnails.UseVisualStyleBackColor = true;
+            this.chkThumbnails.CheckedChanged += new System.EventHandler(this.thumbnailChk_CheckedChanged);
             // 
-            // htmlChk
+            // chkHTML
             // 
-            this.htmlChk.AutoSize = true;
-            this.htmlChk.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.htmlChk.Location = new System.Drawing.Point(232, 33);
-            this.htmlChk.Name = "htmlChk";
-            this.htmlChk.Size = new System.Drawing.Size(93, 17);
-            this.htmlChk.TabIndex = 48;
-            this.htmlChk.Text = "Thread HTML";
-            this.htmlChk.UseVisualStyleBackColor = true;
-            this.htmlChk.CheckedChanged += new System.EventHandler(this.htmlChk_CheckedChanged);
+            this.chkHTML.AutoSize = true;
+            this.chkHTML.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.chkHTML.Location = new System.Drawing.Point(232, 33);
+            this.chkHTML.Name = "chkHTML";
+            this.chkHTML.Size = new System.Drawing.Size(93, 17);
+            this.chkHTML.TabIndex = 48;
+            this.chkHTML.Text = "Thread HTML";
+            this.chkHTML.UseVisualStyleBackColor = true;
+            this.chkHTML.CheckedChanged += new System.EventHandler(this.htmlChk_CheckedChanged);
             // 
-            // webmChk
+            // chkWebm
             // 
-            this.webmChk.AutoSize = true;
-            this.webmChk.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.webmChk.Location = new System.Drawing.Point(15, 56);
-            this.webmChk.Name = "webmChk";
-            this.webmChk.Size = new System.Drawing.Size(93, 17);
-            this.webmChk.TabIndex = 38;
-            this.webmChk.Text = "WebM Videos";
-            this.webmChk.UseVisualStyleBackColor = true;
-            this.webmChk.CheckedChanged += new System.EventHandler(this.webmChk_CheckedChanged);
+            this.chkWebm.AutoSize = true;
+            this.chkWebm.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.chkWebm.Location = new System.Drawing.Point(15, 56);
+            this.chkWebm.Name = "chkWebm";
+            this.chkWebm.Size = new System.Drawing.Size(123, 17);
+            this.chkWebm.TabIndex = 38;
+            this.chkWebm.Text = "WebM Videos\\Flash";
+            this.chkWebm.UseVisualStyleBackColor = true;
+            this.chkWebm.CheckedChanged += new System.EventHandler(this.webmChk_CheckedChanged);
             // 
-            // imagesChk
+            // chkImages
             // 
-            this.imagesChk.AutoSize = true;
-            this.imagesChk.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.imagesChk.Location = new System.Drawing.Point(15, 33);
-            this.imagesChk.Name = "imagesChk";
-            this.imagesChk.Size = new System.Drawing.Size(60, 17);
-            this.imagesChk.TabIndex = 37;
-            this.imagesChk.Text = "Images";
-            this.imagesChk.UseVisualStyleBackColor = true;
-            this.imagesChk.CheckedChanged += new System.EventHandler(this.imagesChk_CheckedChanged);
+            this.chkImages.AutoSize = true;
+            this.chkImages.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.chkImages.Location = new System.Drawing.Point(15, 33);
+            this.chkImages.Name = "chkImages";
+            this.chkImages.Size = new System.Drawing.Size(60, 17);
+            this.chkImages.TabIndex = 37;
+            this.chkImages.Text = "Images";
+            this.chkImages.UseVisualStyleBackColor = true;
+            this.chkImages.CheckedChanged += new System.EventHandler(this.imagesChk_CheckedChanged);
             // 
             // label1
             // 
@@ -313,62 +334,62 @@
             this.label5.TabIndex = 39;
             this.label5.Text = "Download Folder:";
             // 
-            // folderTxt
+            // txtFolderPath
             // 
-            this.folderTxt.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            this.txtFolderPath.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.folderTxt.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.folderTxt.Location = new System.Drawing.Point(110, 253);
-            this.folderTxt.Name = "folderTxt";
-            this.folderTxt.Size = new System.Drawing.Size(777, 20);
-            this.folderTxt.TabIndex = 40;
-            this.folderTxt.TextChanged += new System.EventHandler(this.folderTxt_TextChanged);
+            this.txtFolderPath.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtFolderPath.Location = new System.Drawing.Point(110, 253);
+            this.txtFolderPath.Name = "txtFolderPath";
+            this.txtFolderPath.Size = new System.Drawing.Size(777, 20);
+            this.txtFolderPath.TabIndex = 40;
+            this.txtFolderPath.TextChanged += new System.EventHandler(this.folderTxt_TextChanged);
             // 
-            // selectBtn
+            // btnSelectFolder
             // 
-            this.selectBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.selectBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.selectBtn.Location = new System.Drawing.Point(893, 251);
-            this.selectBtn.Name = "selectBtn";
-            this.selectBtn.Size = new System.Drawing.Size(30, 23);
-            this.selectBtn.TabIndex = 41;
-            this.selectBtn.Text = "...";
-            this.selectBtn.UseVisualStyleBackColor = true;
-            this.selectBtn.Click += new System.EventHandler(this.selectBtn_Click);
+            this.btnSelectFolder.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnSelectFolder.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnSelectFolder.Location = new System.Drawing.Point(893, 251);
+            this.btnSelectFolder.Name = "btnSelectFolder";
+            this.btnSelectFolder.Size = new System.Drawing.Size(30, 23);
+            this.btnSelectFolder.TabIndex = 41;
+            this.btnSelectFolder.Text = "...";
+            this.btnSelectFolder.UseVisualStyleBackColor = true;
+            this.btnSelectFolder.Click += new System.EventHandler(this.selectBtn_Click);
             // 
-            // clipboardpasteBtn
+            // btnPaste
             // 
-            this.clipboardpasteBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.clipboardpasteBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.clipboardpasteBtn.Location = new System.Drawing.Point(767, 542);
-            this.clipboardpasteBtn.Name = "clipboardpasteBtn";
-            this.clipboardpasteBtn.Size = new System.Drawing.Size(156, 23);
-            this.clipboardpasteBtn.TabIndex = 42;
-            this.clipboardpasteBtn.Text = "Paste from Clipboard";
-            this.clipboardpasteBtn.UseVisualStyleBackColor = true;
-            this.clipboardpasteBtn.Click += new System.EventHandler(this.clipboardpasteBtn_Click);
+            this.btnPaste.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnPaste.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnPaste.Location = new System.Drawing.Point(767, 542);
+            this.btnPaste.Name = "btnPaste";
+            this.btnPaste.Size = new System.Drawing.Size(156, 23);
+            this.btnPaste.TabIndex = 42;
+            this.btnPaste.Text = "Clipboard (CTRL + V)";
+            this.btnPaste.UseVisualStyleBackColor = true;
+            this.btnPaste.Click += new System.EventHandler(this.clipboardpasteBtn_Click);
             // 
-            // addthreadBtn
+            // btnSubmit
             // 
-            this.addthreadBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.addthreadBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.addthreadBtn.Location = new System.Drawing.Point(767, 513);
-            this.addthreadBtn.Name = "addthreadBtn";
-            this.addthreadBtn.Size = new System.Drawing.Size(156, 23);
-            this.addthreadBtn.TabIndex = 43;
-            this.addthreadBtn.Text = "Submit";
-            this.addthreadBtn.UseVisualStyleBackColor = true;
-            this.addthreadBtn.Click += new System.EventHandler(this.addthreadBtn_Click);
+            this.btnSubmit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnSubmit.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnSubmit.Location = new System.Drawing.Point(767, 513);
+            this.btnSubmit.Name = "btnSubmit";
+            this.btnSubmit.Size = new System.Drawing.Size(156, 23);
+            this.btnSubmit.TabIndex = 43;
+            this.btnSubmit.Text = "Submit";
+            this.btnSubmit.UseVisualStyleBackColor = true;
+            this.btnSubmit.Click += new System.EventHandler(this.addthreadBtn_Click);
             // 
-            // threadTxt
+            // txtThread
             // 
-            this.threadTxt.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            this.txtThread.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.threadTxt.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.threadTxt.Location = new System.Drawing.Point(110, 514);
-            this.threadTxt.Name = "threadTxt";
-            this.threadTxt.Size = new System.Drawing.Size(651, 20);
-            this.threadTxt.TabIndex = 44;
+            this.txtThread.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtThread.Location = new System.Drawing.Point(110, 514);
+            this.txtThread.Name = "txtThread";
+            this.txtThread.Size = new System.Drawing.Size(651, 20);
+            this.txtThread.TabIndex = 44;
             // 
             // label6
             // 
@@ -381,62 +402,196 @@
             this.label6.TabIndex = 45;
             this.label6.Text = "Add thread:";
             // 
-            // statisticsBtn
+            // btnStatistics
             // 
-            this.statisticsBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.statisticsBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.statisticsBtn.Location = new System.Drawing.Point(12, 542);
-            this.statisticsBtn.Name = "statisticsBtn";
-            this.statisticsBtn.Size = new System.Drawing.Size(103, 23);
-            this.statisticsBtn.TabIndex = 46;
-            this.statisticsBtn.Text = "Statistics";
-            this.statisticsBtn.UseVisualStyleBackColor = true;
+            this.btnStatistics.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnStatistics.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnStatistics.Location = new System.Drawing.Point(12, 542);
+            this.btnStatistics.Name = "btnStatistics";
+            this.btnStatistics.Size = new System.Drawing.Size(103, 23);
+            this.btnStatistics.TabIndex = 46;
+            this.btnStatistics.Text = "Statistics";
+            this.btnStatistics.UseVisualStyleBackColor = true;
+            this.btnStatistics.Click += new System.EventHandler(this.statisticsBtn_Click);
             // 
-            // aboutBtn
+            // btnAbout
             // 
-            this.aboutBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.aboutBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.aboutBtn.Location = new System.Drawing.Point(121, 542);
-            this.aboutBtn.Name = "aboutBtn";
-            this.aboutBtn.Size = new System.Drawing.Size(79, 23);
-            this.aboutBtn.TabIndex = 47;
-            this.aboutBtn.Text = "About";
-            this.aboutBtn.UseVisualStyleBackColor = true;
-            this.aboutBtn.Click += new System.EventHandler(this.aboutBtn_Click);
+            this.btnAbout.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnAbout.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnAbout.Location = new System.Drawing.Point(121, 542);
+            this.btnAbout.Name = "btnAbout";
+            this.btnAbout.Size = new System.Drawing.Size(79, 23);
+            this.btnAbout.TabIndex = 47;
+            this.btnAbout.Text = "About";
+            this.btnAbout.UseVisualStyleBackColor = true;
+            this.btnAbout.Click += new System.EventHandler(this.aboutBtn_Click);
             // 
-            // boardDataGrid
+            // ContextBoardDataGrid
             // 
-            this.boardDataGrid.AllowUserToAddRows = false;
-            this.boardDataGrid.AllowUserToDeleteRows = false;
-            this.boardDataGrid.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.ContextBoardDataGrid.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.ContextCheckbtn,
+            this.toolStripSeparator1,
+            this.ContextOpenbtn,
+            this.ContextStopbtn,
+            this.ContextStartbtn,
+            this.toolStripSeparator2,
+            this.ContextClearbtn,
+            this.ContextClearDeletebtn,
+            this.toolStripSeparator3,
+            this.ContextSelectWaitbtn});
+            this.ContextBoardDataGrid.Name = "ContextBoardDataGrid";
+            this.ContextBoardDataGrid.Size = new System.Drawing.Size(192, 198);
+            // 
+            // ContextCheckbtn
+            // 
+            this.ContextCheckbtn.Name = "ContextCheckbtn";
+            this.ContextCheckbtn.Size = new System.Drawing.Size(191, 22);
+            this.ContextCheckbtn.Text = "Check Now";
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(188, 6);
+            // 
+            // ContextOpenbtn
+            // 
+            this.ContextOpenbtn.Name = "ContextOpenbtn";
+            this.ContextOpenbtn.Size = new System.Drawing.Size(191, 22);
+            this.ContextOpenbtn.Text = "Open Folder";
+            this.ContextOpenbtn.Click += new System.EventHandler(this.ContextOpenbtn_Click);
+            // 
+            // ContextStopbtn
+            // 
+            this.ContextStopbtn.Name = "ContextStopbtn";
+            this.ContextStopbtn.Size = new System.Drawing.Size(191, 22);
+            this.ContextStopbtn.Text = "Stop Watching";
+            this.ContextStopbtn.Click += new System.EventHandler(this.ContextStopbtn_Click);
+            // 
+            // ContextStartbtn
+            // 
+            this.ContextStartbtn.Name = "ContextStartbtn";
+            this.ContextStartbtn.Size = new System.Drawing.Size(191, 22);
+            this.ContextStartbtn.Text = "Start Watching";
+            this.ContextStartbtn.Click += new System.EventHandler(this.ContextStartbtn_Click);
+            // 
+            // toolStripSeparator2
+            // 
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            this.toolStripSeparator2.Size = new System.Drawing.Size(188, 6);
+            // 
+            // ContextClearbtn
+            // 
+            this.ContextClearbtn.Name = "ContextClearbtn";
+            this.ContextClearbtn.Size = new System.Drawing.Size(191, 22);
+            this.ContextClearbtn.Text = "Clear Entry";
+            this.ContextClearbtn.Click += new System.EventHandler(this.ContextClearbtn_Click);
+            // 
+            // ContextClearDeletebtn
+            // 
+            this.ContextClearDeletebtn.Name = "ContextClearDeletebtn";
+            this.ContextClearDeletebtn.Size = new System.Drawing.Size(191, 22);
+            this.ContextClearDeletebtn.Text = "Clear && Delete Folder";
+            this.ContextClearDeletebtn.Click += new System.EventHandler(this.ContextClearDeletebtn_Click);
+            // 
+            // toolStripSeparator3
+            // 
+            this.toolStripSeparator3.Name = "toolStripSeparator3";
+            this.toolStripSeparator3.Size = new System.Drawing.Size(188, 6);
+            // 
+            // ContextSelectWaitbtn
+            // 
+            this.ContextSelectWaitbtn.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.Context30Secbtn,
+            this.Context1Minbtn,
+            this.toolStripMenuItem1,
+            this.toolStripMenuItem2,
+            this.toolStripMenuItem3,
+            this.Context1Hourbtn,
+            this.toolStripMenuItem4,
+            this.toolStripMenuItem5});
+            this.ContextSelectWaitbtn.Name = "ContextSelectWaitbtn";
+            this.ContextSelectWaitbtn.Size = new System.Drawing.Size(191, 22);
+            this.ContextSelectWaitbtn.Text = "Select Waiting Interval";
+            // 
+            // Context30Secbtn
+            // 
+            this.Context30Secbtn.Name = "Context30Secbtn";
+            this.Context30Secbtn.Size = new System.Drawing.Size(133, 22);
+            this.Context30Secbtn.Text = "30 Seconds";
+            // 
+            // Context1Minbtn
+            // 
+            this.Context1Minbtn.Name = "Context1Minbtn";
+            this.Context1Minbtn.Size = new System.Drawing.Size(133, 22);
+            this.Context1Minbtn.Text = "1 Minute";
+            // 
+            // toolStripMenuItem1
+            // 
+            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(133, 22);
+            this.toolStripMenuItem1.Text = "2 Minutes";
+            // 
+            // toolStripMenuItem2
+            // 
+            this.toolStripMenuItem2.Name = "toolStripMenuItem2";
+            this.toolStripMenuItem2.Size = new System.Drawing.Size(133, 22);
+            this.toolStripMenuItem2.Text = "5 Minutes";
+            // 
+            // toolStripMenuItem3
+            // 
+            this.toolStripMenuItem3.Name = "toolStripMenuItem3";
+            this.toolStripMenuItem3.Size = new System.Drawing.Size(133, 22);
+            this.toolStripMenuItem3.Text = "30 Minutes";
+            // 
+            // Context1Hourbtn
+            // 
+            this.Context1Hourbtn.Name = "Context1Hourbtn";
+            this.Context1Hourbtn.Size = new System.Drawing.Size(133, 22);
+            this.Context1Hourbtn.Text = "1 Hour";
+            // 
+            // toolStripMenuItem4
+            // 
+            this.toolStripMenuItem4.Name = "toolStripMenuItem4";
+            this.toolStripMenuItem4.Size = new System.Drawing.Size(133, 22);
+            this.toolStripMenuItem4.Text = "12 Hours";
+            // 
+            // toolStripMenuItem5
+            // 
+            this.toolStripMenuItem5.Name = "toolStripMenuItem5";
+            this.toolStripMenuItem5.Size = new System.Drawing.Size(133, 22);
+            this.toolStripMenuItem5.Text = "Daily";
+            // 
+            // dgvBoards
+            // 
+            this.dgvBoards.AllowUserToAddRows = false;
+            this.dgvBoards.AllowUserToDeleteRows = false;
+            this.dgvBoards.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.boardDataGrid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.boardDataGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.boardDataGrid.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.dgvBoards.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dgvBoards.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvBoards.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Column1,
-            this.Column2,
             this.Column3,
             this.Column4,
             this.Column5,
-            this.Column6,
+            this.Column2,
             this.Column7,
-            this.Column8});
-            this.boardDataGrid.Location = new System.Drawing.Point(12, 12);
-            this.boardDataGrid.Name = "boardDataGrid";
-            this.boardDataGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.boardDataGrid.Size = new System.Drawing.Size(911, 194);
-            this.boardDataGrid.TabIndex = 48;
+            this.Column8,
+            this.Column6});
+            this.dgvBoards.Location = new System.Drawing.Point(12, 12);
+            this.dgvBoards.Name = "dgvBoards";
+            this.dgvBoards.RowHeadersWidth = 20;
+            this.dgvBoards.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgvBoards.Size = new System.Drawing.Size(911, 194);
+            this.dgvBoards.TabIndex = 48;
+            this.dgvBoards.CellMouseDown += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.boardDataGrid_CellMouseDown);
             // 
             // Column1
             // 
-            this.Column1.HeaderText = "ID";
+            this.Column1.HeaderText = "Index";
             this.Column1.Name = "Column1";
-            // 
-            // Column2
-            // 
-            this.Column2.HeaderText = "Subject";
-            this.Column2.Name = "Column2";
+            this.Column1.Visible = false;
             // 
             // Column3
             // 
@@ -450,17 +605,17 @@
             // 
             // Column5
             // 
-            this.Column5.HeaderText = "Thread";
+            this.Column5.HeaderText = "ID";
             this.Column5.Name = "Column5";
             // 
-            // Column6
+            // Column2
             // 
-            this.Column6.HeaderText = "Img: Count";
-            this.Column6.Name = "Column6";
+            this.Column2.HeaderText = "Subject";
+            this.Column2.Name = "Column2";
             // 
             // Column7
             // 
-            this.Column7.HeaderText = "Img: Downloaded";
+            this.Column7.HeaderText = "Files Downloaded";
             this.Column7.Name = "Column7";
             // 
             // Column8
@@ -468,25 +623,30 @@
             this.Column8.HeaderText = "Status";
             this.Column8.Name = "Column8";
             // 
+            // Column6
+            // 
+            this.Column6.HeaderText = "Next DL in";
+            this.Column6.Name = "Column6";
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(935, 572);
-            this.Controls.Add(this.boardDataGrid);
-            this.Controls.Add(this.aboutBtn);
-            this.Controls.Add(this.statisticsBtn);
+            this.Controls.Add(this.dgvBoards);
+            this.Controls.Add(this.btnAbout);
+            this.Controls.Add(this.btnStatistics);
             this.Controls.Add(this.label6);
-            this.Controls.Add(this.threadTxt);
-            this.Controls.Add(this.addthreadBtn);
-            this.Controls.Add(this.clipboardpasteBtn);
-            this.Controls.Add(this.selectBtn);
-            this.Controls.Add(this.folderTxt);
+            this.Controls.Add(this.txtThread);
+            this.Controls.Add(this.btnSubmit);
+            this.Controls.Add(this.btnPaste);
+            this.Controls.Add(this.btnSelectFolder);
+            this.Controls.Add(this.txtFolderPath);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.panel1);
-            this.Controls.Add(this.selectallBtn);
-            this.Controls.Add(this.removedeadBtn);
-            this.Controls.Add(this.openfolderBtm);
+            this.Controls.Add(this.btnSelectAll);
+            this.Controls.Add(this.btnClearInactive);
+            this.Controls.Add(this.btnOpenFolder);
             this.Controls.Add(this.label4);
             this.DoubleBuffered = true;
             this.MinimumSize = new System.Drawing.Size(16, 461);
@@ -495,7 +655,8 @@
             this.Load += new System.EventHandler(this.MainForm_Load);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.boardDataGrid)).EndInit();
+            this.ContextBoardDataGrid.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dgvBoards)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -504,42 +665,61 @@
         #endregion
 
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Button openfolderBtm;
-        private System.Windows.Forms.Button removedeadBtn;
-        private System.Windows.Forms.Button selectallBtn;
+        private System.Windows.Forms.Button btnOpenFolder;
+        private System.Windows.Forms.Button btnClearInactive;
+        private System.Windows.Forms.Button btnSelectAll;
         private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.CheckBox hashesChk;
-        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.CheckBox chkVerifyHashes;
+        private System.Windows.Forms.ComboBox cmbThreadRefresh;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.CheckBox continuousChk;
-        private System.Windows.Forms.CheckBox deathalertChk;
-        private System.Windows.Forms.CheckBox separatefolderChk;
-        private System.Windows.Forms.CheckBox thumbnailChk;
-        private System.Windows.Forms.CheckBox htmlChk;
-        private System.Windows.Forms.CheckBox webmChk;
-        private System.Windows.Forms.CheckBox imagesChk;
+        private System.Windows.Forms.CheckBox chkConstantCheck;
+        private System.Windows.Forms.CheckBox chkDeathAlert;
+        private System.Windows.Forms.CheckBox chkSeperateFolder;
+        private System.Windows.Forms.CheckBox chkThumbnails;
+        private System.Windows.Forms.CheckBox chkHTML;
+        private System.Windows.Forms.CheckBox chkWebm;
+        private System.Windows.Forms.CheckBox chkImages;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.TextBox folderTxt;
-        private System.Windows.Forms.Button selectBtn;
-        private System.Windows.Forms.Button clipboardpasteBtn;
-        private System.Windows.Forms.Button addthreadBtn;
-        private System.Windows.Forms.TextBox threadTxt;
+        private System.Windows.Forms.TextBox txtFolderPath;
+        private System.Windows.Forms.Button btnSelectFolder;
+        private System.Windows.Forms.Button btnPaste;
+        private System.Windows.Forms.Button btnSubmit;
+        private System.Windows.Forms.TextBox txtThread;
         private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.Button statisticsBtn;
-        private System.Windows.Forms.Button aboutBtn;
-        private System.Windows.Forms.Button defaultBtn;
-        private System.Windows.Forms.CheckBox deadclearChk;
+        private System.Windows.Forms.Button btnStatistics;
+        private System.Windows.Forms.Button btnAbout;
+        private System.Windows.Forms.Button btnSetDefault;
+        private System.Windows.Forms.CheckBox chkClearDead;
+        public BufferedDataGridView dgvBoards;
+        private System.Windows.Forms.FolderBrowserDialog FolderDialog;
+        private System.Windows.Forms.ContextMenuStrip ContextBoardDataGrid;
+        private System.Windows.Forms.ToolStripMenuItem ContextCheckbtn;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
+        private System.Windows.Forms.ToolStripMenuItem ContextOpenbtn;
+        private System.Windows.Forms.ToolStripMenuItem ContextStopbtn;
+        private System.Windows.Forms.ToolStripMenuItem ContextStartbtn;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
+        private System.Windows.Forms.ToolStripMenuItem ContextClearbtn;
+        private System.Windows.Forms.ToolStripMenuItem ContextClearDeletebtn;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
+        private System.Windows.Forms.ToolStripMenuItem ContextSelectWaitbtn;
+        private System.Windows.Forms.ToolStripMenuItem Context30Secbtn;
+        private System.Windows.Forms.ToolStripMenuItem Context1Minbtn;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem2;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem3;
+        private System.Windows.Forms.ToolStripMenuItem Context1Hourbtn;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem4;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem5;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column3;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column4;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column5;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column6;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column7;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column8;
-        public BufferedDataGridView boardDataGrid;
-        private System.Windows.Forms.FolderBrowserDialog FolderDialog;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column6;
 
 
 

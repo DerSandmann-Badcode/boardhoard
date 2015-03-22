@@ -2,6 +2,9 @@
 using System.Net;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
+using System.Threading;
+using System.IO;
 
 
 namespace BoardHoard
@@ -9,23 +12,28 @@ namespace BoardHoard
     public class Board
     {
         public int ID;
-        public int Thread;
-        public int ImgCount;
-        public int ImgDownloaded;
-        public int Status;
+        public int Thread_ID;
+        public int FileCount;
+        public int DownloadedCount;
+        public int Status; //0 = Idle, 1 = Running, 2 = Stopped, 3 = Dead
+        public int Refresh_Delay = 120000;
 
         public string Subject;
         public string Site;
         public string URL;
         public string Name;
+        public string DownloadPath;
 
-        public Boolean Download_HTML = false;
-        public Boolean Download_Images = false;
-        public Boolean Download_Thumnails = false;
-        public Boolean Download_WebMs = false;
-        public Boolean AnimatedFolder = false;
-        public Boolean Alerts_Death = false;
-        public Boolean Alerts_Download = false;
+        public bool Download_HTML = false;
+        public bool Download_Images = false;
+        public bool Download_Thumnails = false;
+        public bool Download_WebMs = false;
+        public bool AnimatedFolder = false;
+        public bool Alerts_Death = false;
+        public bool Alerts_Download = false;
+        public bool ConstantRefresh = true;
+
+        public DateTime LastDownload;
 
         // The following are used to drive HTMLAgilityPack parsing
 
@@ -49,19 +57,323 @@ namespace BoardHoard
         public string XPath_Thumbnail;
         public string Tag_Thumbnail;
 
-        
-        public static void Stop(int Board_ID)
+        public void DownloadLoop()
         {
-            /*
-            foreach (Board b in BoardContainer.Boards)
+            do
             {
-                if (b.ID == Board_ID)
+                // We're going to sleep in sections
+                // if user cancels the thread checking,
+                // we want to be able to end this thread
+                int SleptTime = 0;
+                do
                 {
-                    b.Status = 2;
+                    SleptTime += 1000;
+                    Thread.Sleep(1000);
+                    if (this.ConstantRefresh == false)
+                    {
+                        // If user wanted to stop watching this thread
+                        // while thread was resting, we will exit
+                        break;
+                    }
+
+                } while (SleptTime < Refresh_Delay);
+
+                if (this.ConstantRefresh == true)
+                {
+                    this.Download();
                 }
-            }*/
+                
+            } while (this.Status == 0);
+
         }
 
+        public void StartRefresh()
+        {
+            this.LastDownload = DateTime.Now;
+            Thread BTestingThread = new Thread(new ThreadStart(DownloadLoop));
+            BTestingThread.IsBackground = true;
+            BTestingThread.Start();
+        }
 
+        public void Download_Single()
+        {
+            Thread BTestingThread = new Thread(new ThreadStart(Download));
+            BTestingThread.IsBackground = true;
+            BTestingThread.Start();
+        }
+
+        public void DeleteDirectory()
+        {
+            String DeletedFolder = this.DownloadPath + this.Site + @"\" + this.Name + @"\" + this.Thread_ID;
+            Directory.Delete(DeletedFolder, true);
+        }
+
+        public void Download()
+        {
+            // If thread is running, I don't 
+            // want to start it again
+            if (this.Status == 1)
+            {
+                return;
+            }
+
+            // Set status to 1
+            // Prevents the same board from running
+            // on multiple threads, sort of like a
+            // session lock, also we want to update
+            // the last runtime on this thread
+
+            this.Status = 1;
+            this.LastDownload = DateTime.Now;
+            Uri BoardUri = new Uri(this.URL);
+
+            // Set up a new HtmlDocument
+            HtmlAgilityPack.HtmlDocument Document = new HtmlAgilityPack.HtmlDocument();
+
+            // Webrequest allows setting of proxy settings and Useragents
+            // I could add a form to allow users to set proxy
+            // settings per board
+
+            HttpWebRequest Request = (HttpWebRequest)HttpWebRequest.Create(this.URL);
+            Request.AllowReadStreamBuffering = false;
+            Request.UserAgent = "BoardHoard";
+
+            WebResponse Response;
+            try
+            {
+                // Try to get html data
+                Response = Request.GetResponse();
+                // Fill HTML document with the webpage
+                Document.Load(Response.GetResponseStream());
+            }
+            catch (WebException ex)
+            {
+                // Check if Board is 404
+                if (ex.Status == WebExceptionStatus.ProtocolError & ex.Response != null)
+                {
+                    // Page not found, thread has 404'd
+                    HttpWebResponse Resp = (HttpWebResponse)ex.Response;
+                    if (Resp.StatusCode == HttpStatusCode.NotFound)
+                    {
+                        this.Status = 3;
+                    }
+                }
+            } // End Catch for Request.GetResponse()
+
+            // LINQ To get rid of all scripts
+            // this speeds the opening of the HTML
+            // by ~500%
+            Document.DocumentNode.Descendants()
+                .Where(n => n.Name == "script")
+                .ToList()
+                .ForEach(n => n.Remove());
+
+            // Set up html nodes to read the html into
+            HtmlAgilityPack.HtmlNodeCollection DocNodes;
+
+            // Set the board site
+            this.Site = BoardUri.Host;
+
+            // Try to read elements for the board name, if all else fails,
+            // we are going to grab it from the board URI
+            if (this.XPath_Board == null || this.XPath_Board == "")
+            {
+                this.Name = BoardUri.LocalPath.Split(Convert.ToChar("/"))[1];
+
+            }
+            else
+            {
+                // Read board XPaths
+                DocNodes = Document.DocumentNode.SelectNodes(this.XPath_Board);
+
+                foreach (HtmlAgilityPack.HtmlNode Node in DocNodes)
+                {
+                    this.Name = Node.GetAttributeValue(this.Tag_Board, "");
+                }
+            }
+
+            // Try to read the subject - This can be blank, but it's nice to have
+            DocNodes = Document.DocumentNode.SelectNodes(this.XPath_Subject);
+            if (DocNodes != null)
+            {
+                this.Subject = DocNodes[0].InnerText;
+            }
+
+            // Try to rea the thread ID - We will use REGEX to convert it
+            // to an int regardless of what is in the string.
+            DocNodes = Document.DocumentNode.SelectNodes(this.XPath_Thread);
+            if (DocNodes != null)
+            {
+                this.Thread_ID = Convert.ToInt32(System.Text.RegularExpressions.Regex.Replace(DocNodes[0].GetAttributeValue(this.Tag_Thread, ""), "\\D", ""));
+
+            }
+
+            // Set up directories for our program to download into
+            String DownloadFolder = this.DownloadPath + this.Site + @"\" + this.Name + @"\" + this.Thread_ID + @"\";
+            Directory.CreateDirectory(DownloadFolder);
+
+            // Download CSS files to go with our HTML
+            var sources = Document.DocumentNode.Descendants("link");
+            foreach (HtmlAgilityPack.HtmlNode CSS_File in sources)
+            {
+                // Get all of the href elements that contain .css
+                if (CSS_File.Attributes["href"].Value.Contains(".css"))
+                {
+                    // Temporary code until I can think of a way to
+                    // fix local or file links
+                    string testcss = "Http:" + CSS_File.Attributes["href"].Value;
+                    string newfile = DownloadFolder + @"Site_Data\" + Path.GetFileName(testcss);
+
+                    if (this.Download_HTML == true)
+                    {
+                        // Create a folder and download the CSS
+                        Directory.CreateDirectory(DownloadFolder + @"Site_Data\");
+                        using (WebClient Client = new WebClient())
+                        {
+                            Client.DownloadFile(testcss, newfile);
+
+                        }
+                    }
+                    // Rename the CSS file paths if we download the HTML
+                    CSS_File.Attributes["href"].Value = newfile;
+                }
+            } // CSS File End Each
+
+            // Get list of nodes containing thumbnails
+            DocNodes = Document.DocumentNode.SelectNodes(this.XPath_Thumbnail);
+            foreach (HtmlAgilityPack.HtmlNode Node in DocNodes)
+            {
+                string Thumbnail = Node.GetAttributeValue(this.Tag_Thumbnail, "");
+                if (Thumbnail == string.Empty)
+                {
+                    continue;
+                }
+                // Save the location for the thumbnails,
+                // regardless of if we download them
+                string newfile = DownloadFolder + @"Thumbnails\" + Path.GetFileName(Thumbnail);
+                if (this.Download_Thumnails == true)
+                {
+                    
+                    using (WebClient Client = new WebClient())
+                    {
+                        if (File.Exists(newfile) == false)
+                        {
+                            // Try to clean up boards using file URI
+                            // Needs work, some sites send relative
+                            // URIs
+                            Uri UriThumbnail = new Uri(Thumbnail);
+                            if (UriThumbnail.Scheme == "file")
+                            {
+                                Thumbnail = BoardUri.Scheme + ":" + Thumbnail;
+                            }
+                            // Create /Thumbnails directory to store the
+                            // thumbnails we download
+                            Directory.CreateDirectory(DownloadFolder + @"Thumbnails\");
+                            Client.DownloadFile(Thumbnail, DownloadFolder + @"Thumbnails\" + Path.GetFileName(Thumbnail));
+                        }
+
+                    } // stop using webclient
+                }
+                // Rename thumbnail file paths
+                Node.Attributes[this.Tag_Thumbnail].Value = newfile;
+            } // Thumbnails End Each
+
+
+            // Get list of elements containing Images
+            DocNodes = Document.DocumentNode.SelectNodes(this.XPath_Image);
+            this.FileCount = DocNodes.Count;
+            foreach (HtmlAgilityPack.HtmlNode Node in DocNodes)
+            {
+                // If the XPath matches and the Tag
+                // matches, we want to download this
+                // image
+                string Image = Node.GetAttributeValue(this.Tag_Image, "");
+                if (Image == string.Empty)
+                {
+                    continue;
+                }
+
+                string newfile = DownloadFolder + Path.GetFileName(Image);
+                // Couldn't think of a better way of doing this
+                // We're going to use a boolean to determine what
+                // type of file we are looking at
+                bool Download = false;
+                switch (System.IO.Path.GetExtension(Image))
+                {
+                    case ".jpg":
+                    case ".png":
+                    case ".gif":
+                    case ".bmp":
+                        if (this.Download_Images == true)
+                        {
+                            Download = true;
+                        }
+                        break;
+                    case ".webm":
+                    case ".swf":
+                        if (this.Download_WebMs == true)
+                        {
+                            Download = true;
+                        }
+                        break;
+                }
+
+                using (WebClient Client = new WebClient())
+                {
+                    // Try to clean up boards using file URI
+                    // Needs work, some sites send relative
+                    // URIs
+                    Uri UriThumbnail = new Uri(Image);
+                    if (UriThumbnail.Scheme == "file")
+                    {
+                        Image = BoardUri.Scheme + ":" + Image;
+                    }
+
+                    // If file was in our types of file to download
+                    if (Download == true)
+                    {
+                        if (this.AnimatedFolder == true)
+                        {
+                            // Newfile is what we are using to change the HTML elements
+                            newfile = DownloadFolder + @"Animated\" + Path.GetFileName(Image);
+                            if (File.Exists(newfile) == false)
+                            {
+                                // If the user requested we create a folder for
+                                // WebMs and Flash, do that now
+                                Directory.CreateDirectory(DownloadFolder + @"Animated\");
+                                Client.DownloadFile(Image, DownloadFolder + @"Animated\" + Path.GetFileName(Image));
+                                this.DownloadedCount += 1;
+                            }
+                            
+                        }
+                        else
+                        {
+                            if (File.Exists(newfile) == false)
+                            {
+                                // Download Board Object, could be an image, webm, flash
+                                Client.DownloadFile(Image, DownloadFolder + Path.GetFileName(Image));
+                                this.DownloadedCount += 1;
+                            }
+                        }
+                    }
+
+
+                } // stop using webclient
+                Node.Attributes[this.Tag_Image].Value = newfile;
+
+            } //end Image foreach loop
+
+            if (this.Download_HTML == true)
+            {
+                // If the user wants to download the HTML for the thread
+                // we have already changed all of the links to be local
+                // links
+                Document.Save(DownloadFolder + this.Thread_ID + ".html");
+            }
+
+            // Thread is complete. Return to idle
+            this.Status = 0;
+
+        }
     }
 }
