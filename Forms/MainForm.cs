@@ -86,7 +86,7 @@ namespace BoardHoard
             {
                 if (SavedBoard.ConstantRefresh == true)
                 {
-                    SavedBoard.Download();
+                    SavedBoard.Download_Single();
                     SavedBoard.StartRefresh();
                 }
             }
@@ -113,27 +113,6 @@ namespace BoardHoard
         {
             RunningBoards.Boards.Remove(Board);
         }
-
-        private void boardDataGrid_CellMouseDown(object sender, DataGridViewCellMouseEventArgs e)
-        {
-            if (e.Button == System.Windows.Forms.MouseButtons.Right)
-            {
-                DataGridViewRow ClickedRow = dgvBoards.Rows[e.RowIndex];
-                DataGridViewSelectedRowCollection SelectedRows = dgvBoards.SelectedRows;
-                if (SelectedRows.Contains(ClickedRow))
-                {
-                    ContextBoardDataGrid.Show(Cursor.Position);
-                }
-                else
-                {
-                    dgvBoards.ClearSelection();
-                    ClickedRow.Selected = true;
-                    ContextBoardDataGrid.Show(Cursor.Position);
-                }
-
-            }
-        }
-
 
 
         #region FormChangedEvents
@@ -252,6 +231,14 @@ namespace BoardHoard
         private void clipboardpasteBtn_Click(object sender, EventArgs e)
         {
             txtThread.Text = Clipboard.GetText();
+            if (txtThread.Text != string.Empty)
+            {
+                // Create a new board with the UI settings
+                // and add it to the BoardContainer
+                RunningBoards.Add(txtThread.Text);
+
+                txtThread.Clear();
+            }
         }
 
         private void aboutBtn_Click(object sender, EventArgs e)
@@ -448,6 +435,43 @@ namespace BoardHoard
         public void Datagrid_Delete(DataGridViewRow DeletedRow)
         {
             dgvBoards.Rows.Remove(DeletedRow);
+        }
+
+        private void boardDataGrid_CellMouseDown(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            if (e.Button == System.Windows.Forms.MouseButtons.Right)
+            {
+                if (e.RowIndex < 0 || e.ColumnIndex < 0)
+                {
+                    return;
+                }
+                DataGridViewRow ClickedRow = dgvBoards.Rows[e.RowIndex];
+                DataGridViewSelectedRowCollection SelectedRows = dgvBoards.SelectedRows;
+                if (SelectedRows.Contains(ClickedRow))
+                {
+                    ContextBoardDataGrid.Show(Cursor.Position);
+                }
+                else
+                {
+                    dgvBoards.ClearSelection();
+                    ClickedRow.Selected = true;
+                    ContextBoardDataGrid.Show(Cursor.Position);
+                }
+
+            }
+
+        }
+
+        private void dgvBoards_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex < 0 || e.ColumnIndex < 0)
+            {
+                return;
+            }
+            RunningBoards.Open_Folder(dgvBoards.Rows[e.RowIndex].Cells[1].Value.ToString(),
+                dgvBoards.Rows[e.RowIndex].Cells[2].Value.ToString(),
+                dgvBoards.Rows[e.RowIndex].Cells[3].Value.ToString());
+
         }
 
         #endregion
@@ -723,8 +747,19 @@ namespace BoardHoard
             if (e.KeyCode == Keys.V && e.Modifiers == Keys.Control)
             {
                 txtThread.Text = Clipboard.GetText();
+                if (txtThread.Text != string.Empty)
+                {
+                    // Create a new board with the UI settings
+                    // and add it to the BoardContainer
+                    RunningBoards.Add(txtThread.Text);
+
+                    txtThread.Clear();
+                }
+        
+
             }
         }
+
 
     }
 

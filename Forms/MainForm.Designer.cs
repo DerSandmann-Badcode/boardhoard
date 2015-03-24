@@ -589,54 +589,65 @@
             this.Column7,
             this.Column8,
             this.Column6});
+            this.dgvBoards.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
             this.dgvBoards.Location = new System.Drawing.Point(12, 12);
             this.dgvBoards.Name = "dgvBoards";
+            this.dgvBoards.ReadOnly = true;
             this.dgvBoards.RowHeadersWidth = 20;
             this.dgvBoards.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvBoards.Size = new System.Drawing.Size(911, 194);
             this.dgvBoards.TabIndex = 48;
+            this.dgvBoards.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvBoards_CellContentDoubleClick);
             this.dgvBoards.CellMouseDown += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.boardDataGrid_CellMouseDown);
             // 
             // Column1
             // 
             this.Column1.HeaderText = "Index";
             this.Column1.Name = "Column1";
+            this.Column1.ReadOnly = true;
             this.Column1.Visible = false;
             // 
             // Column3
             // 
             this.Column3.HeaderText = "Site";
             this.Column3.Name = "Column3";
+            this.Column3.ReadOnly = true;
             // 
             // Column4
             // 
             this.Column4.HeaderText = "Board";
             this.Column4.Name = "Column4";
+            this.Column4.ReadOnly = true;
             // 
             // Column5
             // 
             this.Column5.HeaderText = "ID";
             this.Column5.Name = "Column5";
+            this.Column5.ReadOnly = true;
             // 
             // Column2
             // 
             this.Column2.HeaderText = "Subject";
             this.Column2.Name = "Column2";
+            this.Column2.ReadOnly = true;
             // 
             // Column7
             // 
             this.Column7.HeaderText = "Files Downloaded";
             this.Column7.Name = "Column7";
+            this.Column7.ReadOnly = true;
             // 
             // Column8
             // 
             this.Column8.HeaderText = "Status";
             this.Column8.Name = "Column8";
+            this.Column8.ReadOnly = true;
             // 
             // Column6
             // 
             this.Column6.HeaderText = "Next DL in";
             this.Column6.Name = "Column6";
+            this.Column6.ReadOnly = true;
             // 
             // MainForm
             // 
