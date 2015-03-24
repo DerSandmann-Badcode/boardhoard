@@ -597,7 +597,7 @@
             this.dgvBoards.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvBoards.Size = new System.Drawing.Size(911, 194);
             this.dgvBoards.TabIndex = 48;
-            this.dgvBoards.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvBoards_CellContentDoubleClick);
+            this.dgvBoards.CellMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgvBoards_CellMouseDoubleClick);
             this.dgvBoards.CellMouseDown += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.boardDataGrid_CellMouseDown);
             // 
             // Column1

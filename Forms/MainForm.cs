@@ -462,7 +462,7 @@ namespace BoardHoard
 
         }
 
-        private void dgvBoards_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
+        private void dgvBoards_CellMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
         {
             if (e.RowIndex < 0 || e.ColumnIndex < 0)
             {
@@ -471,7 +471,6 @@ namespace BoardHoard
             RunningBoards.Open_Folder(dgvBoards.Rows[e.RowIndex].Cells[1].Value.ToString(),
                 dgvBoards.Rows[e.RowIndex].Cells[2].Value.ToString(),
                 dgvBoards.Rows[e.RowIndex].Cells[3].Value.ToString());
-
         }
 
         #endregion
@@ -759,6 +758,8 @@ namespace BoardHoard
 
             }
         }
+
+
 
 
     }
