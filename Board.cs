@@ -15,7 +15,7 @@ namespace BoardHoard
         public int Thread_ID;
         public int FileCount;
         public int DownloadedCount;
-        public int Status; //0 = Idle, 1 = Running, 2 = Stopped, 3 = Dead
+        public int Status; // 0 = Idle, 1 = Running, 2 = Stopped, 3 = Dead, 4 = Stopping(Paused)
         public int Refresh_Delay = 120000;
 
         public string Subject;
@@ -32,6 +32,7 @@ namespace BoardHoard
         public bool Alerts_Death = false;
         public bool Alerts_Download = false;
         public bool ConstantRefresh = true;
+        public bool Stopping = false;
 
         public DateTime LastDownload;
 
@@ -75,6 +76,10 @@ namespace BoardHoard
                         // while thread was resting, we will exit
                         break;
                     }
+                    if (this.Status == 4)
+                    {
+                        return;
+                    }
 
                 } while (SleptTime < Refresh_Delay);
 
@@ -104,6 +109,7 @@ namespace BoardHoard
 
         public void DeleteDirectory()
         {
+            // Delete while downloading
             String DeletedFolder = this.DownloadPath + this.Site + @"\" + this.Name + @"\" + this.Thread_ID;
             Directory.Delete(DeletedFolder, true);
         }
@@ -190,11 +196,14 @@ namespace BoardHoard
             {
                 // Read board XPaths
                 DocNodes = Document.DocumentNode.SelectNodes(this.XPath_Board);
-
-                foreach (HtmlAgilityPack.HtmlNode Node in DocNodes)
+                if (DocNodes != null)
                 {
-                    this.Name = Node.GetAttributeValue(this.Tag_Board, "");
+                    foreach (HtmlAgilityPack.HtmlNode Node in DocNodes)
+                    {
+                        this.Name = Node.GetAttributeValue(this.Tag_Board, "");
+                    }
                 }
+                
             }
 
             // Try to read the subject - This can be blank, but it's nice to have
@@ -248,6 +257,13 @@ namespace BoardHoard
             {
                 foreach (HtmlAgilityPack.HtmlNode Node in DocNodes)
                 {
+
+                    if (this.Stopping == true)
+                    {
+                        this.Status = 4;
+                        return;
+                    }
+
                     string Thumbnail = Node.GetAttributeValue(this.Tag_Thumbnail, "");
                     if (Thumbnail == string.Empty)
                     {
@@ -287,6 +303,13 @@ namespace BoardHoard
                 this.FileCount = DocNodes.Count;
                 foreach (HtmlAgilityPack.HtmlNode Node in DocNodes)
                 {
+
+                    if (this.Stopping == true)
+                    {
+                        this.Status = 4;
+                        return;
+                    }
+
                     // If the XPath matches and the Tag
                     // matches, we want to download this
                     // image
@@ -402,10 +425,12 @@ namespace BoardHoard
 
         public void UrlDownload(string address, string filename)
         {
+            
             using (WebClient Client = new WebClient())
             {
                 try
                 {
+                    
                     Client.DownloadFile(address, filename);
                 }
                 catch (Exception ex)
@@ -415,9 +440,96 @@ namespace BoardHoard
             }
         }
 
+        public bool StreamDownload(string url, string filename)
+        {
+            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
+            HttpWebResponse response;
+            try
+            {
+                response = (HttpWebResponse)request.GetResponse();
+            }
+            catch (Exception ex)
+            {
+                Debug.Print(ex.Message);
+                return false;
+            }
+            /*&&
+                response.ContentType.StartsWith("image", StringComparison.OrdinalIgnoreCase)*/
+            // Check that the remote file was found. The ContentType
+            // check is performed since a request for a non-existent
+            // image file might be redirected to a 404-page, which would
+            // yield the StatusCode "OK", even though the image was not
+            // found.   
+            if ((response.StatusCode == HttpStatusCode.OK ||
+                response.StatusCode == HttpStatusCode.Moved ||
+                response.StatusCode == HttpStatusCode.Redirect))
+            {
+                
+                // if the remote file was found, download it
+                using (Stream inputStream = response.GetResponseStream())
+                using (Stream outputStream = File.OpenWrite(filename))
+                {
+                    byte[] buffer = new byte[4096];
+                    int bytesRead;
+                    do
+                    {
+                        bytesRead = inputStream.Read(buffer, 0, buffer.Length);
+                        outputStream.Write(buffer, 0, bytesRead);
+                    } while (bytesRead != 0);
+                }
+                return true;
+            }
+            else
+                return false;
+        }
+
         public string GetCleanFileName(string filepath)
         {
             return Path.GetInvalidFileNameChars().Aggregate(Path.GetFileName(filepath), (current, c) => current.Replace(c.ToString(), string.Empty));
+        
         }
+
+
+        private void ThreadStop()
+        {
+            this.Stopping = true;
+
+        }
+
+        public void Stop()
+        {
+            this.Stopping = true;
+
+            do
+            {
+                Thread.Sleep(100);
+            } while (this.Status != 4);
+
+            this.Status = 2;
+
+        }
+
+        private void ThreadStopDelete()
+        {
+            this.Stopping = true;
+
+            do
+            {
+                Thread.Sleep(100);
+            } while ((this.Status != 4) && (this.Status != 0));
+
+            this.DeleteDirectory();
+
+        }
+
+
+        public void Stop_Delete()
+        {
+            Thread ATestingThread = new Thread(new ThreadStart(ThreadStopDelete));
+            ATestingThread.IsBackground = true;
+            ATestingThread.Start();
+
+        }
+
     }
 }

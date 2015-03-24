@@ -108,10 +108,12 @@ namespace BoardHoard
             SiteConfig Test = new SiteConfig();
             Test = SiteConfig.Load();
 
+            bool ConfigFound = false;
             foreach (Site Config in Test.Sites)
             {
                 if (Config.name == Board_Uri.Host)
                 {
+                    ConfigFound = true;
                     NewBoard.XPath_Subject = Config.subject;
 
                     NewBoard.XPath_Thread = Config.thread;
@@ -128,6 +130,11 @@ namespace BoardHoard
                 }
             }
 
+            if (ConfigFound == false)
+            {
+                return;
+            }
+
             this.Boards.Add(NewBoard);
             this.Save();
 
@@ -142,6 +149,18 @@ namespace BoardHoard
         public void Open_Folder(string site, string board, string thread)
         {
             Process.Start("explorer.exe", this.FolderLocation + site + @"\" + board + @"\" + thread + @"\");
+        }
+
+        public List<Board> GetBoards(List<Board> CopiedBoards)
+        {
+            List<Board> Result = new List<Board>();
+
+            foreach (Board CopyBoard in CopiedBoards)
+            {
+                Result.Add(CopyBoard);
+            }
+
+            return Result;
         }
     }
 

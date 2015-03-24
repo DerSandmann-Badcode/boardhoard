@@ -36,7 +36,6 @@
             this.btnSelectAll = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
             this.chkClearDead = new System.Windows.Forms.CheckBox();
-            this.btnSetDefault = new System.Windows.Forms.Button();
             this.chkVerifyHashes = new System.Windows.Forms.CheckBox();
             this.cmbThreadRefresh = new System.Windows.Forms.ComboBox();
             this.label3 = new System.Windows.Forms.Label();
@@ -60,6 +59,7 @@
             this.FolderDialog = new System.Windows.Forms.FolderBrowserDialog();
             this.ContextBoardDataGrid = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.ContextCheckbtn = new System.Windows.Forms.ToolStripMenuItem();
+            this.ContexrStop = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.ContextOpenbtn = new System.Windows.Forms.ToolStripMenuItem();
             this.ContextStopbtn = new System.Windows.Forms.ToolStripMenuItem();
@@ -144,7 +144,6 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panel1.BackColor = System.Drawing.Color.LightGray;
             this.panel1.Controls.Add(this.chkClearDead);
-            this.panel1.Controls.Add(this.btnSetDefault);
             this.panel1.Controls.Add(this.chkVerifyHashes);
             this.panel1.Controls.Add(this.cmbThreadRefresh);
             this.panel1.Controls.Add(this.label3);
@@ -172,17 +171,6 @@
             this.chkClearDead.Text = "Clear out dead thread entries immediately";
             this.chkClearDead.UseVisualStyleBackColor = true;
             this.chkClearDead.CheckedChanged += new System.EventHandler(this.deadclearChk_CheckedChanged);
-            // 
-            // btnSetDefault
-            // 
-            this.btnSetDefault.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnSetDefault.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnSetDefault.Location = new System.Drawing.Point(755, 194);
-            this.btnSetDefault.Name = "btnSetDefault";
-            this.btnSetDefault.Size = new System.Drawing.Size(148, 23);
-            this.btnSetDefault.TabIndex = 58;
-            this.btnSetDefault.Text = "Set as Default";
-            this.btnSetDefault.UseVisualStyleBackColor = true;
             // 
             // chkVerifyHashes
             // 
@@ -345,6 +333,7 @@
             this.txtFolderPath.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtFolderPath.Location = new System.Drawing.Point(110, 253);
             this.txtFolderPath.Name = "txtFolderPath";
+            this.txtFolderPath.ReadOnly = true;
             this.txtFolderPath.Size = new System.Drawing.Size(777, 20);
             this.txtFolderPath.TabIndex = 40;
             this.txtFolderPath.TextChanged += new System.EventHandler(this.folderTxt_TextChanged);
@@ -434,6 +423,7 @@
             // 
             this.ContextBoardDataGrid.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.ContextCheckbtn,
+            this.ContexrStop,
             this.toolStripSeparator1,
             this.ContextOpenbtn,
             this.ContextStopbtn,
@@ -452,6 +442,13 @@
             this.ContextCheckbtn.Size = new System.Drawing.Size(191, 22);
             this.ContextCheckbtn.Text = "Check Now";
             this.ContextCheckbtn.Click += new System.EventHandler(this.ContextCheckbtn_Click);
+            // 
+            // ContexrStop
+            // 
+            this.ContexrStop.Name = "ContexrStop";
+            this.ContexrStop.Size = new System.Drawing.Size(191, 22);
+            this.ContexrStop.Text = "Stop Download";
+            this.ContexrStop.Click += new System.EventHandler(this.ContexrStop_Click);
             // 
             // toolStripSeparator1
             // 
@@ -663,10 +660,12 @@
             this.Controls.Add(this.label4);
             this.DoubleBuffered = true;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.KeyPreview = true;
             this.MinimumSize = new System.Drawing.Size(16, 461);
             this.Name = "MainForm";
             this.Text = "BoardHoard";
             this.Load += new System.EventHandler(this.MainForm_Load);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.MainForm_KeyDown);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.ContextBoardDataGrid.ResumeLayout(false);
@@ -703,7 +702,6 @@
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Button btnStatistics;
         private System.Windows.Forms.Button btnAbout;
-        private System.Windows.Forms.Button btnSetDefault;
         private System.Windows.Forms.CheckBox chkClearDead;
         public BufferedDataGridView dgvBoards;
         private System.Windows.Forms.FolderBrowserDialog FolderDialog;
@@ -734,6 +732,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Column7;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column8;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column6;
+        private System.Windows.Forms.ToolStripMenuItem ContexrStop;
 
 
 

@@ -10,8 +10,7 @@ namespace BoardHoard
 {
     public partial class MainForm : Form
     {
-        static BoardContainer RunningBoards = new BoardContainer();
-
+        BoardContainer RunningBoards = new BoardContainer();
         public MainForm()
         {
             InitializeComponent();
@@ -19,7 +18,7 @@ namespace BoardHoard
 
         private void MainForm_Load(object sender, EventArgs e)
         {
-
+            
             AppDomain.CurrentDomain.ProcessExit += new EventHandler(OnProcessExit); 
             
             Thread CTestingThread = new Thread(new ThreadStart(Setup));
@@ -110,6 +109,11 @@ namespace BoardHoard
                 a();
         }
 
+        public void RemoveBoard(Board Board)
+        {
+            RunningBoards.Boards.Remove(Board);
+        }
+
         private void boardDataGrid_CellMouseDown(object sender, DataGridViewCellMouseEventArgs e)
         {
             if (e.Button == System.Windows.Forms.MouseButtons.Right)
@@ -129,6 +133,8 @@ namespace BoardHoard
 
             }
         }
+
+
 
         #region FormChangedEvents
         private void imagesChk_CheckedChanged(object sender, EventArgs e)
@@ -293,9 +299,17 @@ namespace BoardHoard
 
         public void DatagridLoop()
         {
+            int AutoSave = 0;
             do
             {
                 Datagrid_Refresh();
+
+                AutoSave += 1;
+                if (AutoSave == 300) // AutoSave every 30 seconds
+                {
+                    RunningBoards.Save();
+                    AutoSave = 0;
+                }
                 Thread.Sleep(100);
             } while (true);
 
@@ -307,7 +321,7 @@ namespace BoardHoard
             lock (RunningBoards)
             {
 
-                foreach (Board Board in RunningBoards.Boards)
+                foreach (Board Board in RunningBoards.GetBoards(RunningBoards.Boards))
                 {
                     string DownloadStatusText = string.Empty;
                     string StatusText = string.Empty;
@@ -431,6 +445,10 @@ namespace BoardHoard
             }
         }
 
+        public void Datagrid_Delete(DataGridViewRow DeletedRow)
+        {
+            dgvBoards.Rows.Remove(DeletedRow);
+        }
 
         #endregion
 
@@ -491,6 +509,8 @@ namespace BoardHoard
                 {
                     if (Row.Cells[0].Value.ToString() == Board.ID.ToString())
                     {
+                        //Board.Remove(Row);
+                        //dgvBoards.Rows.Remove(Row);
                         DeletedBoards.Add(Board);
                         DeletedRows.Add(Row);
                     }
@@ -499,8 +519,7 @@ namespace BoardHoard
 
             foreach (Board DeletedBoard in DeletedBoards)
             {
-                DeletedBoard.ConstantRefresh = false;
-                DeletedBoard.Status = 2;
+                DeletedBoard.Stop();
                 RunningBoards.Boards.Remove(DeletedBoard);
             }
 
@@ -518,36 +537,33 @@ namespace BoardHoard
 
             lock (dgvBoards)
             {
-                lock (RunningBoards)
-                {
-                    foreach (DataGridViewRow Row in dgvBoards.SelectedRows)
-                    {
-                        List<Board> DisplayedBoards = RunningBoards.Boards;
 
-                        foreach (Board Board in DisplayedBoards)
+                foreach (DataGridViewRow Row in dgvBoards.SelectedRows)
+                {
+                    List<Board> DisplayedBoards = RunningBoards.Boards;
+
+                    foreach (Board Board in DisplayedBoards)
+                    {
+                        if (Row.Cells[0].Value.ToString() == Board.ID.ToString())
                         {
-                            if (Row.Cells[0].Value.ToString() == Board.ID.ToString())
-                            {
-                                DeletedBoards.Add(Board);
-                                DeletedRows.Add(Row);
-                            }
+                            DeletedBoards.Add(Board);
+                            DeletedRows.Add(Row);
                         }
                     }
+                }
 
-                    foreach (Board DeletedBoard in DeletedBoards)
-                    {
-                        DeletedBoard.ConstantRefresh = false;
-                        DeletedBoard.Status = 2;
-                        DeletedBoard.DeleteDirectory();
-                        RunningBoards.Boards.Remove(DeletedBoard);
-                    }
+                foreach (Board DeletedBoard in DeletedBoards)
+                {
+                    DeletedBoard.Stop_Delete();
+                    RunningBoards.Boards.Remove(DeletedBoard);
+                }
 
-                    foreach (DataGridViewRow DeletedRow in DeletedRows)
-                    {
-                        dgvBoards.Rows.Remove(DeletedRow);
-                    }
+                foreach (DataGridViewRow DeletedRow in DeletedRows)
+                {
+                    dgvBoards.Rows.Remove(DeletedRow);
                 }
             }
+
         }
 
         private void Context30Secbtn_Click(object sender, EventArgs e)
@@ -685,8 +701,30 @@ namespace BoardHoard
             }
         }
 
+        private void ContexrStop_Click(object sender, EventArgs e)
+        {
+            foreach (DataGridViewRow Row in dgvBoards.SelectedRows)
+            {
+                List<Board> DisplayedBoards = RunningBoards.Boards;
+                foreach (Board Board in DisplayedBoards)
+                {
+                    if (Row.Cells[0].Value.ToString() == Board.ID.ToString())
+                    {
+                        Board.Stop();
+                    }
+                }
+            }
+        }
+
         #endregion
 
+        private void MainForm_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.V && e.Modifiers == Keys.Control)
+            {
+                txtThread.Text = Clipboard.GetText();
+            }
+        }
 
     }
 
