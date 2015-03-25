@@ -9,6 +9,7 @@ using System.IO;
 
 namespace BoardHoard
 {
+
     public class Board
     {
         public int ID;
@@ -114,14 +115,18 @@ namespace BoardHoard
             Directory.Delete(DeletedFolder, true);
         }
 
+
+
         public void Download()
         {
+
             // If thread is running, I don't 
             // want to start it again
             if (this.Status == 1)
             {
                 return;
             }
+
 
             // Set status to 1
             // Prevents the same board from running
@@ -503,7 +508,7 @@ namespace BoardHoard
             do
             {
                 Thread.Sleep(100);
-            } while (this.Status != 4);
+            } while ((this.Status != 4) && (this.Status != 0));
 
             this.Status = 2;
 

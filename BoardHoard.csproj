@@ -51,7 +51,8 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="HtmlAgilityPack">
-      <HintPath>..\..\..\Desktop\HtmlAgilityPack.dll</HintPath>
+      <HintPath>..\..\..\Desktop\Test\HtmlAgilityPack.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -70,6 +71,7 @@
     <Compile Include="BufferedDataGridView.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="FolderSelectDialog.cs" />
     <Compile Include="Forms\AboutForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -86,6 +88,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Reflector.cs" />
     <Compile Include="Site.cs" />
     <Compile Include="SiteConfig.cs" />
     <EmbeddedResource Include="Forms\AboutForm.resx">
@@ -135,10 +138,10 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="HtmlAgilityPack.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
     <None Include="Resources\BoardHoard.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="HtmlAgilityPack.dll" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

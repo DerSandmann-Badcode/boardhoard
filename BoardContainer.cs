@@ -30,6 +30,7 @@ namespace BoardHoard
         public bool ClearDead = false;
         public bool AlertDeath = false;
         public bool ConstantRefresh = false;
+        public bool InstantSubmit = false;
 
         public static BoardContainer Load()
         {
@@ -89,8 +90,27 @@ namespace BoardHoard
             {
                 if (NewBoard.URL == board.URL)
                 {
+                    DialogResult dialogResult = MessageBox.Show("Update this thread to the current configuration?", "Thread already exists!", MessageBoxButtons.YesNo);
+                    if (dialogResult == DialogResult.Yes)
+                    {
+                        board.Download_HTML = this.DownloadHTML;
+                        board.Download_Images = this.DownloadImages;
+                        board.Download_Thumnails = this.DownloadThumbnails;
+                        board.Download_WebMs = this.DownloadWebMs;
+                        board.DownloadPath = this.FolderLocation;
+                        board.Refresh_Delay = this.Refresh_Delay;
+                        board.ConstantRefresh = this.ConstantRefresh;
+                        board.AnimatedFolder = this.AnimatedFolder;
+                        board.Alerts_Death = this.AlertDeath;
+
+                        return;
+                        //do something
+                    }
+                    else if (dialogResult == DialogResult.No)
+                    {
+                        return;
+                    }
                     //MessageBox.Show("Thread already exists!");
-                    return;
                 }
             }
 

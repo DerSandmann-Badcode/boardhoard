@@ -5,20 +5,34 @@ using System.Threading;
 using System.Drawing;
 using System.Windows.Input;
 using System.Diagnostics;
+using System.Reflection;
 
 namespace BoardHoard
 {
     public partial class MainForm : Form
     {
         BoardContainer RunningBoards = new BoardContainer();
+
         public MainForm()
         {
+            AppDomain.CurrentDomain.AssemblyResolve += new ResolveEventHandler(CurrentDomain_AssemblyResolve);
+            string[] names = this.GetType().Assembly.GetManifestResourceNames(); // Debug for getting loaded assemblies
             InitializeComponent();
+        }
+
+        static Assembly CurrentDomain_AssemblyResolve(object sender, ResolveEventArgs args)
+        {
+            using (var stream = Assembly.GetExecutingAssembly().GetManifestResourceStream("BoardHoard.HtmlAgilityPack.dll"))
+            {
+                byte[] assemblyData = new byte[stream.Length];
+                stream.Read(assemblyData, 0, assemblyData.Length);
+                return Assembly.Load(assemblyData);
+            }
         }
 
         private void MainForm_Load(object sender, EventArgs e)
         {
-            
+            string[] names = this.GetType().Assembly.GetManifestResourceNames();
             AppDomain.CurrentDomain.ProcessExit += new EventHandler(OnProcessExit); 
             
             Thread CTestingThread = new Thread(new ThreadStart(Setup));
@@ -26,6 +40,7 @@ namespace BoardHoard
             CTestingThread.Start();
             
         }
+
 
         public void Setup()
         {
@@ -44,6 +59,7 @@ namespace BoardHoard
             UI_Execute(() => this.chkClearDead.Checked = RunningBoards.ClearDead);
             UI_Execute(() => this.chkDeathAlert.Checked = RunningBoards.AlertDeath);
             UI_Execute(() => this.chkConstantCheck.Checked = RunningBoards.ConstantRefresh);
+            UI_Execute(() => this.chkInstantSubmit.Checked = RunningBoards.InstantSubmit);
 
             switch (RunningBoards.Refresh_Delay)
             {
@@ -161,6 +177,11 @@ namespace BoardHoard
             RunningBoards.VerifyHashes = this.chkVerifyHashes.Checked;
         }
 
+        private void chkInstantSubmit_CheckedChanged(object sender, EventArgs e)
+        {
+            RunningBoards.InstantSubmit = this.chkInstantSubmit.Checked;
+        }
+
         private void folderTxt_TextChanged(object sender, EventArgs e)
         {
             RunningBoards.FolderLocation = txtFolderPath.Text;
@@ -204,18 +225,21 @@ namespace BoardHoard
 
         private void selectBtn_Click(object sender, EventArgs e)
         {
-            DialogResult result = FolderDialog.ShowDialog();
-            if (result == DialogResult.OK)
-            {
-                txtFolderPath.Text = FolderDialog.SelectedPath + @"\";
 
+            var FolderSelect = new FolderSelect.FolderSelectDialog();
+            FolderSelect.Title = "Where do you want to save files?";
+            FolderSelect.InitialDirectory = @"c:\";
+
+            if (FolderSelect.ShowDialog(IntPtr.Zero))
+            {
+                txtFolderPath.Text = FolderSelect.FileName;
             }
 
         }
 
         private void statisticsBtn_Click(object sender, EventArgs e)
         {
-            
+            //folderBrowserDialog1.ShowDialog();
         }
 
         private void removedeadBtn_Click(object sender, EventArgs e)
@@ -235,9 +259,12 @@ namespace BoardHoard
             {
                 // Create a new board with the UI settings
                 // and add it to the BoardContainer
-                RunningBoards.Add(txtThread.Text);
+                if (RunningBoards.InstantSubmit == true)
+                {
+                    RunningBoards.Add(txtThread.Text);
+                    txtThread.Clear();
+                }
 
-                txtThread.Clear();
             }
         }
 
@@ -449,6 +476,14 @@ namespace BoardHoard
                 DataGridViewSelectedRowCollection SelectedRows = dgvBoards.SelectedRows;
                 if (SelectedRows.Contains(ClickedRow))
                 {
+                    if (SelectedRows.Count > 1)
+                    {
+                        contextCopy.Visible = false;
+                    }
+                    else
+                    {
+                        contextCopy.Visible = true;
+                    }
                     ContextBoardDataGrid.Show(Cursor.Position);
                 }
                 else
@@ -739,25 +774,58 @@ namespace BoardHoard
             }
         }
 
+        private void contextCopy_Click(object sender, EventArgs e)
+        {
+            foreach (DataGridViewRow Row in dgvBoards.SelectedRows)
+            {
+                List<Board> DisplayedBoards = RunningBoards.Boards;
+                foreach (Board Board in DisplayedBoards)
+                {
+                    if (Row.Cells[0].Value.ToString() == Board.ID.ToString())
+                    {
+                        Clipboard.SetText(Board.URL);
+                    }
+                }
+            }
+        }
+
         #endregion
 
         private void MainForm_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.V && e.Modifiers == Keys.Control)
             {
+                txtThread.Clear();
                 txtThread.Text = Clipboard.GetText();
                 if (txtThread.Text != string.Empty)
                 {
                     // Create a new board with the UI settings
                     // and add it to the BoardContainer
-                    RunningBoards.Add(txtThread.Text);
+                    if (RunningBoards.InstantSubmit == true)
+                    {
+                        RunningBoards.Add(txtThread.Text);
+                        txtThread.Clear();
+                    }
 
-                    txtThread.Clear();
                 }
         
 
             }
         }
+
+        private void txtThread_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Control && e.KeyValue == 86)
+            {
+                // Throw away the default Ctrl+C function.
+                e.Handled = true;
+                e.SuppressKeyPress = true;
+
+            }
+        }
+
+
+
 
 
 

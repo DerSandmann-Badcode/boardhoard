@@ -56,7 +56,6 @@
             this.label6 = new System.Windows.Forms.Label();
             this.btnStatistics = new System.Windows.Forms.Button();
             this.btnAbout = new System.Windows.Forms.Button();
-            this.FolderDialog = new System.Windows.Forms.FolderBrowserDialog();
             this.ContextBoardDataGrid = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.ContextCheckbtn = new System.Windows.Forms.ToolStripMenuItem();
             this.ContexrStop = new System.Windows.Forms.ToolStripMenuItem();
@@ -64,6 +63,7 @@
             this.ContextOpenbtn = new System.Windows.Forms.ToolStripMenuItem();
             this.ContextStopbtn = new System.Windows.Forms.ToolStripMenuItem();
             this.ContextStartbtn = new System.Windows.Forms.ToolStripMenuItem();
+            this.contextCopy = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.ContextClearbtn = new System.Windows.Forms.ToolStripMenuItem();
             this.ContextClearDeletebtn = new System.Windows.Forms.ToolStripMenuItem();
@@ -77,6 +77,7 @@
             this.Context1Hourbtn = new System.Windows.Forms.ToolStripMenuItem();
             this.Context12Hrs = new System.Windows.Forms.ToolStripMenuItem();
             this.ContextDaily = new System.Windows.Forms.ToolStripMenuItem();
+            this.chkInstantSubmit = new System.Windows.Forms.CheckBox();
             this.dgvBoards = new BoardHoard.BufferedDataGridView();
             this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -320,7 +321,7 @@
             this.label5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(9, 256);
+            this.label5.Location = new System.Drawing.Point(25, 256);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(90, 13);
             this.label5.TabIndex = 39;
@@ -331,10 +332,10 @@
             this.txtFolderPath.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtFolderPath.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtFolderPath.Location = new System.Drawing.Point(110, 253);
+            this.txtFolderPath.Location = new System.Drawing.Point(121, 253);
             this.txtFolderPath.Name = "txtFolderPath";
             this.txtFolderPath.ReadOnly = true;
-            this.txtFolderPath.Size = new System.Drawing.Size(777, 20);
+            this.txtFolderPath.Size = new System.Drawing.Size(766, 20);
             this.txtFolderPath.TabIndex = 40;
             this.txtFolderPath.TextChanged += new System.EventHandler(this.folderTxt_TextChanged);
             // 
@@ -379,17 +380,18 @@
             this.txtThread.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtThread.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtThread.Location = new System.Drawing.Point(110, 514);
+            this.txtThread.Location = new System.Drawing.Point(121, 514);
             this.txtThread.Name = "txtThread";
-            this.txtThread.Size = new System.Drawing.Size(651, 20);
+            this.txtThread.Size = new System.Drawing.Size(640, 20);
             this.txtThread.TabIndex = 44;
+            this.txtThread.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtThread_KeyDown);
             // 
             // label6
             // 
             this.label6.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(26, 516);
+            this.label6.Location = new System.Drawing.Point(50, 517);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(62, 13);
             this.label6.TabIndex = 45;
@@ -428,13 +430,14 @@
             this.ContextOpenbtn,
             this.ContextStopbtn,
             this.ContextStartbtn,
+            this.contextCopy,
             this.toolStripSeparator2,
             this.ContextClearbtn,
             this.ContextClearDeletebtn,
             this.toolStripSeparator3,
             this.ContextSelectWaitbtn});
             this.ContextBoardDataGrid.Name = "ContextBoardDataGrid";
-            this.ContextBoardDataGrid.Size = new System.Drawing.Size(192, 198);
+            this.ContextBoardDataGrid.Size = new System.Drawing.Size(192, 220);
             // 
             // ContextCheckbtn
             // 
@@ -475,6 +478,13 @@
             this.ContextStartbtn.Size = new System.Drawing.Size(191, 22);
             this.ContextStartbtn.Text = "Start Watching";
             this.ContextStartbtn.Click += new System.EventHandler(this.ContextStartbtn_Click);
+            // 
+            // contextCopy
+            // 
+            this.contextCopy.Name = "contextCopy";
+            this.contextCopy.Size = new System.Drawing.Size(191, 22);
+            this.contextCopy.Text = "Copy thread URL";
+            this.contextCopy.Click += new System.EventHandler(this.contextCopy_Click);
             // 
             // toolStripSeparator2
             // 
@@ -571,6 +581,17 @@
             this.ContextDaily.Text = "Daily";
             this.ContextDaily.Click += new System.EventHandler(this.ContextDaily_Click);
             // 
+            // chkInstantSubmit
+            // 
+            this.chkInstantSubmit.AutoSize = true;
+            this.chkInstantSubmit.Location = new System.Drawing.Point(613, 546);
+            this.chkInstantSubmit.Name = "chkInstantSubmit";
+            this.chkInstantSubmit.Size = new System.Drawing.Size(138, 17);
+            this.chkInstantSubmit.TabIndex = 49;
+            this.chkInstantSubmit.Text = "Instant Submit on Paste";
+            this.chkInstantSubmit.UseVisualStyleBackColor = true;
+            this.chkInstantSubmit.CheckedChanged += new System.EventHandler(this.chkInstantSubmit_CheckedChanged);
+            // 
             // dgvBoards
             // 
             this.dgvBoards.AllowUserToAddRows = false;
@@ -654,6 +675,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(935, 572);
+            this.Controls.Add(this.chkInstantSubmit);
             this.Controls.Add(this.dgvBoards);
             this.Controls.Add(this.btnAbout);
             this.Controls.Add(this.btnStatistics);
@@ -715,7 +737,6 @@
         private System.Windows.Forms.Button btnAbout;
         private System.Windows.Forms.CheckBox chkClearDead;
         public BufferedDataGridView dgvBoards;
-        private System.Windows.Forms.FolderBrowserDialog FolderDialog;
         private System.Windows.Forms.ContextMenuStrip ContextBoardDataGrid;
         private System.Windows.Forms.ToolStripMenuItem ContextCheckbtn;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
@@ -744,6 +765,8 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Column8;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column6;
         private System.Windows.Forms.ToolStripMenuItem ContexrStop;
+        private System.Windows.Forms.CheckBox chkInstantSubmit;
+        private System.Windows.Forms.ToolStripMenuItem contextCopy;
 
 
 
