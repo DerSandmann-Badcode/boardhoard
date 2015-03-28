@@ -51,6 +51,19 @@ namespace BoardHoard
 
         public void Save()
         {
+            /*
+             * Set any currently running boards to
+             * idle, then we will serialize our 
+             * board container to a file
+             */
+            foreach (Board Board in this.Boards)
+            {
+                if (Board.Status == 1)
+                {
+                    Board.Status = 0;
+                }
+            }
+
             XmlSerializer serializer = new XmlSerializer(typeof(BoardContainer));
 
             using (TextWriter SaveWriter = new StreamWriter("BoardContainer.xml"))
@@ -62,11 +75,20 @@ namespace BoardHoard
 
         public void LoadConfig()
         {
-                this.Websites = SiteConfig.Load();
+            // Load in our website config file
+            this.Websites = SiteConfig.Load();
         }
 
         public void Add(string Board_URL)
         {
+
+            /*
+             * This takes the information on the current
+             * board container and generates a new board
+             * with those settings. If board is not found 
+             * in board config, we will not do anything with
+             * the URL.
+             */
             Board NewBoard = new Board();
             NewBoard.Download_HTML = this.DownloadHTML;
             NewBoard.Download_Images = this.DownloadImages;
@@ -90,6 +112,14 @@ namespace BoardHoard
             {
                 if (NewBoard.URL == board.URL)
                 {
+
+                    /*
+                     * Board akready exists, we will give
+                     * the user the option of replacing the
+                     * one currently in the container with the
+                     * current settings
+                     */
+
                     DialogResult dialogResult = MessageBox.Show("Update this thread to the current configuration?", "Thread already exists!", MessageBoxButtons.YesNo);
                     if (dialogResult == DialogResult.Yes)
                     {
@@ -152,12 +182,15 @@ namespace BoardHoard
 
             if (ConfigFound == false)
             {
+                // Tell user that I could not find their board config
+                MessageBox.Show("I did not find the config for that site. Please add a configuration for that website.");
                 return;
             }
 
             this.Boards.Add(NewBoard);
             this.Save();
 
+            // Download the thread to get the board ID and stats
             NewBoard.Download_Single();
 
             if (NewBoard.ConstantRefresh == true)
@@ -168,9 +201,11 @@ namespace BoardHoard
        
         public void Open_Folder(string site, string board, string thread)
         {
+            // Open an explorer window at the board location
             Process.Start("explorer.exe", this.FolderLocation + site + @"\" + board + @"\" + thread + @"\");
         }
 
+        //This deep-copies the boards into a new collection
         public List<Board> GetBoards(List<Board> CopiedBoards)
         {
             List<Board> Result = new List<Board>();

@@ -95,17 +95,23 @@ namespace BoardHoard
 
         public void StartRefresh()
         {
+            /*
+             * This starts the automatic downloading on
+             * the specified board. The board will 
+             * automatically redownload upon reaching
+             * the timer interval.
+             */
             this.LastDownload = DateTime.Now;
-            Thread BTestingThread = new Thread(new ThreadStart(DownloadLoop));
-            BTestingThread.IsBackground = true;
-            BTestingThread.Start();
+            Thread RefreshLoopThread = new Thread(new ThreadStart(DownloadLoop));
+            RefreshLoopThread.IsBackground = true;
+            RefreshLoopThread.Start();
         }
 
         public void Download_Single()
         {
-            Thread BTestingThread = new Thread(new ThreadStart(Download));
-            BTestingThread.IsBackground = true;
-            BTestingThread.Start();
+            Thread DownloadThread = new Thread(new ThreadStart(Download));
+            DownloadThread.IsBackground = true;
+            DownloadThread.Start();
         }
 
         public void DeleteDirectory()
@@ -120,19 +126,22 @@ namespace BoardHoard
         public void Download()
         {
 
-            // If thread is running, I don't 
-            // want to start it again
+            /*
+             * If thread is running, I don't 
+             * want to start it again
+             */
+
             if (this.Status == 1)
             {
                 return;
             }
 
-
-            // Set status to 1
-            // Prevents the same board from running
-            // on multiple threads, sort of like a
-            // session lock, also we want to update
-            // the last runtime on this thread
+            /*
+             * Set status to 1
+             * Prevents the same board from running
+             * on multiple threads. We want to update
+             * the last runtime on this thread
+             */
 
             this.Status = 1;
             this.LastDownload = DateTime.Now;
@@ -141,9 +150,11 @@ namespace BoardHoard
             // Set up a new HtmlDocument
             HtmlAgilityPack.HtmlDocument Document = new HtmlAgilityPack.HtmlDocument();
 
-            // Webrequest allows setting of proxy settings and Useragents
-            // I could add a form to allow users to set proxy
-            // settings per board
+            /*
+             * Webrequest allows setting of proxy settings and Useragents
+             * I could add a form to allow users to set proxy
+             * settings per board
+             */
 
             HttpWebRequest Request = (HttpWebRequest)HttpWebRequest.Create(this.URL);
             Request.AllowReadStreamBuffering = false;
@@ -167,6 +178,7 @@ namespace BoardHoard
                     if (Resp.StatusCode == HttpStatusCode.NotFound)
                     {
                         this.Status = 3;
+                        this.ConstantRefresh = false;
                         if (this.Alerts_Death == true)
                         {
                             System.Media.SystemSounds.Exclamation.Play();
@@ -176,9 +188,12 @@ namespace BoardHoard
                 }
             } // End Catch for Request.GetResponse()
 
-            // LINQ To get rid of all scripts
-            // this speeds the opening of the HTML
-            // by ~500%
+            /*
+             * LINQ To get rid of all scripts
+             * this speeds the opening of the HTM
+             * by ~500%
+             */
+
             Document.DocumentNode.Descendants()
                 .Where(n => n.Name == "script")
                 .ToList()
@@ -282,9 +297,6 @@ namespace BoardHoard
                         if (File.Exists(newfile) == false)
                         {
                             // Try to clean up boards using file URI
-                            // Needs work, some sites send relative
-                            // URIs
-
                             Uri Thumbnail_URI = ValidateURI(BoardUri.ToString(), Thumbnail);
 
                             // Create /Thumbnails directory to store the
@@ -354,8 +366,6 @@ namespace BoardHoard
 
 
                     // Try to clean up boards using file URI
-                    // Needs work, some sites send relative
-                    // URIs
                     Uri Image_URI = ValidateURI(BoardUri.ToString(), Image);
 
                     // If file was in our types of file to download
@@ -423,6 +433,11 @@ namespace BoardHoard
 
         public Uri ValidateURI(string PageURL, string ElementURI)
         {
+            /*
+             * This converts all URLs to their usable counterparts
+             * can convert file:// and relative URLs to their usable
+             * counterparts 
+             */
             Uri baseUri = new Uri(URL, UriKind.Absolute);
             Uri page = new Uri(baseUri, ElementURI);
             return page;
@@ -430,7 +445,10 @@ namespace BoardHoard
 
         public void UrlDownload(string address, string filename)
         {
-            
+            /*
+             * Just a wrapper for the webclient that includes
+             * some error checking
+             */
             using (WebClient Client = new WebClient())
             {
                 try
@@ -490,49 +508,51 @@ namespace BoardHoard
 
         public string GetCleanFileName(string filepath)
         {
+            /*
+             * This removes all of the Linux\Unix characters from our
+             * Windows filenames
+             */
             return Path.GetInvalidFileNameChars().Aggregate(Path.GetFileName(filepath), (current, c) => current.Replace(c.ToString(), string.Empty));
         
         }
 
-
-        private void ThreadStop()
-        {
-            this.Stopping = true;
-
-        }
-
-        public void Stop()
+        private void _ThreadStop()
         {
             this.Stopping = true;
 
             do
             {
                 Thread.Sleep(100);
-            } while ((this.Status != 4) && (this.Status != 0));
+            } while (this.Status == 1);
 
             this.Status = 2;
-
         }
 
-        private void ThreadStopDelete()
+        private void _ThreadDelete()
         {
             this.Stopping = true;
 
             do
             {
                 Thread.Sleep(100);
-            } while ((this.Status != 4) && (this.Status != 0));
+            } while (this.Status == 2);
 
             this.DeleteDirectory();
 
         }
 
+        public void Stop()
+        {
+            Thread StopThread = new Thread(new ThreadStart(_ThreadStop));
+            StopThread.IsBackground = true;
+            StopThread.Start();
+        }
 
         public void Stop_Delete()
         {
-            Thread ATestingThread = new Thread(new ThreadStart(ThreadStopDelete));
-            ATestingThread.IsBackground = true;
-            ATestingThread.Start();
+            Thread DeleteThread = new Thread(new ThreadStart(_ThreadDelete));
+            DeleteThread.IsBackground = true;
+            DeleteThread.Start();
 
         }
 

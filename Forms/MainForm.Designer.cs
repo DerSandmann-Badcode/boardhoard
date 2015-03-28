@@ -583,6 +583,7 @@
             // 
             // chkInstantSubmit
             // 
+            this.chkInstantSubmit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.chkInstantSubmit.AutoSize = true;
             this.chkInstantSubmit.Location = new System.Drawing.Point(613, 546);
             this.chkInstantSubmit.Name = "chkInstantSubmit";
