@@ -32,6 +32,7 @@ namespace BoardHoard
 
         private void MainForm_Load(object sender, EventArgs e)
         {
+            
             string[] names = this.GetType().Assembly.GetManifestResourceNames();
             AppDomain.CurrentDomain.ProcessExit += new EventHandler(OnProcessExit); 
             
@@ -46,7 +47,7 @@ namespace BoardHoard
         {
             RunningBoards.LoadConfig();
             RunningBoards = BoardContainer.Load();
-
+            
             // Update our UI to reflect the Config
             UI_Execute(() => this.txtFolderPath.Text = RunningBoards.FolderLocation);
 
@@ -232,15 +233,18 @@ namespace BoardHoard
 
             if (FolderSelect.ShowDialog(IntPtr.Zero))
             {
-                txtFolderPath.Text = FolderSelect.FileName;
+                txtFolderPath.Text = FolderSelect.FileName + @"\";
             }
 
         }
 
         private void statisticsBtn_Click(object sender, EventArgs e)
         {
-            
+            BoardHoard.Forms.Statistics StatisticsPopout = new BoardHoard.Forms.Statistics();
+            StatisticsPopout.Show();
         }
+
+
 
         private void removedeadBtn_Click(object sender, EventArgs e)
         {
@@ -278,7 +282,7 @@ namespace BoardHoard
         {
             foreach (DataGridViewRow Row in dgvBoards.SelectedRows)
             {
-                RunningBoards.Open_Folder(Row.Cells[1].Value.ToString(), Row.Cells[2].Value.ToString(), Row.Cells[3].Value.ToString());
+                RunningBoards.Open_Folder(Row.Cells[2].Value.ToString(), Row.Cells[3].Value.ToString(), Row.Cells[4].Value.ToString());
             }
         }
 
@@ -369,7 +373,8 @@ namespace BoardHoard
                     {
                         // Row already exists, we find the indexand update it
                         Found = true;
-                        string[] UpdateRow = new string[8] { Board.ID.ToString(),
+                        string[] UpdateRow = new string[9] { Board.ID.ToString(),
+                                                            Board.DateAdded.ToString(),
                                                             Board.Site, 
                                                             Board.Name, 
                                                             Board.Thread_ID.ToString(), 
@@ -400,14 +405,15 @@ namespace BoardHoard
                 if (Found == false)
                 {
                     // Couldn't find the board, we will add it as a new entry
-                    string[] NewRow = new string[8] { Board.ID.ToString(),
-                                                            Board.Site, 
-                                                            Board.Name, 
-                                                            Board.Thread_ID.ToString(), 
-                                                            Board.Subject, 
-                                                            Board.DownloadedCount.ToString(), 
-                                                            StatusText, 
-                                                            DownloadStatusText };
+                    string[] NewRow = new string[9] { Board.ID.ToString(),
+                                                    Board.DateAdded.ToString(),
+                                                    Board.Site, 
+                                                    Board.Name, 
+                                                    Board.Thread_ID.ToString(), 
+                                                    Board.Subject, 
+                                                    Board.DownloadedCount.ToString(), 
+                                                    StatusText, 
+                                                    DownloadStatusText };
 
                     // There is a chance where the form is closing
                     // and this will try to run, we want to catch the
@@ -479,6 +485,7 @@ namespace BoardHoard
                     row.Cells[5].Value = Data[5];
                     row.Cells[6].Value = Data[6];
                     row.Cells[7].Value = Data[7];
+                    row.Cells[8].Value = Data[8];
                 }
             }
         }
@@ -541,7 +548,7 @@ namespace BoardHoard
         {
             foreach (DataGridViewRow Row in dgvBoards.SelectedRows)
             {
-                RunningBoards.Open_Folder(Row.Cells[1].Value.ToString(), Row.Cells[2].Value.ToString(), Row.Cells[3].Value.ToString());
+                RunningBoards.Open_Folder(Row.Cells[2].Value.ToString(), Row.Cells[3].Value.ToString(), Row.Cells[4].Value.ToString());
             }
         }
 

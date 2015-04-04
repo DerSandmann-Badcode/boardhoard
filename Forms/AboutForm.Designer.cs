@@ -39,7 +39,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(145, 151);
+            this.label5.Location = new System.Drawing.Point(144, 151);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(198, 26);
             this.label5.TabIndex = 11;
@@ -49,17 +49,17 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(176, 105);
+            this.label4.Location = new System.Drawing.Point(175, 105);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(132, 26);
+            this.label4.Size = new System.Drawing.Size(132, 13);
             this.label4.TabIndex = 10;
-            this.label4.Text = "Assistance from GoaLitiuM\r\nwww.goaliti.am";
+            this.label4.Text = "Assistance from GoaLitiuM";
             this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(168, 69);
+            this.label3.Location = new System.Drawing.Point(167, 69);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(144, 13);
             this.label3.TabIndex = 9;
@@ -68,7 +68,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(15, 34);
+            this.label2.Location = new System.Drawing.Point(14, 34);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(453, 13);
             this.label2.TabIndex = 8;
@@ -80,15 +80,15 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(151, 9);
+            this.label1.Location = new System.Drawing.Point(150, 9);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(192, 25);
             this.label1.TabIndex = 7;
-            this.label1.Text = "BoardHoard v1.0.0";
+            this.label1.Text = "BoardHoard v0.3.0";
             // 
             // btnAboutOK
             // 
-            this.btnAboutOK.Location = new System.Drawing.Point(210, 196);
+            this.btnAboutOK.Location = new System.Drawing.Point(209, 196);
             this.btnAboutOK.Name = "btnAboutOK";
             this.btnAboutOK.Size = new System.Drawing.Size(75, 23);
             this.btnAboutOK.TabIndex = 6;

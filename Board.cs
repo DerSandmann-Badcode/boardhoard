@@ -5,6 +5,8 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading;
 using System.IO;
+using System.Text;
+using System.Security.Cryptography;
 
 
 namespace BoardHoard
@@ -34,8 +36,10 @@ namespace BoardHoard
         public bool Alerts_Download = false;
         public bool ConstantRefresh = true;
         public bool Stopping = false;
+        public bool VerifyHashes = false;
 
         public DateTime LastDownload;
+        public DateTime DateAdded;
 
         // The following are used to drive HTMLAgilityPack parsing
 
@@ -118,7 +122,10 @@ namespace BoardHoard
         {
             // Delete while downloading
             String DeletedFolder = this.DownloadPath + this.Site + @"\" + this.Name + @"\" + this.Thread_ID;
-            Directory.Delete(DeletedFolder, true);
+            if (Directory.Exists(DeletedFolder))
+            {
+                Directory.Delete(DeletedFolder, true);
+            }
         }
 
 
@@ -385,6 +392,32 @@ namespace BoardHoard
                                     Directory.CreateDirectory(DownloadFolder + @"Animated\");
                                     UrlDownload(Image_URI.ToString(), DownloadFolder + @"Animated\" + Path.GetFileName(Image_URI.ToString()));
                                     this.DownloadedCount += 1;
+
+                                    /*
+                                     * This runs if we want to Verify the image hashes with what
+                                     * 4chan provides. If the hash fails, we will try to redownload it
+                                     * again once, and then just delete the file.
+                                     */
+                                    if (this.VerifyHashes == true)
+                                    {
+                                        // Hardcoded hash tag for 4chan, could be added to the site config
+                                        HtmlAgilityPack.HtmlNodeCollection HashNodes = Node.ChildNodes;
+                                        string Hash = HashNodes[0].GetAttributeValue("data-md5", "");
+
+                                        if (VerifyHash(Hash, DownloadFolder + Path.GetFileName(Image_URI.ToString())) == false)
+                                        {
+                                            UrlDownload(Image_URI.ToString(), DownloadFolder + Path.GetFileName(Image_URI.ToString()));
+                                            if (VerifyHash(Hash, DownloadFolder + Path.GetFileName(Image_URI.ToString())) == false)
+                                            {
+                                                File.Delete(DownloadFolder + Path.GetFileName(Image_URI.ToString()));
+                                            }
+                                        }
+                                        else
+                                        {
+                                            Debug.WriteLine("Image Hash was correct!");
+                                        }
+
+                                    }
                                 }
                             }
                             else
@@ -394,6 +427,32 @@ namespace BoardHoard
                                     // Download Board Object, could be an image, webm, flash
                                     UrlDownload(Image_URI.ToString(), DownloadFolder + Path.GetFileName(Image_URI.ToString()));
                                     this.DownloadedCount += 1;
+
+                                    /*
+                                     * This runs if we want to Verify the image hashes with what
+                                     * 4chan provides. If the hash fails, we will try to redownload it
+                                     * again once, and then just delete the file.
+                                     */
+                                    if (this.VerifyHashes == true)
+                                    {
+                                        // Hardcoded hash tag for 4chan, could be added to the site config
+                                        HtmlAgilityPack.HtmlNodeCollection HashNodes = Node.ChildNodes;
+                                        string Hash = HashNodes[0].GetAttributeValue("data-md5", "");
+
+                                        if (VerifyHash(Hash, DownloadFolder + Path.GetFileName(Image_URI.ToString())) == false)
+                                        {
+                                            UrlDownload(Image_URI.ToString(), DownloadFolder + Path.GetFileName(Image_URI.ToString()));
+                                            if (VerifyHash(Hash, DownloadFolder + Path.GetFileName(Image_URI.ToString())) == false)
+                                            {
+                                                File.Delete(DownloadFolder + Path.GetFileName(Image_URI.ToString()));
+                                            }
+                                        }
+                                        else
+                                        {
+                                            Debug.WriteLine("Image Hash was correct!");
+                                        }
+
+                                    }
                                 }
 
                             }
@@ -403,9 +462,33 @@ namespace BoardHoard
                         {
                             if (File.Exists(newfile) == false)
                             {
+
                                 // Download Board Object, could be an image, webm, flash
                                 UrlDownload(Image_URI.ToString(), DownloadFolder + Path.GetFileName(Image_URI.ToString()));
                                 this.DownloadedCount += 1;
+
+                                if (this.VerifyHashes == true)
+                                {
+                                    // Hardcoded hash tag for 4chan, could be added to the site config
+                                    HtmlAgilityPack.HtmlNodeCollection HashNodes = Node.ChildNodes;
+                                    string Hash = HashNodes[0].GetAttributeValue("data-md5", "");
+
+
+                                    if (VerifyHash(Hash, DownloadFolder + Path.GetFileName(Image_URI.ToString())) == false)
+                                    {
+                                        UrlDownload(Image_URI.ToString(), DownloadFolder + Path.GetFileName(Image_URI.ToString()));
+                                        if (VerifyHash(Hash, DownloadFolder + Path.GetFileName(Image_URI.ToString())) == false)
+                                        {
+                                            File.Delete(DownloadFolder + Path.GetFileName(Image_URI.ToString()));
+                                        }
+                                    }
+                                    else
+                                    {
+                                        Debug.WriteLine("Image Hash was correct!");
+                                    }
+
+                                }
+                                
                             }
                         }
 
@@ -539,6 +622,20 @@ namespace BoardHoard
 
             this.DeleteDirectory();
 
+        }
+
+        public static Boolean VerifyHash(string hash, string filepath)
+        {
+            // Returns true if the hashes match
+            using (var md5 = MD5.Create())
+            {
+                string filehash = Convert.ToBase64String(md5.ComputeHash(File.ReadAllBytes(filepath)));
+                if (filehash == hash)
+                {
+                    return true;
+                }
+                return false;
+            }
         }
 
         public void Stop()

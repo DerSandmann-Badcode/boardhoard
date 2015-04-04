@@ -57,10 +57,9 @@
             this.btnStatistics = new System.Windows.Forms.Button();
             this.btnAbout = new System.Windows.Forms.Button();
             this.ContextBoardDataGrid = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.ContextCheckbtn = new System.Windows.Forms.ToolStripMenuItem();
-            this.ContexrStop = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.ContextOpenbtn = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.ContextCheckbtn = new System.Windows.Forms.ToolStripMenuItem();
             this.ContextStopbtn = new System.Windows.Forms.ToolStripMenuItem();
             this.ContextStartbtn = new System.Windows.Forms.ToolStripMenuItem();
             this.contextCopy = new System.Windows.Forms.ToolStripMenuItem();
@@ -80,6 +79,7 @@
             this.chkInstantSubmit = new System.Windows.Forms.CheckBox();
             this.dgvBoards = new BoardHoard.BufferedDataGridView();
             this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column9 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -97,9 +97,9 @@
             this.label4.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.label4.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.label4.Location = new System.Drawing.Point(12, 243);
+            this.label4.Location = new System.Drawing.Point(12, 247);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(911, 2);
+            this.label4.Size = new System.Drawing.Size(936, 2);
             this.label4.TabIndex = 32;
             this.label4.Text = "label4";
             // 
@@ -107,7 +107,7 @@
             // 
             this.btnOpenFolder.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.btnOpenFolder.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnOpenFolder.Location = new System.Drawing.Point(12, 212);
+            this.btnOpenFolder.Location = new System.Drawing.Point(12, 216);
             this.btnOpenFolder.Name = "btnOpenFolder";
             this.btnOpenFolder.Size = new System.Drawing.Size(100, 25);
             this.btnOpenFolder.TabIndex = 33;
@@ -119,7 +119,7 @@
             // 
             this.btnClearInactive.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnClearInactive.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnClearInactive.Location = new System.Drawing.Point(781, 212);
+            this.btnClearInactive.Location = new System.Drawing.Point(806, 216);
             this.btnClearInactive.Name = "btnClearInactive";
             this.btnClearInactive.Size = new System.Drawing.Size(142, 25);
             this.btnClearInactive.TabIndex = 34;
@@ -131,7 +131,7 @@
             // 
             this.btnSelectAll.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnSelectAll.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnSelectAll.Location = new System.Drawing.Point(656, 212);
+            this.btnSelectAll.Location = new System.Drawing.Point(681, 216);
             this.btnSelectAll.Name = "btnSelectAll";
             this.btnSelectAll.Size = new System.Drawing.Size(119, 25);
             this.btnSelectAll.TabIndex = 37;
@@ -156,9 +156,9 @@
             this.panel1.Controls.Add(this.chkWebm);
             this.panel1.Controls.Add(this.chkImages);
             this.panel1.Controls.Add(this.label1);
-            this.panel1.Location = new System.Drawing.Point(12, 281);
+            this.panel1.Location = new System.Drawing.Point(12, 285);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(911, 225);
+            this.panel1.Size = new System.Drawing.Size(936, 225);
             this.panel1.TabIndex = 38;
             // 
             // chkClearDead
@@ -251,9 +251,9 @@
             this.chkSeperateFolder.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.chkSeperateFolder.Location = new System.Drawing.Point(36, 79);
             this.chkSeperateFolder.Name = "chkSeperateFolder";
-            this.chkSeperateFolder.Size = new System.Drawing.Size(303, 17);
+            this.chkSeperateFolder.Size = new System.Drawing.Size(332, 17);
             this.chkSeperateFolder.TabIndex = 50;
-            this.chkSeperateFolder.Text = "Place .GIFs and .WebMs in /Site/Board/Thread/Animated";
+            this.chkSeperateFolder.Text = "Place GIFs, WebMs and SWFs in /Site/Board/Thread/Animated";
             this.chkSeperateFolder.UseVisualStyleBackColor = true;
             this.chkSeperateFolder.CheckedChanged += new System.EventHandler(this.separatefolderChk_CheckedChanged);
             // 
@@ -321,7 +321,7 @@
             this.label5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(25, 256);
+            this.label5.Location = new System.Drawing.Point(25, 260);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(90, 13);
             this.label5.TabIndex = 39;
@@ -332,10 +332,10 @@
             this.txtFolderPath.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtFolderPath.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtFolderPath.Location = new System.Drawing.Point(121, 253);
+            this.txtFolderPath.Location = new System.Drawing.Point(121, 257);
             this.txtFolderPath.Name = "txtFolderPath";
             this.txtFolderPath.ReadOnly = true;
-            this.txtFolderPath.Size = new System.Drawing.Size(766, 20);
+            this.txtFolderPath.Size = new System.Drawing.Size(791, 20);
             this.txtFolderPath.TabIndex = 40;
             this.txtFolderPath.TextChanged += new System.EventHandler(this.folderTxt_TextChanged);
             // 
@@ -343,7 +343,7 @@
             // 
             this.btnSelectFolder.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnSelectFolder.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnSelectFolder.Location = new System.Drawing.Point(893, 251);
+            this.btnSelectFolder.Location = new System.Drawing.Point(918, 255);
             this.btnSelectFolder.Name = "btnSelectFolder";
             this.btnSelectFolder.Size = new System.Drawing.Size(30, 23);
             this.btnSelectFolder.TabIndex = 41;
@@ -355,7 +355,7 @@
             // 
             this.btnPaste.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnPaste.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnPaste.Location = new System.Drawing.Point(767, 542);
+            this.btnPaste.Location = new System.Drawing.Point(792, 546);
             this.btnPaste.Name = "btnPaste";
             this.btnPaste.Size = new System.Drawing.Size(156, 23);
             this.btnPaste.TabIndex = 42;
@@ -367,7 +367,7 @@
             // 
             this.btnSubmit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnSubmit.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnSubmit.Location = new System.Drawing.Point(767, 513);
+            this.btnSubmit.Location = new System.Drawing.Point(792, 517);
             this.btnSubmit.Name = "btnSubmit";
             this.btnSubmit.Size = new System.Drawing.Size(156, 23);
             this.btnSubmit.TabIndex = 43;
@@ -380,9 +380,9 @@
             this.txtThread.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtThread.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtThread.Location = new System.Drawing.Point(121, 514);
+            this.txtThread.Location = new System.Drawing.Point(121, 518);
             this.txtThread.Name = "txtThread";
-            this.txtThread.Size = new System.Drawing.Size(640, 20);
+            this.txtThread.Size = new System.Drawing.Size(665, 20);
             this.txtThread.TabIndex = 44;
             this.txtThread.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtThread_KeyDown);
             // 
@@ -391,7 +391,7 @@
             this.label6.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(50, 517);
+            this.label6.Location = new System.Drawing.Point(50, 521);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(62, 13);
             this.label6.TabIndex = 45;
@@ -401,7 +401,7 @@
             // 
             this.btnStatistics.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.btnStatistics.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnStatistics.Location = new System.Drawing.Point(12, 542);
+            this.btnStatistics.Location = new System.Drawing.Point(12, 546);
             this.btnStatistics.Name = "btnStatistics";
             this.btnStatistics.Size = new System.Drawing.Size(103, 23);
             this.btnStatistics.TabIndex = 46;
@@ -413,7 +413,7 @@
             // 
             this.btnAbout.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.btnAbout.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnAbout.Location = new System.Drawing.Point(121, 542);
+            this.btnAbout.Location = new System.Drawing.Point(121, 546);
             this.btnAbout.Name = "btnAbout";
             this.btnAbout.Size = new System.Drawing.Size(79, 23);
             this.btnAbout.TabIndex = 47;
@@ -424,10 +424,9 @@
             // ContextBoardDataGrid
             // 
             this.ContextBoardDataGrid.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.ContextCheckbtn,
-            this.ContexrStop,
-            this.toolStripSeparator1,
             this.ContextOpenbtn,
+            this.toolStripSeparator1,
+            this.ContextCheckbtn,
             this.ContextStopbtn,
             this.ContextStartbtn,
             this.contextCopy,
@@ -437,26 +436,7 @@
             this.toolStripSeparator3,
             this.ContextSelectWaitbtn});
             this.ContextBoardDataGrid.Name = "ContextBoardDataGrid";
-            this.ContextBoardDataGrid.Size = new System.Drawing.Size(192, 220);
-            // 
-            // ContextCheckbtn
-            // 
-            this.ContextCheckbtn.Name = "ContextCheckbtn";
-            this.ContextCheckbtn.Size = new System.Drawing.Size(191, 22);
-            this.ContextCheckbtn.Text = "Check Now";
-            this.ContextCheckbtn.Click += new System.EventHandler(this.ContextCheckbtn_Click);
-            // 
-            // ContexrStop
-            // 
-            this.ContexrStop.Name = "ContexrStop";
-            this.ContexrStop.Size = new System.Drawing.Size(191, 22);
-            this.ContexrStop.Text = "Stop Download";
-            this.ContexrStop.Click += new System.EventHandler(this.ContexrStop_Click);
-            // 
-            // toolStripSeparator1
-            // 
-            this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(188, 6);
+            this.ContextBoardDataGrid.Size = new System.Drawing.Size(192, 198);
             // 
             // ContextOpenbtn
             // 
@@ -464,6 +444,18 @@
             this.ContextOpenbtn.Size = new System.Drawing.Size(191, 22);
             this.ContextOpenbtn.Text = "Open Folder";
             this.ContextOpenbtn.Click += new System.EventHandler(this.ContextOpenbtn_Click);
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(188, 6);
+            // 
+            // ContextCheckbtn
+            // 
+            this.ContextCheckbtn.Name = "ContextCheckbtn";
+            this.ContextCheckbtn.Size = new System.Drawing.Size(191, 22);
+            this.ContextCheckbtn.Text = "Check Now";
+            this.ContextCheckbtn.Click += new System.EventHandler(this.ContextCheckbtn_Click);
             // 
             // ContextStopbtn
             // 
@@ -585,7 +577,7 @@
             // 
             this.chkInstantSubmit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.chkInstantSubmit.AutoSize = true;
-            this.chkInstantSubmit.Location = new System.Drawing.Point(613, 546);
+            this.chkInstantSubmit.Location = new System.Drawing.Point(638, 550);
             this.chkInstantSubmit.Name = "chkInstantSubmit";
             this.chkInstantSubmit.Size = new System.Drawing.Size(138, 17);
             this.chkInstantSubmit.TabIndex = 49;
@@ -604,6 +596,7 @@
             this.dgvBoards.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvBoards.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Column1,
+            this.Column9,
             this.Column3,
             this.Column4,
             this.Column5,
@@ -617,7 +610,7 @@
             this.dgvBoards.ReadOnly = true;
             this.dgvBoards.RowHeadersWidth = 20;
             this.dgvBoards.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvBoards.Size = new System.Drawing.Size(911, 194);
+            this.dgvBoards.Size = new System.Drawing.Size(936, 198);
             this.dgvBoards.TabIndex = 48;
             this.dgvBoards.CellMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgvBoards_CellMouseDoubleClick);
             this.dgvBoards.CellMouseDown += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.boardDataGrid_CellMouseDown);
@@ -628,6 +621,12 @@
             this.Column1.Name = "Column1";
             this.Column1.ReadOnly = true;
             this.Column1.Visible = false;
+            // 
+            // Column9
+            // 
+            this.Column9.HeaderText = "Date added";
+            this.Column9.Name = "Column9";
+            this.Column9.ReadOnly = true;
             // 
             // Column3
             // 
@@ -675,7 +674,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(935, 572);
+            this.ClientSize = new System.Drawing.Size(960, 576);
             this.Controls.Add(this.chkInstantSubmit);
             this.Controls.Add(this.dgvBoards);
             this.Controls.Add(this.btnAbout);
@@ -757,7 +756,10 @@
         private System.Windows.Forms.ToolStripMenuItem Context1Hourbtn;
         private System.Windows.Forms.ToolStripMenuItem Context12Hrs;
         private System.Windows.Forms.ToolStripMenuItem ContextDaily;
+        private System.Windows.Forms.CheckBox chkInstantSubmit;
+        private System.Windows.Forms.ToolStripMenuItem contextCopy;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column9;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column3;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column4;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column5;
@@ -765,9 +767,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Column7;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column8;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column6;
-        private System.Windows.Forms.ToolStripMenuItem ContexrStop;
-        private System.Windows.Forms.CheckBox chkInstantSubmit;
-        private System.Windows.Forms.ToolStripMenuItem contextCopy;
 
 
 

@@ -18,7 +18,8 @@ namespace BoardHoard
     public class BoardContainer
     {
         private SiteConfig Websites = new SiteConfig();
-        public List<Board> Boards = new List<Board>();
+        public Stopwatch TimeRunning = new Stopwatch();
+
         public int Refresh_Delay = 120000;
         public string FolderLocation = Directory.GetCurrentDirectory() + @"\Downloaded_Boards\";
         public bool DownloadImages = false;
@@ -31,11 +32,14 @@ namespace BoardHoard
         public bool AlertDeath = false;
         public bool ConstantRefresh = false;
         public bool InstantSubmit = false;
+        
+
+        public Stats BoardStats = new Stats();
+        public List<Board> Boards = new List<Board>();
 
         public static BoardContainer Load()
         {
             BoardContainer LoadedContainer = new BoardContainer();
-
             if (File.Exists("BoardContainer.xml"))
             {
                 XmlSerializer serializer = new XmlSerializer(typeof(BoardContainer));
@@ -56,6 +60,8 @@ namespace BoardHoard
              * idle, then we will serialize our 
              * board container to a file
              */
+            this.TimeRunning.Stop();
+
             foreach (Board Board in this.Boards)
             {
                 if (Board.Status == 1)
@@ -100,6 +106,7 @@ namespace BoardHoard
             NewBoard.ConstantRefresh = this.ConstantRefresh;
             NewBoard.AnimatedFolder = this.AnimatedFolder;
             NewBoard.Alerts_Death = this.AlertDeath;
+            NewBoard.VerifyHashes = this.VerifyHashes;
 
             if (NewBoard.URL == "")
             {
@@ -186,7 +193,8 @@ namespace BoardHoard
                 MessageBox.Show("I did not find the config for that site. Please add a configuration for that website.");
                 return;
             }
-
+            // Set Added time value
+            NewBoard.DateAdded = DateTime.Now;
             this.Boards.Add(NewBoard);
             this.Save();
 
