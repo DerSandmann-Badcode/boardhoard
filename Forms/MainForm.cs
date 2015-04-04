@@ -248,7 +248,22 @@ namespace BoardHoard
 
         private void removedeadBtn_Click(object sender, EventArgs e)
         {
+            List<Board> DeletedBoards = new List<Board>();
+            List<Board> DisplayedBoards = RunningBoards.Boards;
 
+            foreach (Board Board in DisplayedBoards)
+            {
+                if (Board.Status == 3)
+                {
+                    DeletedBoards.Add(Board);
+                }
+            }
+
+            foreach (Board DeletedBoard in DeletedBoards)
+            {
+                DeletedBoard.Stop();
+                RunningBoards.Boards.Remove(DeletedBoard);
+            }
         }
 
         private void selectallBtn_Click(object sender, EventArgs e)

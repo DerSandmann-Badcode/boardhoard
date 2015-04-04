@@ -64,6 +64,7 @@ namespace BoardHoard
 
             foreach (Board Board in this.Boards)
             {
+
                 if (Board.Status == 1)
                 {
                     Board.Status = 0;
@@ -210,6 +211,7 @@ namespace BoardHoard
         public void Open_Folder(string site, string board, string thread)
         {
             // Open an explorer window at the board location
+            Debug.WriteLine(this.FolderLocation + site + @"\" + board + @"\" + thread + @"\");
             Process.Start("explorer.exe", this.FolderLocation + site + @"\" + board + @"\" + thread + @"\");
         }
 
