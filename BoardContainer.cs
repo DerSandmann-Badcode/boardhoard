@@ -180,6 +180,8 @@ namespace BoardHoard
                     NewBoard.XPath_Board = Config.board;
                     NewBoard.Tag_Board = Config.board_tag;
 
+                    NewBoard.XPath_Hash = Config.hash_tag;
+
                     NewBoard.XPath_Image = Config.image;
                     NewBoard.Tag_Image = Config.image_tag;
 

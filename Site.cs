@@ -14,6 +14,7 @@ namespace BoardHoard
         public string thread_tag = "";
         public string board = "";
         public string board_tag = "";
+        public string hash_tag = "";
         public string image = "";
         public string image_tag = "";
         public string thumb = "";

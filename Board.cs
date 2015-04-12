@@ -51,6 +51,9 @@ namespace BoardHoard
         public string XPath_Board;
         public string Tag_Board;
 
+        // XPath for pukkubg website hashes
+        public string XPath_Hash;
+
         // XPath and HTML tag for the thread ID
         public string XPath_Thread;
         public string Tag_Thread;
@@ -402,19 +405,22 @@ namespace BoardHoard
                                     {
                                         // Hardcoded hash tag for 4chan, could be added to the site config
                                         HtmlAgilityPack.HtmlNodeCollection HashNodes = Node.ChildNodes;
-                                        string Hash = HashNodes[0].GetAttributeValue("data-md5", "");
+                                        string Hash = HashNodes[0].GetAttributeValue(this.XPath_Hash, "");
 
-                                        if (VerifyHash(Hash, DownloadFolder + Path.GetFileName(Image_URI.ToString())) == false)
+                                        if (Hash != string.Empty)
                                         {
-                                            UrlDownload(Image_URI.ToString(), DownloadFolder + Path.GetFileName(Image_URI.ToString()));
                                             if (VerifyHash(Hash, DownloadFolder + Path.GetFileName(Image_URI.ToString())) == false)
                                             {
-                                                File.Delete(DownloadFolder + Path.GetFileName(Image_URI.ToString()));
+                                                UrlDownload(Image_URI.ToString(), DownloadFolder + Path.GetFileName(Image_URI.ToString()));
+                                                if (VerifyHash(Hash, DownloadFolder + Path.GetFileName(Image_URI.ToString())) == false)
+                                                {
+                                                    File.Delete(DownloadFolder + Path.GetFileName(Image_URI.ToString()));
+                                                }
                                             }
-                                        }
-                                        else
-                                        {
-                                            Debug.WriteLine("Image Hash was correct!");
+                                            else
+                                            {
+                                                Debug.WriteLine("Image Hash was correct!");
+                                            }
                                         }
 
                                     }
@@ -437,19 +443,21 @@ namespace BoardHoard
                                     {
                                         // Hardcoded hash tag for 4chan, could be added to the site config
                                         HtmlAgilityPack.HtmlNodeCollection HashNodes = Node.ChildNodes;
-                                        string Hash = HashNodes[0].GetAttributeValue("data-md5", "");
-
-                                        if (VerifyHash(Hash, DownloadFolder + Path.GetFileName(Image_URI.ToString())) == false)
+                                        string Hash = HashNodes[0].GetAttributeValue(this.XPath_Hash, "");
+                                        if (Hash != string.Empty)
                                         {
-                                            UrlDownload(Image_URI.ToString(), DownloadFolder + Path.GetFileName(Image_URI.ToString()));
                                             if (VerifyHash(Hash, DownloadFolder + Path.GetFileName(Image_URI.ToString())) == false)
                                             {
-                                                File.Delete(DownloadFolder + Path.GetFileName(Image_URI.ToString()));
+                                                UrlDownload(Image_URI.ToString(), DownloadFolder + Path.GetFileName(Image_URI.ToString()));
+                                                if (VerifyHash(Hash, DownloadFolder + Path.GetFileName(Image_URI.ToString())) == false)
+                                                {
+                                                    File.Delete(DownloadFolder + Path.GetFileName(Image_URI.ToString()));
+                                                }
                                             }
-                                        }
-                                        else
-                                        {
-                                            Debug.WriteLine("Image Hash was correct!");
+                                            else
+                                            {
+                                                Debug.WriteLine("Image Hash was correct!");
+                                            }
                                         }
 
                                     }
@@ -471,20 +479,22 @@ namespace BoardHoard
                                 {
                                     // Hardcoded hash tag for 4chan, could be added to the site config
                                     HtmlAgilityPack.HtmlNodeCollection HashNodes = Node.ChildNodes;
-                                    string Hash = HashNodes[0].GetAttributeValue("data-md5", "");
+                                    string Hash = HashNodes[0].GetAttributeValue(this.XPath_Hash, "");
 
-
-                                    if (VerifyHash(Hash, DownloadFolder + Path.GetFileName(Image_URI.ToString())) == false)
+                                    if (Hash != string.Empty)
                                     {
-                                        UrlDownload(Image_URI.ToString(), DownloadFolder + Path.GetFileName(Image_URI.ToString()));
                                         if (VerifyHash(Hash, DownloadFolder + Path.GetFileName(Image_URI.ToString())) == false)
                                         {
-                                            File.Delete(DownloadFolder + Path.GetFileName(Image_URI.ToString()));
+                                            UrlDownload(Image_URI.ToString(), DownloadFolder + Path.GetFileName(Image_URI.ToString()));
+                                            if (VerifyHash(Hash, DownloadFolder + Path.GetFileName(Image_URI.ToString())) == false)
+                                            {
+                                                File.Delete(DownloadFolder + Path.GetFileName(Image_URI.ToString()));
+                                            }
                                         }
-                                    }
-                                    else
-                                    {
-                                        Debug.WriteLine("Image Hash was correct!");
+                                        else
+                                        {
+                                            Debug.WriteLine("Image Hash was correct!");
+                                        }
                                     }
 
                                 }
@@ -632,8 +642,11 @@ namespace BoardHoard
                 string filehash = Convert.ToBase64String(md5.ComputeHash(File.ReadAllBytes(filepath)));
                 if (filehash == hash)
                 {
+                    Debug.WriteLine("Hash is true");
                     return true;
+                    
                 }
+                Debug.WriteLine("Hash is false");
                 return false;
             }
         }

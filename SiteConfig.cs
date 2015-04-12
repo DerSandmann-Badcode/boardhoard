@@ -24,6 +24,7 @@ namespace BoardHoard
             fourchan.thread_tag = @"id";
             fourchan.board = @"";
             fourchan.board_tag = @"";
+            fourchan.hash_tag = @"data-md5";
             fourchan.image = @"//a[@class='fileThumb']";
             fourchan.image_tag = @"href";
             fourchan.thumb = @"//a[@class = 'fileThumb']//img";
@@ -37,6 +38,7 @@ namespace BoardHoard
             eightchan.thread_tag = @"value";
             eightchan.board = @"//input[@name = 'board']";
             eightchan.board_tag = @"value";
+            eightchan.hash_tag = @"alt-data-md5";
             eightchan.image = @"//div[@class='file']//a | //div[@class='file multifile']//a";
             eightchan.image_tag = @"href";
             eightchan.thumb = @"//div[@class='file']//img | //div[@class='file multifile']//img";
@@ -50,6 +52,7 @@ namespace BoardHoard
             sevenchan.thread_tag = @"id";
             sevenchan.board = @"//input[@name = 'board']";
             sevenchan.board_tag = @"value";
+            sevenchan.hash_tag = @"";
             sevenchan.image = @"//span[contains(@class, 'multithumb')]//a | //div[@class = 'post_thumb']//a";
             sevenchan.image_tag = @"href";
             sevenchan.thumb = @"//img[contains(@class, 'multithumb')]//img | //div[@class = 'post_thumb']//img";
@@ -63,6 +66,7 @@ namespace BoardHoard
             krautchan.thread_tag = @"value";
             krautchan.board = @"";
             krautchan.board_tag = @"";
+            krautchan.hash_tag = @"";
             krautchan.image = @"//div[@class = 'file_thread']//a[@target= '_blank'] | //div[@class = 'file_reply']//a[@target= '_blank']";
             krautchan.image_tag = @"href";
             krautchan.thumb = @"//div[@class = 'file_thread']//img[contains(@id, 'thumb')] | //div[@class = 'file_reply']//img[contains(@id, 'thumb')]";
@@ -76,6 +80,7 @@ namespace BoardHoard
             anonib.thread_tag = @"id";
             anonib.board = @"//input[@name = 'board']";
             anonib.board_tag = @"value";
+            anonib.hash_tag = @"";
             anonib.image = @"//div[contains(@class, 'file')]//a";
             anonib.image_tag = @"href";
             anonib.thumb = @"//div[contains(@class, 'file')]//img";
@@ -89,6 +94,7 @@ namespace BoardHoard
             uncleb.thread_tag = @"id";
             uncleb.board = @"//input[@name = 'board']";
             uncleb.board_tag = @"value";
+            uncleb.hash_tag = @"";
             uncleb.image = @"//div[@class = 'file']//a";
             uncleb.image_tag = @"href";
             uncleb.thumb = @"//div[@class = 'file']//img";
@@ -102,6 +108,7 @@ namespace BoardHoard
             gurochan.thread_tag = @"data-tid";
             gurochan.board = @"//input[@name = 'board']";
             gurochan.board_tag = @"value";
+            gurochan.hash_tag = @"";
             gurochan.image = @"//td[@class = 'post_image']//a";
             gurochan.image_tag = @"href";
             gurochan.thumb = @"//td[@class = 'post_image']//img";
