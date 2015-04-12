@@ -444,6 +444,9 @@ namespace BoardHoard
                         this.Invoke((MethodInvoker)delegate
                         {
                             dgvBoards.Rows.Add(NewRow); // runs on UI thread
+                            dgvBoards.FirstDisplayedScrollingRowIndex = dgvBoards.Rows.Count - 1;
+                            dgvBoards.ClearSelection();
+                            dgvBoards.Rows[dgvBoards.Rows.Count - 1].Selected = true;
                         });
                     }
                     catch (ObjectDisposedException ex)
@@ -849,10 +852,7 @@ namespace BoardHoard
                         RunningBoards.Add(txtThread.Text);
                         txtThread.Clear();
                     }
-
                 }
-        
-
             }
         }
 
@@ -863,7 +863,32 @@ namespace BoardHoard
                 // Throw away the default Ctrl+C function.
                 e.Handled = true;
                 e.SuppressKeyPress = true;
+            }
+        }
 
+        private void MainForm_DragEnter(object sender, DragEventArgs e)
+        {
+            // Check if our object is text. We only want reply links
+            // if it is, show an icon to the user
+            if (e.Data.GetDataPresent(DataFormats.Text))
+                e.Effect = DragDropEffects.Copy;
+            else
+                e.Effect = DragDropEffects.None;
+        }
+
+        private void MainForm_DragDrop(object sender, DragEventArgs e)
+        {
+            // put text into the text box, then optionally submit
+            txtThread.Text = e.Data.GetData(DataFormats.Text).ToString();
+            if (txtThread.Text != string.Empty)
+            {
+                // Create a new board with the UI settings
+                // and add it to the BoardContainer
+                if (RunningBoards.InstantSubmit == true)
+                {
+                    RunningBoards.Add(txtThread.Text);
+                    txtThread.Clear();
+                }
             }
         }
 
