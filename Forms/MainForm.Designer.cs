@@ -201,6 +201,7 @@
             "1 Minute",
             "2 Minutes",
             "5 Minutes",
+            "15 Minutes",
             "30 Minutes",
             "1 Hour",
             "12 Hours",

@@ -22,10 +22,17 @@ namespace BoardHoard
 
             if (args.Length > 0)
             {
-                /*
-                 * Plans to build a non-GUI version of BoardHoard
-                 * so that it can be run on a server with no UI
-                 */
+                var exit = false;
+                while (exit == false)
+                {
+                    Console.WriteLine();
+                    Console.WriteLine("BoardHoard v0.3.2 Started");
+                    Console.WriteLine();
+                    Console.WriteLine("67 Boards currently being watched");
+                    Console.WriteLine("Enter command (help to display help): ");
+                    var command = Parser.Parse(Console.ReadLine());
+                    exit = command.Execute();
+                }
             }
             else
             {

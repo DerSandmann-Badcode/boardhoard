@@ -76,17 +76,20 @@ namespace BoardHoard
                 case 300000:
                     UI_Execute(() => this.cmbThreadRefresh.SelectedItem = this.cmbThreadRefresh.Items[3]);
                     break;
-                case 1800000:
+                case 900000:
                     UI_Execute(() => this.cmbThreadRefresh.SelectedItem = this.cmbThreadRefresh.Items[4]);
                     break;
-                case 3600000:
+                case 1800000:
                     UI_Execute(() => this.cmbThreadRefresh.SelectedItem = this.cmbThreadRefresh.Items[5]);
                     break;
-                case 43200000:
+                case 3600000:
                     UI_Execute(() => this.cmbThreadRefresh.SelectedItem = this.cmbThreadRefresh.Items[6]);
                     break;
-                case 86400000:
+                case 43200000:
                     UI_Execute(() => this.cmbThreadRefresh.SelectedItem = this.cmbThreadRefresh.Items[7]);
+                    break;
+                case 86400000:
+                    UI_Execute(() => this.cmbThreadRefresh.SelectedItem = this.cmbThreadRefresh.Items[8]);
                     break;
             }
 
@@ -203,6 +206,9 @@ namespace BoardHoard
                     break;
                 case "5 Minutes":
                     RunningBoards.Refresh_Delay = 300000;
+                    break;
+                case "15 Minutes":
+                    RunningBoards.Refresh_Delay = 900000;
                     break;
                 case "30 Minutes":
                     RunningBoards.Refresh_Delay = 1800000;
@@ -550,9 +556,9 @@ namespace BoardHoard
             {
                 return;
             }
-            RunningBoards.Open_Folder(dgvBoards.Rows[e.RowIndex].Cells[1].Value.ToString(),
-                dgvBoards.Rows[e.RowIndex].Cells[2].Value.ToString(),
-                dgvBoards.Rows[e.RowIndex].Cells[3].Value.ToString());
+            RunningBoards.Open_Folder(dgvBoards.Rows[e.RowIndex].Cells[2].Value.ToString(),
+                dgvBoards.Rows[e.RowIndex].Cells[3].Value.ToString(),
+                dgvBoards.Rows[e.RowIndex].Cells[4].Value.ToString());
         }
 
         #endregion
