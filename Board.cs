@@ -100,7 +100,7 @@ namespace BoardHoard
 
         }
 
-        public void StartRefresh()
+        public void _ThreadRefresh()
         {
             /*
              * This starts the automatic downloading on
@@ -114,7 +114,7 @@ namespace BoardHoard
             RefreshLoopThread.Start();
         }
 
-        public void Download_Single()
+        public void _ThreadDownload()
         {
             Thread DownloadThread = new Thread(new ThreadStart(Download));
             DownloadThread.IsBackground = true;
@@ -130,8 +130,6 @@ namespace BoardHoard
                 Directory.Delete(DeletedFolder, true);
             }
         }
-
-
 
         public void Download()
         {
@@ -152,7 +150,7 @@ namespace BoardHoard
              * on multiple threads. We want to update
              * the last runtime on this thread
              */
-
+            List<BoardObject> DownloadItems = new List<BoardObject>();
             this.Status = 1;
             this.LastDownload = DateTime.Now;
             Uri BoardUri = new Uri(this.URL);
@@ -233,7 +231,7 @@ namespace BoardHoard
                         this.Name = Node.GetAttributeValue(this.Tag_Board, "");
                     }
                 }
-                
+
             }
 
             // Try to read the subject - This can be blank, but it's nice to have
@@ -243,7 +241,7 @@ namespace BoardHoard
                 this.Subject = DocNodes[0].InnerText;
             }
 
-            // Try to rea the thread ID - We will use REGEX to convert it
+            // Try to read the thread ID - We will use REGEX to convert it
             // to an int regardless of what is in the string.
             DocNodes = Document.DocumentNode.SelectNodes(this.XPath_Thread);
             if (DocNodes != null)
@@ -256,6 +254,24 @@ namespace BoardHoard
             String DownloadFolder = this.DownloadPath + this.Site + @"\" + this.Name + @"\" + this.Thread_ID + @"\";
             Directory.CreateDirectory(DownloadFolder);
 
+            // Set up folder for HTML
+            if (this.Download_HTML == true)
+            {
+                Directory.CreateDirectory(DownloadFolder + @"Site_Data\");
+            }
+
+            // Set up folder for thumbnails
+            if (this.Download_Thumnails == true)
+            {
+                Directory.CreateDirectory(DownloadFolder + @"Thumbnails\");
+            }
+
+            // Set up folder for animated downloads
+            if (this.AnimatedFolder == true)
+            {
+                Directory.CreateDirectory(DownloadFolder + @"Animated\");
+            }
+
             // Download CSS files to go with our HTML
             var sources = Document.DocumentNode.Descendants("link");
             foreach (HtmlAgilityPack.HtmlNode CSS_File in sources)
@@ -263,21 +279,19 @@ namespace BoardHoard
                 // Get all of the href elements that contain .css
                 if (CSS_File.Attributes["href"].Value.Contains(".css"))
                 {
-                    // Temporary code until I can think of a way to
-                    // fix local or file links
 
-                    Uri NewURI = ValidateURI(BoardUri.ToString(), CSS_File.Attributes["href"].Value);
-
-                    string newfile = DownloadFolder + @"Site_Data\" + GetCleanFileName(NewURI.ToString());
+                    BoardObject BoardItem = new BoardObject();
+                    BoardItem.AddCount = false;
+                    BoardItem.Directory = DownloadFolder + @"Site_Data\";
+                    BoardItem.URI = ValidateURI(BoardUri.ToString(), CSS_File.Attributes["href"].Value).ToString();
+                    BoardItem.Filename = Path.GetFileName(BoardItem.URI.ToString());
 
                     if (this.Download_HTML == true)
                     {
-                        // Create a folder and download the CSS
-                        Directory.CreateDirectory(DownloadFolder + @"Site_Data\");
-                        UrlDownload(NewURI.ToString(), newfile);
+                        DownloadItems.Add(BoardItem);
                     }
                     // Rename the CSS file paths if we download the HTML
-                    CSS_File.Attributes["href"].Value = newfile;
+                    CSS_File.Attributes["href"].Value = BoardItem.Directory + BoardItem.Filename;
                 }
             } // CSS File End Each
 
@@ -288,39 +302,29 @@ namespace BoardHoard
                 foreach (HtmlAgilityPack.HtmlNode Node in DocNodes)
                 {
 
-                    if (this.Stopping == true)
-                    {
-                        this.Status = 4;
-                        return;
-                    }
-
                     string Thumbnail = Node.GetAttributeValue(this.Tag_Thumbnail, "");
                     if (Thumbnail == string.Empty)
                     {
                         continue;
                     }
-                    // Save the location for the thumbnails,
-                    // regardless of if we download them 
-                    string newfile = DownloadFolder + @"Thumbnails\" + Path.GetFileName(Thumbnail);
+
+                    BoardObject BoardItem = new BoardObject();
+                    BoardItem.AddCount = false;
+                    BoardItem.Directory = DownloadFolder + @"Thumbnails\";
+                    BoardItem.URI = ValidateURI(BoardUri.ToString(), Thumbnail).ToString();
+                    BoardItem.Filename = Path.GetFileName(BoardItem.URI.ToString());
+
                     if (this.Download_Thumnails == true)
                     {
-                        if (File.Exists(newfile) == false)
-                        {
-                            // Try to clean up boards using file URI
-                            Uri Thumbnail_URI = ValidateURI(BoardUri.ToString(), Thumbnail);
-
-                            // Create /Thumbnails directory to store the
-                            // thumbnails we download
-                            Directory.CreateDirectory(DownloadFolder + @"Thumbnails\");
-                            UrlDownload(Thumbnail_URI.ToString(), DownloadFolder + @"Thumbnails\" + Path.GetFileName(Thumbnail));
-                        }
+                        DownloadItems.Add(BoardItem);
                     }
+
+                    // Save the location for the thumbnails,
+                    // regardless of if we download them 
                     // Rename thumbnail file paths
-                    Node.Attributes[this.Tag_Thumbnail].Value = newfile;
+                    Node.Attributes[this.Tag_Thumbnail].Value = BoardItem.Directory + BoardItem.Filename;
                 } // Thumbnails End Each
             }
-            
-
 
             // Get list of elements containing Images
             DocNodes = Document.DocumentNode.SelectNodes(this.XPath_Image);
@@ -330,13 +334,6 @@ namespace BoardHoard
                 this.FileCount = DocNodes.Count;
                 foreach (HtmlAgilityPack.HtmlNode Node in DocNodes)
                 {
-
-                    if (this.Stopping == true)
-                    {
-                        this.Status = 4;
-                        return;
-                    }
-
                     // If the XPath matches and the Tag
                     // matches, we want to download this
                     // image
@@ -346,12 +343,14 @@ namespace BoardHoard
                         continue;
                     }
 
-                    string newfile = DownloadFolder + Path.GetFileName(Image);
+                    BoardObject BoardItem = new BoardObject();
+                    BoardItem.Directory = DownloadFolder;
+                    BoardItem.URI = ValidateURI(BoardUri.ToString(), Image).ToString();
+                    BoardItem.Filename = Path.GetFileName(BoardItem.URI.ToString());
+
                     // Couldn't think of a better way of doing this
                     // We're going to use a boolean to determine what
                     // type of file we are looking at
-                    bool Download = false;
-                    bool IsAnimated = false;
                     switch (System.IO.Path.GetExtension(Image))
                     {
 
@@ -360,156 +359,30 @@ namespace BoardHoard
                         case ".bmp":
                             if (this.Download_Images == true)
                             {
-                                Download = true;
+                                DownloadItems.Add(BoardItem);
                             }
                             break;
                         case ".gif":
                         case ".webm":
                         case ".swf":
+                            if (this.AnimatedFolder == true)
+                            {
+                                BoardItem.Directory = DownloadFolder + @"Animated\";
+                            }
                             if (this.Download_WebMs == true)
                             {
-                                IsAnimated = true;
-                                Download = true;
+                                DownloadItems.Add(BoardItem);
                             }
                             break;
                     }
 
-
-                    // Try to clean up boards using file URI
-                    Uri Image_URI = ValidateURI(BoardUri.ToString(), Image);
-
                     // If file was in our types of file to download
-                    if (Download == true)
-                    {
-                        if (IsAnimated == true)
-                        {
-                            if (this.AnimatedFolder == true)
-                            {
-                                // Newfile is what we are using to change the HTML elements
-                                newfile = DownloadFolder + @"Animated\" + Path.GetFileName(Image_URI.ToString());
-
-                                if (File.Exists(newfile) == false)
-                                {
-                                    // If the user requested we create a folder for
-                                    // WebMs and Flash, do that now
-                                    Directory.CreateDirectory(DownloadFolder + @"Animated\");
-                                    UrlDownload(Image_URI.ToString(), DownloadFolder + @"Animated\" + Path.GetFileName(Image_URI.ToString()));
-                                    this.DownloadedCount += 1;
-
-                                    /*
-                                     * This runs if we want to Verify the image hashes with what
-                                     * 4chan provides. If the hash fails, we will try to redownload it
-                                     * again once, and then just delete the file.
-                                     */
-                                    if (this.VerifyHashes == true)
-                                    {
-                                        // Hardcoded hash tag for 4chan, could be added to the site config
-                                        HtmlAgilityPack.HtmlNodeCollection HashNodes = Node.ChildNodes;
-                                        string Hash = HashNodes[0].GetAttributeValue(this.XPath_Hash, "");
-
-                                        if (Hash != string.Empty)
-                                        {
-                                            if (VerifyHash(Hash, DownloadFolder + Path.GetFileName(Image_URI.ToString())) == false)
-                                            {
-                                                UrlDownload(Image_URI.ToString(), DownloadFolder + Path.GetFileName(Image_URI.ToString()));
-                                                if (VerifyHash(Hash, DownloadFolder + Path.GetFileName(Image_URI.ToString())) == false)
-                                                {
-                                                    File.Delete(DownloadFolder + Path.GetFileName(Image_URI.ToString()));
-                                                }
-                                            }
-                                            else
-                                            {
-                                                Debug.WriteLine("Image Hash was correct!");
-                                            }
-                                        }
-
-                                    }
-                                }
-                            }
-                            else
-                            {
-                                if (File.Exists(newfile) == false)
-                                {
-                                    // Download Board Object, could be an image, webm, flash
-                                    UrlDownload(Image_URI.ToString(), DownloadFolder + Path.GetFileName(Image_URI.ToString()));
-                                    this.DownloadedCount += 1;
-
-                                    /*
-                                     * This runs if we want to Verify the image hashes with what
-                                     * 4chan provides. If the hash fails, we will try to redownload it
-                                     * again once, and then just delete the file.
-                                     */
-                                    if (this.VerifyHashes == true)
-                                    {
-                                        // Hardcoded hash tag for 4chan, could be added to the site config
-                                        HtmlAgilityPack.HtmlNodeCollection HashNodes = Node.ChildNodes;
-                                        string Hash = HashNodes[0].GetAttributeValue(this.XPath_Hash, "");
-                                        if (Hash != string.Empty)
-                                        {
-                                            if (VerifyHash(Hash, DownloadFolder + Path.GetFileName(Image_URI.ToString())) == false)
-                                            {
-                                                UrlDownload(Image_URI.ToString(), DownloadFolder + Path.GetFileName(Image_URI.ToString()));
-                                                if (VerifyHash(Hash, DownloadFolder + Path.GetFileName(Image_URI.ToString())) == false)
-                                                {
-                                                    File.Delete(DownloadFolder + Path.GetFileName(Image_URI.ToString()));
-                                                }
-                                            }
-                                            else
-                                            {
-                                                Debug.WriteLine("Image Hash was correct!");
-                                            }
-                                        }
-
-                                    }
-                                }
-
-                            }
-
-                        }
-                        else
-                        {
-                            if (File.Exists(newfile) == false)
-                            {
-
-                                // Download Board Object, could be an image, webm, flash
-                                UrlDownload(Image_URI.ToString(), DownloadFolder + Path.GetFileName(Image_URI.ToString()));
-                                this.DownloadedCount += 1;
-
-                                if (this.VerifyHashes == true)
-                                {
-                                    // Hardcoded hash tag for 4chan, could be added to the site config
-                                    HtmlAgilityPack.HtmlNodeCollection HashNodes = Node.ChildNodes;
-                                    string Hash = HashNodes[0].GetAttributeValue(this.XPath_Hash, "");
-
-                                    if (Hash != string.Empty)
-                                    {
-                                        if (VerifyHash(Hash, DownloadFolder + Path.GetFileName(Image_URI.ToString())) == false)
-                                        {
-                                            UrlDownload(Image_URI.ToString(), DownloadFolder + Path.GetFileName(Image_URI.ToString()));
-                                            if (VerifyHash(Hash, DownloadFolder + Path.GetFileName(Image_URI.ToString())) == false)
-                                            {
-                                                File.Delete(DownloadFolder + Path.GetFileName(Image_URI.ToString()));
-                                            }
-                                        }
-                                        else
-                                        {
-                                            Debug.WriteLine("Image Hash was correct!");
-                                        }
-                                    }
-
-                                }
-                                
-                            }
-                        }
-
-
-                    }                        
-
-                    Node.Attributes[this.Tag_Image].Value = newfile;
+                    // rename images for the HTML
+                    Node.Attributes[this.Tag_Image].Value = BoardItem.Directory + BoardItem.Filename;
 
                 } //end Image foreach loop
             }
-            
+
 
             if (this.Download_HTML == true)
             {
@@ -517,6 +390,24 @@ namespace BoardHoard
                 // we have already changed all of the links to be local
                 // links
                 Document.Save(DownloadFolder + this.Thread_ID + ".html");
+            }
+
+            foreach (BoardObject DownloadItem in DownloadItems)
+            {
+                if (this.Stopping == true)
+                {
+                    this.Status = 4;
+                    return;
+                }
+
+                if (File.Exists(DownloadItem.Directory + DownloadItem.Filename) == false)
+                {
+                    UrlDownload(DownloadItem.URI, DownloadItem.Directory + DownloadItem.Filename);
+                    if (DownloadItem.AddCount == true)
+                    {
+                        this.DownloadedCount += 1;
+                    }
+                }
             }
 
             // Thread is complete. Return to idle
@@ -527,7 +418,6 @@ namespace BoardHoard
         public Uri ValidateURI(string PageURL, string ElementURI)
         {
             /*
-             * This converts all URLs to their usable counterparts
              * can convert file:// and relative URLs to their usable
              * counterparts 
              */
@@ -551,7 +441,7 @@ namespace BoardHoard
                 }
                 catch (Exception ex)
                 {
-                    Debug.WriteLine(ex.Message);
+                    Debug.WriteLine(ex.Message + " " + address + " " + filename);
                 }
             }
         }
@@ -642,11 +532,11 @@ namespace BoardHoard
                 string filehash = Convert.ToBase64String(md5.ComputeHash(File.ReadAllBytes(filepath)));
                 if (filehash == hash)
                 {
-                    Debug.WriteLine("Hash is true");
+                    Debug.WriteLine("Hash is true [" + filepath + "]");
                     return true;
                     
                 }
-                Debug.WriteLine("Hash is false");
+                Debug.WriteLine("Hash is false [" + filepath + "]");
                 return false;
             }
         }
@@ -666,5 +556,13 @@ namespace BoardHoard
 
         }
 
+    }
+
+    public class BoardObject
+    {
+        public string Directory;
+        public string Filename;
+        public string URI;
+        public bool AddCount = true;
     }
 }

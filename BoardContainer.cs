@@ -202,11 +202,11 @@ namespace BoardHoard
             this.Save();
 
             // Download the thread to get the board ID and stats
-            NewBoard.Download_Single();
+            NewBoard._ThreadDownload();
 
             if (NewBoard.ConstantRefresh == true)
             {
-                NewBoard.StartRefresh();
+                NewBoard._ThreadRefresh();
             }
         }
        

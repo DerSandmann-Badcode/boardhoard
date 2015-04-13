@@ -106,8 +106,8 @@ namespace BoardHoard
             {
                 if (SavedBoard.ConstantRefresh == true)
                 {
-                    SavedBoard.Download_Single();
-                    SavedBoard.StartRefresh();
+                    SavedBoard._ThreadDownload();
+                    SavedBoard._ThreadRefresh();
                 }
             }
             
@@ -246,8 +246,8 @@ namespace BoardHoard
 
         private void statisticsBtn_Click(object sender, EventArgs e)
         {
-            BoardHoard.Forms.Statistics StatisticsPopout = new BoardHoard.Forms.Statistics();
-            StatisticsPopout.Show();
+            //BoardHoard.Forms.Statistics StatisticsPopout = new BoardHoard.Forms.Statistics();
+            //StatisticsPopout.Show();
         }
 
 
@@ -601,7 +601,7 @@ namespace BoardHoard
                     if (Row.Cells[0].Value.ToString() == Board.ID.ToString())
                     {
                         Board.ConstantRefresh = true;
-                        Board.StartRefresh();
+                        Board._ThreadRefresh();
                     }
                 }
             }
@@ -636,36 +636,41 @@ namespace BoardHoard
 
         private void ContextClearDeletebtn_Click(object sender, EventArgs e)
         {
+
+            DialogResult dialogResult = MessageBox.Show("This option will clear out the entry from " +
+                                                        "BoardHoard AND delete the folder from your " +
+                                                        "hard disk!" + Environment.NewLine + Environment.NewLine +
+                                                        "Are you sure?", "Delete Confirmation", MessageBoxButtons.YesNo);
+                    if (dialogResult == DialogResult.No)
+                    {
+                        return;
+                    }
             List<DataGridViewRow> DeletedRows = new List<DataGridViewRow>();
             List<Board> DeletedBoards = new List<Board>();
 
-            lock (dgvBoards)
+            foreach (DataGridViewRow Row in dgvBoards.SelectedRows)
             {
+                List<Board> DisplayedBoards = RunningBoards.Boards;
 
-                foreach (DataGridViewRow Row in dgvBoards.SelectedRows)
+                foreach (Board Board in DisplayedBoards)
                 {
-                    List<Board> DisplayedBoards = RunningBoards.Boards;
-
-                    foreach (Board Board in DisplayedBoards)
+                    if (Row.Cells[0].Value.ToString() == Board.ID.ToString())
                     {
-                        if (Row.Cells[0].Value.ToString() == Board.ID.ToString())
-                        {
-                            DeletedBoards.Add(Board);
-                            DeletedRows.Add(Row);
-                        }
+                        DeletedBoards.Add(Board);
+                        DeletedRows.Add(Row);
                     }
                 }
+            }
 
-                foreach (Board DeletedBoard in DeletedBoards)
-                {
-                    DeletedBoard.Stop_Delete();
-                    RunningBoards.Boards.Remove(DeletedBoard);
-                }
+            foreach (Board DeletedBoard in DeletedBoards)
+            {
+                DeletedBoard.Stop_Delete();
+                RunningBoards.Boards.Remove(DeletedBoard);
+            }
 
-                foreach (DataGridViewRow DeletedRow in DeletedRows)
-                {
-                    dgvBoards.Rows.Remove(DeletedRow);
-                }
+            foreach (DataGridViewRow DeletedRow in DeletedRows)
+            {
+                dgvBoards.Rows.Remove(DeletedRow);
             }
 
         }
@@ -799,7 +804,7 @@ namespace BoardHoard
                 {
                     if (Row.Cells[0].Value.ToString() == Board.ID.ToString())
                     {
-                        Board.Download_Single();
+                        Board._ThreadDownload();
                     }
                 }
             }
