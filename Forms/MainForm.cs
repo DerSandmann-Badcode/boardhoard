@@ -116,6 +116,13 @@ namespace BoardHoard
         // We want to save our boards once the program exits
         private void OnProcessExit (object sender, EventArgs e)
         {
+            foreach (Board Board in RunningBoards.Boards)
+            {
+                if (Board.Status == 1)
+                {
+                    Board.Status = 0;
+                }
+            }
             RunningBoards.Save();
         }
 

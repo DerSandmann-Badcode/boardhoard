@@ -60,16 +60,6 @@ namespace BoardHoard
              * idle, then we will serialize our 
              * board container to a file
              */
-            this.TimeRunning.Stop();
-
-            foreach (Board Board in this.Boards)
-            {
-
-                if (Board.Status == 1)
-                {
-                    Board.Status = 0;
-                }
-            }
 
             XmlSerializer serializer = new XmlSerializer(typeof(BoardContainer));
 

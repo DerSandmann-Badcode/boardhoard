@@ -68,12 +68,11 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(14, 34);
+            this.label2.Location = new System.Drawing.Point(97, 34);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(453, 13);
+            this.label2.Size = new System.Drawing.Size(286, 13);
             this.label2.TabIndex = 8;
-            this.label2.Text = "Ensure you have the latest build from: https://github.com/DerSandmann-Badcode/boa" +
-    "rdhoard";
+            this.label2.Text = "Ensure you have the latest build from: www.boardhoard.xyz";
             this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // label1
@@ -84,7 +83,7 @@
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(192, 25);
             this.label1.TabIndex = 7;
-            this.label1.Text = "BoardHoard v0.3.6";
+            this.label1.Text = "BoardHoard v0.3.7";
             // 
             // btnAboutOK
             // 
