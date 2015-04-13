@@ -87,6 +87,7 @@
             this.Column7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column8 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.toolstip15mins = new System.Windows.Forms.ToolStripMenuItem();
             this.panel1.SuspendLayout();
             this.ContextBoardDataGrid.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvBoards)).BeginInit();
@@ -437,7 +438,7 @@
             this.toolStripSeparator3,
             this.ContextSelectWaitbtn});
             this.ContextBoardDataGrid.Name = "ContextBoardDataGrid";
-            this.ContextBoardDataGrid.Size = new System.Drawing.Size(192, 198);
+            this.ContextBoardDataGrid.Size = new System.Drawing.Size(192, 220);
             // 
             // ContextOpenbtn
             // 
@@ -510,6 +511,7 @@
             this.Context1Minbtn,
             this.toolStripMenuItem1,
             this.toolStripMenuItem2,
+            this.toolstip15mins,
             this.toolStripMenuItem3,
             this.Context1Hourbtn,
             this.Context12Hrs,
@@ -521,56 +523,56 @@
             // Context30Secbtn
             // 
             this.Context30Secbtn.Name = "Context30Secbtn";
-            this.Context30Secbtn.Size = new System.Drawing.Size(133, 22);
+            this.Context30Secbtn.Size = new System.Drawing.Size(152, 22);
             this.Context30Secbtn.Text = "30 Seconds";
             this.Context30Secbtn.Click += new System.EventHandler(this.Context30Secbtn_Click);
             // 
             // Context1Minbtn
             // 
             this.Context1Minbtn.Name = "Context1Minbtn";
-            this.Context1Minbtn.Size = new System.Drawing.Size(133, 22);
+            this.Context1Minbtn.Size = new System.Drawing.Size(152, 22);
             this.Context1Minbtn.Text = "1 Minute";
             this.Context1Minbtn.Click += new System.EventHandler(this.Context1Minbtn_Click);
             // 
             // toolStripMenuItem1
             // 
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(133, 22);
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
             this.toolStripMenuItem1.Text = "2 Minutes";
             this.toolStripMenuItem1.Click += new System.EventHandler(this.toolStripMenuItem1_Click);
             // 
             // toolStripMenuItem2
             // 
             this.toolStripMenuItem2.Name = "toolStripMenuItem2";
-            this.toolStripMenuItem2.Size = new System.Drawing.Size(133, 22);
+            this.toolStripMenuItem2.Size = new System.Drawing.Size(152, 22);
             this.toolStripMenuItem2.Text = "5 Minutes";
             this.toolStripMenuItem2.Click += new System.EventHandler(this.toolStripMenuItem2_Click);
             // 
             // toolStripMenuItem3
             // 
             this.toolStripMenuItem3.Name = "toolStripMenuItem3";
-            this.toolStripMenuItem3.Size = new System.Drawing.Size(133, 22);
+            this.toolStripMenuItem3.Size = new System.Drawing.Size(152, 22);
             this.toolStripMenuItem3.Text = "30 Minutes";
             this.toolStripMenuItem3.Click += new System.EventHandler(this.toolStripMenuItem3_Click);
             // 
             // Context1Hourbtn
             // 
             this.Context1Hourbtn.Name = "Context1Hourbtn";
-            this.Context1Hourbtn.Size = new System.Drawing.Size(133, 22);
+            this.Context1Hourbtn.Size = new System.Drawing.Size(152, 22);
             this.Context1Hourbtn.Text = "1 Hour";
             this.Context1Hourbtn.Click += new System.EventHandler(this.Context1Hourbtn_Click);
             // 
             // Context12Hrs
             // 
             this.Context12Hrs.Name = "Context12Hrs";
-            this.Context12Hrs.Size = new System.Drawing.Size(133, 22);
+            this.Context12Hrs.Size = new System.Drawing.Size(152, 22);
             this.Context12Hrs.Text = "12 Hours";
             this.Context12Hrs.Click += new System.EventHandler(this.Context12Hrs_Click);
             // 
             // ContextDaily
             // 
             this.ContextDaily.Name = "ContextDaily";
-            this.ContextDaily.Size = new System.Drawing.Size(133, 22);
+            this.ContextDaily.Size = new System.Drawing.Size(152, 22);
             this.ContextDaily.Text = "Daily";
             this.ContextDaily.Click += new System.EventHandler(this.ContextDaily_Click);
             // 
@@ -670,6 +672,13 @@
             this.Column6.HeaderText = "Next DL in";
             this.Column6.Name = "Column6";
             this.Column6.ReadOnly = true;
+            // 
+            // toolstip15mins
+            // 
+            this.toolstip15mins.Name = "toolstip15mins";
+            this.toolstip15mins.Size = new System.Drawing.Size(152, 22);
+            this.toolstip15mins.Text = "15 Minutes";
+            this.toolstip15mins.Click += new System.EventHandler(this.toolstip15mins_Click);
             // 
             // MainForm
             // 
@@ -771,6 +780,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Column7;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column8;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column6;
+        private System.Windows.Forms.ToolStripMenuItem toolstip15mins;
 
 
 

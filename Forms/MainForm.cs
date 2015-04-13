@@ -720,6 +720,7 @@ namespace BoardHoard
             }
         }
 
+
         private void toolStripMenuItem2_Click(object sender, EventArgs e)
         {
             foreach (DataGridViewRow Row in dgvBoards.SelectedRows)
@@ -730,6 +731,21 @@ namespace BoardHoard
                     if (Row.Cells[0].Value.ToString() == Board.ID.ToString())
                     {
                         Board.Refresh_Delay = 300000;
+                    }
+                }
+            }
+        }
+
+        private void toolstip15mins_Click(object sender, EventArgs e)
+        {
+            foreach (DataGridViewRow Row in dgvBoards.SelectedRows)
+            {
+                List<Board> DisplayedBoards = RunningBoards.Boards;
+                foreach (Board Board in DisplayedBoards)
+                {
+                    if (Row.Cells[0].Value.ToString() == Board.ID.ToString())
+                    {
+                        Board.Refresh_Delay = 900000;
                     }
                 }
             }
@@ -896,6 +912,8 @@ namespace BoardHoard
                 }
             }
         }
+
+
 
 
 
