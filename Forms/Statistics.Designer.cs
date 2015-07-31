@@ -30,6 +30,7 @@
         {
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
+            this.btnClose = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // label1
@@ -52,18 +53,30 @@
             this.label2.TabIndex = 1;
             this.label2.Text = "(Statistics from your download folder)";
             // 
+            // btnClose
+            // 
+            this.btnClose.Location = new System.Drawing.Point(218, 484);
+            this.btnClose.Name = "btnClose";
+            this.btnClose.Size = new System.Drawing.Size(149, 23);
+            this.btnClose.TabIndex = 2;
+            this.btnClose.Text = "Ok";
+            this.btnClose.UseVisualStyleBackColor = true;
+            this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
+            // 
             // Statistics
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(585, 519);
             this.ControlBox = false;
+            this.Controls.Add(this.btnClose);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Name = "Statistics";
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "BoardHoard Statistics";
+            this.Load += new System.EventHandler(this.Statistics_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -73,5 +86,6 @@
 
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Button btnClose;
     }
 }

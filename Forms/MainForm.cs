@@ -253,8 +253,8 @@ namespace BoardHoard
 
         private void statisticsBtn_Click(object sender, EventArgs e)
         {
-            //BoardHoard.Forms.Statistics StatisticsPopout = new BoardHoard.Forms.Statistics();
-            //StatisticsPopout.Show();
+            BoardHoard.Forms.Statistics StatisticsPopout = new BoardHoard.Forms.Statistics();
+            StatisticsPopout.ShowDialog();
         }
 
 
@@ -317,25 +317,17 @@ namespace BoardHoard
         private void addthreadBtn_Click(object sender, EventArgs e)
         {
 
-            try
+            if (txtThread.Text != string.Empty)
             {
-                if (txtThread.Text != string.Empty)
-                {
-                    // Create a new board with the UI settings
-                    // and add it to the BoardContainer
-                    RunningBoards.Add(txtThread.Text);
+                // Create a new board with the UI settings
+                // and add it to the BoardContainer
+                RunningBoards.Add(txtThread.Text);
 
-                    txtThread.Clear();
-                }
-                else
-                {
-                    MessageBox.Show("Board string is empty!");
-                }
-
+                txtThread.Clear();
             }
-            catch (Exception ex)
+            else
             {
-                MessageBox.Show(ex.Message);
+                MessageBox.Show("Board string is empty!");
             }
 
         }
@@ -370,6 +362,11 @@ namespace BoardHoard
                 string StatusText = string.Empty;
                 TimeSpan NextDownload = TimeSpan.FromMilliseconds(Board.Refresh_Delay);
                 NextDownload = NextDownload - DateTime.Now.Subtract(Board.LastDownload);
+
+                if (NextDownload.Milliseconds < 0)
+                {
+                    NextDownload = TimeSpan.FromMilliseconds(0);
+                }
 
                 // Check if board is still running, if so, update the download timer
                 if (Board.ConstantRefresh == true)
@@ -458,6 +455,7 @@ namespace BoardHoard
                     }
                     catch (ObjectDisposedException ex)
                     {
+                        // We closed the form when this tried to update
                         Debug.WriteLine(ex.Message);
                     }
 
@@ -918,6 +916,12 @@ namespace BoardHoard
                     txtThread.Clear();
                 }
             }
+        }
+
+        private void btnSearch_Click(object sender, EventArgs e)
+        {
+            BoardHoard.Forms.Search SearchWindow = new BoardHoard.Forms.Search();
+            SearchWindow.ShowDialog();
         }
 
 

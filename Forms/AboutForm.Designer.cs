@@ -83,7 +83,8 @@
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(192, 25);
             this.label1.TabIndex = 7;
-            this.label1.Text = "BoardHoard v0.3.7";
+            this.label1.Text = "BoardHoard v0.3.8";
+            this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
             // btnAboutOK
             // 

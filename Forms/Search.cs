@@ -10,21 +10,11 @@ using System.Windows.Forms;
 
 namespace BoardHoard.Forms
 {
-    public partial class frmAbout : Form
+    public partial class Search : Form
     {
-        public frmAbout()
+        public Search()
         {
             InitializeComponent();
-        }
-
-        private void btnAboutOK_Click(object sender, EventArgs e)
-        {
-            this.Close();
-        }
-
-        private void label1_Click(object sender, EventArgs e)
-        {
-
         }
     }
 }

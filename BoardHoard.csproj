@@ -51,8 +51,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="HtmlAgilityPack">
-      <HintPath>..\..\..\Desktop\Test\HtmlAgilityPack.dll</HintPath>
-      <Private>False</Private>
+      <HintPath>.\HtmlAgilityPack.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -84,6 +83,12 @@
     <Compile Include="Forms\MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\Search.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Search.Designer.cs">
+      <DependentUpon>Search.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\Statistics.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -104,6 +109,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Search.resx">
+      <DependentUpon>Search.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Statistics.resx">
       <DependentUpon>Statistics.cs</DependentUpon>

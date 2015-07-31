@@ -31,6 +31,21 @@ namespace BoardHoard
             fourchan.thumb_tag = @"src";
             DefaultConfig.Sites.Add(fourchan);
 
+            Site archivemoe = new Site();
+            archivemoe.name = @"archive.moe";
+            archivemoe.subject = @"//h2[@class = 'post_title']";
+            archivemoe.thread = @"//article[contains(@class, 'clearfix thread')]";
+            archivemoe.thread_tag = @"id";
+            archivemoe.board = @"";
+            archivemoe.board_tag = @"";
+            archivemoe.hash_tag = @"";
+            archivemoe.image = @"//div[@class='thread_image_box']//a";
+            archivemoe.image_tag = @"href";
+            archivemoe.thumb = @"//div[@class='thread_image_box']//img";
+            archivemoe.thumb_tag = @"src";
+            DefaultConfig.Sites.Add(archivemoe);
+
+
             Site eightchan = new Site();
             eightchan.name = @"8ch.net";
             eightchan.subject = @"//span[@class = 'subject']";
@@ -44,6 +59,20 @@ namespace BoardHoard
             eightchan.thumb = @"//div[@class='file']//img | //div[@class='file multifile']//img";
             eightchan.thumb_tag = @"src";
             DefaultConfig.Sites.Add(eightchan);
+
+            Site eightarchive = new Site();
+            eightarchive.name = @"8archive.moe";
+            eightarchive.subject = @"//h2[@class = 'post_title']";
+            eightarchive.thread = @"//article[contains(@class, 'clearfix thread')]";
+            eightarchive.thread_tag = @"id";
+            eightarchive.board = @"";
+            eightarchive.board_tag = @"";
+            eightarchive.hash_tag = @"";
+            eightarchive.image = @"//div[@class='thread_image_box']//a";
+            eightarchive.image_tag = @"href";
+            eightarchive.thumb = @"//div[@class='thread_image_box']//img";
+            eightarchive.thumb_tag = @"src";
+            DefaultConfig.Sites.Add(eightarchive);
 
             Site sevenchan = new Site();
             sevenchan.name = @"7chan.org";
@@ -114,6 +143,20 @@ namespace BoardHoard
             gurochan.thumb = @"//td[@class = 'post_image']//img";
             gurochan.thumb_tag = @"src";
             DefaultConfig.Sites.Add(gurochan);
+
+            Site fgts = new Site();
+            fgts.name = @"fgts.jp";
+            fgts.subject = @"//h2[@class = 'post_title']";
+            fgts.thread = @"//article[contains(@class, 'clearfix thread')]";
+            fgts.thread_tag = @"id";
+            fgts.board = @"";
+            fgts.board_tag = @"";
+            fgts.hash_tag = @"";
+            fgts.image = @"//div[@class='thread_image_box']//a";
+            fgts.image_tag = @"href";
+            fgts.thumb = @"//div[@class='thread_image_box']//img";
+            fgts.thumb_tag = @"src";
+            DefaultConfig.Sites.Add(fgts);
 
 
             XmlSerializer serializer = new XmlSerializer(typeof(SiteConfig));

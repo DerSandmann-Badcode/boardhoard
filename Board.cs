@@ -96,7 +96,7 @@ namespace BoardHoard
                     this.Download();
                 }
                 
-            } while (this.Status == 0);
+            } while (this.Status == 0 || this.Status == 1);
 
         }
 
@@ -152,7 +152,7 @@ namespace BoardHoard
              */
             List<BoardObject> DownloadItems = new List<BoardObject>();
             this.Status = 1;
-            this.LastDownload = DateTime.Now;
+            
             Uri BoardUri = new Uri(this.URL);
 
             // Set up a new HtmlDocument
@@ -411,6 +411,7 @@ namespace BoardHoard
             }
 
             // Thread is complete. Return to idle
+            this.LastDownload = DateTime.Now;
             this.Status = 0;
 
         }
@@ -436,12 +437,13 @@ namespace BoardHoard
             {
                 try
                 {
-                    
                     Client.DownloadFile(address, filename);
                 }
-                catch (Exception ex)
+                catch (WebException ex)
                 {
-                    Debug.WriteLine(ex.Message + " " + address + " " + filename);
+                    // The only error this catches is when we have issues
+                    // setting up an https ssl connection
+                    Debug.WriteLine(ex.Message);
                 }
             }
         }
